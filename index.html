@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171715">
+  <title>Continuum</title>
+  <style>:root {
+  color-scheme: dark;
+  --chrome: #171715;
+  --line: #3b3a31;
+  --bright: #ede9dc;
+  --quiet: #bcb6a5;
+  --mono: 'Cascadia Mono', Consolas, monospace;
+  --serif: Georgia, 'Times New Roman', serif;
+  font-family: system-ui, sans-serif;
+  background: var(--chrome);
+  color: var(--bright);
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 0; }
+button { font: inherit; cursor: pointer; color: inherit; }
+button:disabled { cursor: default; opacity: .38; }
+button:focus-visible { outline: 2px solid #ffe1a2; outline-offset: 4px; }
+button[hidden], [hidden] { display: none !important; }
+.shell { width: min(100% - 64px, 1280px, calc((100dvh - 159px) * 1.78)); min-width: min(680px, 100% - 64px); margin: auto; }
+.top { min-height: 67px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.brand { display: flex; gap: 12px; align-items: center; font: 12px var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+.brand i { width: 13px; height: 13px; border-radius: 50%; background: #e7a774; box-shadow: inset 0 0 0 3px var(--chrome), 0 0 0 1px #e7a774; }
+.top-tag { color: var(--quiet); border: 1px solid var(--line); padding: 7px 11px; border-radius: 3px; font: 11px var(--mono); letter-spacing: .06em; }
+.stage { aspect-ratio: 16 / 9; position: relative; isolation: isolate; overflow: hidden; container-type: inline-size; background: #161615; border: 1px solid #444033; border-radius: 4px; }
+.scene { position: absolute; inset: 0; overflow: hidden; color: var(--ink); }
+.scene-backdrop { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse at var(--light-x) 36%, var(--ground), var(--deep) 125%); }
+.scene[data-style="ink"] .scene-backdrop { background: radial-gradient(ellipse at var(--light-x) 35%, var(--surface), var(--ground) 68%, var(--deep) 140%); }
+.scene[data-style="water"] .scene-backdrop { background: radial-gradient(ellipse at var(--light-x) -9%, var(--surface), var(--ground) 52%, var(--deep) 91%); }
+.scene[data-style="night"] .scene-backdrop { background: radial-gradient(ellipse at var(--light-x) 46%, var(--ground), var(--deep) 84%); }
+.scene[data-light-bloom] .scene-backdrop { background: radial-gradient(ellipse at 73% 49%, var(--light), var(--ground) 37%, var(--deep) 88%); }
+.frame { position: absolute; z-index: 4; pointer-events: none; inset: 4.2%; border: 1px solid color-mix(in srgb, var(--muted) 28%, transparent); }
+.frame::before, .frame::after { content: ''; position: absolute; width: 11px; height: 11px; border: 0 solid var(--muted); }
+.frame::before { left: -1px; top: -1px; border-width: 1px 0 0 1px; }
+.frame::after { right: -1px; bottom: -1px; border-width: 0 1px 1px 0; }
+.grain { position: absolute; z-index: 3; pointer-events: none; inset: 0; opacity: var(--grain); mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); }
+.slate { position: absolute; z-index: 5; top: 7.8%; left: 7.4%; right: 7.4%; display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font: 500 clamp(9px, 1.0cqw, 13px) var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.slate .index { color: var(--ink); }
+.copy { position: absolute; z-index: 5; left: 7.4%; top: 50%; width: 47%; transform: translateY(-43%); }
+.copy h1 { margin: 12px 0 0; font: 400 clamp(36px, 5.52cqw, 92px) / 1 var(--serif); letter-spacing: -.055em; }
+.copy h1 span { display: block; }
+.copy h1 span:last-child { color: var(--accent); font-style: italic; letter-spacing: -.059em; }
+.copy p { max-width: 35ch; margin: 25px 0 0; color: var(--muted); font-size: clamp(14px, 1.53cqw, 21px); line-height: 1.54; text-wrap: pretty; }
+.scene[data-style="ink"] .copy p { max-width: 33ch; }
+.section-tag { display: flex; align-items: center; gap: 9px; color: var(--muted); font: 600 clamp(10px, 1.0cqw, 13px) var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.section-tag::before { content: ''; width: 23px; height: 1px; background: var(--accent); }
+.art { position: absolute; z-index: 1; right: 3.25%; top: 50%; transform: translateY(-50%); width: 54%; aspect-ratio: 1; }
+.art > svg { display: block; width: 100%; height: 100%; }
+.art-object { transform-origin: 0 0; }
+.art-mark { position: absolute; z-index: 5; left: 7.4%; bottom: 7.7%; right: 7.4%; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 14px; font: 500 clamp(8px, .89cqw, 12px) var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.art-mark span:last-child { text-align: right; }
+.plane-place { position: absolute; width: 54%; height: 34%; transform: translate(-50%, -50%) scale(var(--plane-scale)); perspective: 720px; perspective-origin: 45% 49%; }
+.plane-moving { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+.plane-face { position: absolute; inset: 0; background: var(--surface); border: 1px solid var(--accent); box-shadow: 5px 7px 0 var(--deep), inset 0 0 0 6px color-mix(in srgb, var(--accent) 13%, transparent); backface-visibility: hidden; overflow: hidden; border-radius: inherit; }
+.plane-face::before { content: ''; position: absolute; inset: 13%; border: 1px solid color-mix(in srgb, var(--accent) 53%, transparent); border-radius: inherit; }
+.plane-face::after { content: '⊕'; position: absolute; top: 17%; right: 17%; color: var(--accent); font: 15px var(--mono); }
+.plane-inside { position: absolute; inset: 0; padding: 0 17%; display: flex; flex-direction: column; justify-content: center; gap: 6%; }
+.plane-label, .plane-note { color: var(--muted); font: 600 clamp(7px, .87cqw, 11px) var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.plane-title { color: var(--ink); font: 400 clamp(16px, 3.42cqw, 51px) / 1.02 var(--serif); letter-spacing: -.05em; }
+.morph .plane-moving { border-radius: 6%; }
+.morph .plane-face { background: var(--accent); box-shadow: 6px 7px 0 var(--secondary), inset 0 0 0 5px #f8edcd38; border-color: var(--secondary); }
+.morph .plane-face::before { border-color: #f8edcd92; }
+.morph .plane-face::after, .morph .plane-title, .morph .plane-label, .morph .plane-note { color: var(--light); }
+.veil { position: absolute; z-index: 10; inset: 0; opacity: 0; background: #101018; pointer-events: none; }
+.shared-art { position: absolute; z-index: 11; inset: 0; pointer-events: none; }
+.shared-copy { position: absolute; transform-origin: center; overflow: visible; }
+.light-orb { position: absolute; }
+.light-orb-glint { position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 34% 29%, #ffd1a4a6, transparent 59%); }
+.water-bands, .band-transition { position: absolute; inset: 0; pointer-events: none; }
+.water-bands { z-index: 0; }
+.band, .facet { position: absolute; inset: 0; }
+.controls { min-height: 74px; display: grid; grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr); align-items: center; gap: 12px; }
+.current { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.counter { padding: 5px 7px; border: 1px solid var(--line); color: var(--bright); white-space: nowrap; font: 12px var(--mono); }
+.current-name { color: var(--quiet); font-size: 13px; line-height: 1.3; }
+.steps { display: flex; gap: 5px; }
+.steps button { height: 31px; min-width: 32px; padding: 0 5px; border: 1px solid var(--line); background: transparent; font: 11px var(--mono); }
+.steps button[aria-current="step"] { color: #1f1911; background: #e4ac7c; border-color: #e4ac7c; }
+.steps button:hover:not([aria-current]) { border-color: #a79b83; }
+.tools { display: flex; gap: 5px; justify-content: end; }
+.icon { width: 35px; height: 34px; border: 1px solid var(--line); background: transparent; border-radius: 3px; font: 16px var(--mono); }
+.icon:hover:not(:disabled) { background: #2b2a24; border-color: #9e9078; }
+.nav-buttons { display: flex; gap: 5px; margin-left: 4px; }
+.nav-buttons .icon:last-child:not(:disabled) { background: var(--bright); border-color: var(--bright); color: #171715; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.shell:fullscreen { width: 100%; max-width: none; min-width: 0; height: 100%; display: grid; place-items: center; background: #11110f; }
+.shell:fullscreen .stage { width: min(100vw, 177.77vh); }
+.shell:fullscreen .top, .shell:fullscreen .controls { display: none; }
+
+dialog { border: 1px solid var(--line); color: var(--bright); background: #1e1e1a; padding: 25px; width: min(720px, calc(100% - 32px)); max-height: calc(100% - 32px); }
+dialog::backdrop { background: #080807c9; }
+.overview-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 18px; }
+.overview-head h2 { margin: 0; font: 400 29px var(--serif); }
+.overview-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.overview-card { min-width: 0; min-height: 82px; text-align: left; border: 1px solid var(--line); border-left: 3px solid var(--chip); background: #262620; padding: 11px; }
+.overview-card:hover, .overview-card[aria-current] { background: #333126; }
+.overview-card small { display: block; color: var(--quiet); font: 10px var(--mono); text-transform: uppercase; }
+.overview-card strong { display: block; margin-top: 6px; font-size: 13px; font-weight: 600; }
+
+@media (max-width: 760px) {
+  .shell { width: calc(100% - 32px); min-width: 0; }
+  .controls { grid-template-columns: 1fr 1fr; padding: 8px 0; }
+  .steps { grid-row: 2; grid-column: 1 / -1; justify-content: space-between; }
+  .steps button { flex: 1; min-width: 0; }
+}
+@media (max-width: 540px) {
+  .shell { width: calc(100% - 24px); }
+  .top { min-height: 53px; }
+  .brand { letter-spacing: .045em; font-size: 10px; gap: 8px; }
+  .top-tag { font-size: 9px; padding: 5px 6px; }
+  .stage { aspect-ratio: auto; height: clamp(510px, calc(50vw + 340px), 610px); }
+  .scene[data-light-bloom] .scene-backdrop { background-image: radial-gradient(ellipse at 52% 64%, var(--light), var(--ground) 39%, var(--deep) 94%); }
+  .slate { top: 6%; }
+  .copy { top: 13%; transform: none; left: 8%; width: 84%; }
+  .copy h1 { margin-top: 9px; font-size: clamp(32px, 9.5cqw, 48px); }
+  .copy p { margin-top: 14px; font-size: 14px; line-height: 1.43; }
+  .art { top: auto; transform: none; bottom: 5%; right: 3%; width: 94%; }
+  .art > svg { mask-image: linear-gradient(transparent 10%, #000 26%); }
+  .art-mark { bottom: 6%; }
+  .plane-title { font-size: clamp(16px, 6.3cqw, 35px); }
+  .plane-label, .plane-note { font-size: 8px; }
+  .controls { gap: 9px; }
+  .current-name { font-size: 11px; }
+  .overview-list { grid-template-columns: repeat(2, 1fr); }
+  .shell:fullscreen .stage { width: min(100vw, 540px); }
+}
+@media (max-width: 350px) {
+  .icon { width: 29px; }
+  .nav-buttons { margin-left: 0; }
+  .current { gap: 5px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="brand"><i aria-hidden="true"></i><span class="brand-text"></span></div>
+      <span class="top-tag">ВЕБ-ПРОТОТИП</span>
+    </header>
+    <div class="stage" role="region"><div class="veil" aria-hidden="true"></div></div>
+    <nav class="controls" aria-label="Управление презентацией">
+      <div class="current"><span class="counter"></span><span class="current-name"></span></div>
+      <div class="steps" aria-label="Сцены"></div>
+      <div class="tools">
+        <button type="button" class="icon" id="show-overview" aria-label="Обзор сцен" title="Обзор сцен (O)">⊞</button>
+        <button type="button" class="icon" id="replay" aria-label="Повторить движение" title="Повторить движение (R)">↻</button>
+        <button type="button" class="icon" id="fullscreen" aria-label="Полноэкранный режим" title="Полноэкранный режим (F)">⛶</button>
+        <div class="nav-buttons">
+          <button type="button" class="icon" id="previous" aria-label="Предыдущая сцена" title="Предыдущая сцена (←)">←</button>
+          <button type="button" class="icon" id="next" aria-label="Следующая сцена" title="Следующая сцена (→)">→</button>
+        </div>
+      </div>
+    </nav>
+    <div id="status" class="sr-only" role="status"></div>
+  </main>
+  <dialog id="overview" aria-labelledby="overview-title">
+    <header class="overview-head"><h2 id="overview-title">Девять сцен</h2><button type="button" class="icon" id="close-overview" aria-label="Закрыть обзор">×</button></header>
+    <div class="overview-list"></div>
+  </dialog>
+  <script type="application/json" id="deck-data">{"deck":{"version":1,"title":"Свет ведёт взгляд","edition":"Continuum · атлас движения","subtitle":"Девять сцен о том, как форма направляет внимание","transitions":[{"from":"silhouette","to":"depth","duration":1100,"arc":-28,"objects":[["sun","sun"],["floor","floor"]]},{"from":"depth","to":"drift","duration":1520,"type":"bands","rails":"floor","width":4.8,"slant":7,"opacity":0.19},{"from":"drift","to":"plane","duration":1690,"type":"facets","objects":[["glider","sign"]]},{"from":"plane","to":"light","duration":1220,"arc":-34,"objects":[["sign","focus"]]},{"from":"light","to":"dark","duration":1170,"arc":-20,"dim":0.44,"objects":[["lamp","lamp"],["focus","disc"]]},{"from":"dark","to":"morph","duration":2050,"type":"lightBloom","objects":[["disc","morph"]]},{"from":"morph","to":"assembly","duration":1210,"arc":-16,"objects":[["morph","tileA"]]},{"from":"assembly","to":"resolution","duration":1190,"arc":-20,"objects":[["nexus","nexus"]]}],"slides":[{"id":"silhouette","section":"Силуэт","title":["Форма выходит","на свет"],"body":"Всё начинается с формы, которую взгляд замечает первой.","style":"ink","motion":"sweep","mark":"01 · СИГНАЛ","layers":[{"id":"fan","kind":"fan","x":370,"y":390,"scale":1.04},{"id":"orbit","kind":"orbit","x":392,"y":335,"scale":1.08,"opacity":0.67},{"id":"sun","kind":"disc","x":386,"y":325,"scale":1.33},{"id":"floor","kind":"rails","x":325,"y":515,"scale":1.04}],"bind":{"hero":"sun","planes":"fan"}},{"id":"depth","section":"Перспектива","title":["Глубина","из слоёв"],"body":"Дальний план даёт контекст. Ближний показывает, куда смотреть.","style":"ink","motion":"parallax","mark":"02 · ПОЛЕ","layers":[{"id":"floor","kind":"rails","x":356,"y":458,"scale":1.35},{"id":"behind","kind":"frames","x":393,"y":360,"scale":0.64,"opacity":0.7},{"id":"between","kind":"frames","x":391,"y":348,"scale":0.96},{"id":"front","kind":"gate","x":363,"y":348,"scale":1.12},{"id":"sun","kind":"disc","x":389,"y":345,"scale":0.35}],"bind":{"far":"behind","middle":"between","near":"front"}},{"id":"drift","section":"Дрейф","title":["Форма","скользит"],"body":"Корпус задаёт курс. Гибкая деталь догоняет движение с небольшой задержкой.","style":"water","motion":"glide","mark":"03 · ПОТОК","layers":[{"id":"shafts","kind":"shafts","x":367,"y":351,"scale":1.13,"rays":false},{"id":"wake","kind":"wake","x":267,"y":366,"scale":1.1},{"id":"glider","kind":"glider","x":402,"y":332,"scale":1.15}],"bind":{"hero":"glider","fin":"glider.fin","wake":"wake"}},{"id":"plane","section":"Текстовая плоскость","title":["Поворот","к зрителю"],"body":"Табличка входит под углом и замирает прямо перед взглядом. Теперь её можно спокойно прочитать.","style":"water","motion":"turn","mark":"04 · ПОВЕРХНОСТЬ","layers":[{"id":"shafts","kind":"shafts","x":360,"y":348,"scale":1},{"id":"orbit","kind":"orbit","x":386,"y":365,"scale":1.2,"opacity":0.55},{"id":"shadow","kind":"pool","x":382,"y":526,"scale":0.88},{"id":"sign","kind":"sign","x":380,"y":352,"scale":1,"label":"МЕТКА 04","text":"Точка сбора","note":"Фронтальная плоскость"}],"bind":{"panel":"sign","shadow":"shadow"}},{"id":"light","section":"Подсветка","title":["Свет ведёт","взгляд"],"body":"Одна область становится ярче, и зритель сразу понимает, где искать главное.","style":"night","motion":"spot","mark":"05 · ФОКУС","layers":[{"id":"columns","kind":"pillars","x":367,"y":369,"scale":1.04},{"id":"lamp","kind":"lamp","x":493,"y":363,"scale":1.06},{"id":"focus","kind":"beacon","x":493,"y":367,"scale":0.97}],"bind":{"lamp":"lamp","focus":"focus"}},{"id":"dark","section":"Затемнение","title":["Пауза перед","акцентом"],"body":"Сцена на мгновение гаснет. Следующий знак возвращает внимание к новой мысли.","style":"night","motion":"eclipse","mark":"06 · ПАУЗА","layers":[{"id":"pillars","kind":"pillars","x":380,"y":385,"scale":1.24,"opacity":0.52},{"id":"orbit","kind":"orbit","x":381,"y":348,"scale":1.01,"opacity":0.55},{"id":"lamp","kind":"lamp","x":381,"y":356,"scale":1.16,"opacity":0.7},{"id":"disc","kind":"disc","x":381,"y":348,"scale":0.93}],"bind":{"hero":"disc"}},{"id":"morph","section":"Трансформация","title":["Форма меняет","роль"],"body":"Знакомый круг раскрывается в рамку. Его новая функция становится видна прямо во время перехода.","style":"ink","motion":"reshape","mark":"07 · ПРЕВРАЩЕНИЕ","layers":[{"id":"orbit","kind":"orbit","x":381,"y":350,"scale":1.2,"opacity":0.65},{"id":"floor","kind":"rails","x":363,"y":508,"scale":0.95,"opacity":0.62},{"id":"morph","kind":"morph","x":381,"y":348,"scale":1,"label":"МЕТКА 07","text":"Новая роль","note":"Один объект, два состояния"}],"bind":{"morph":"morph","inside":"morph.inside"}},{"id":"assembly","section":"Сборка","title":["Части","собираются"],"body":"Четыре элемента приходят по очереди. В момент сборки становится видно, как они связаны.","style":"water","motion":"assemble","mark":"08 · СИСТЕМА","layers":[{"id":"shafts","kind":"shafts","x":365,"y":359,"scale":1.03,"opacity":0.62},{"id":"orbit","kind":"orbit","x":387,"y":352,"scale":1.17,"opacity":0.7},{"id":"tileA","kind":"tile","x":297,"y":262,"scale":0.94,"variant":0},{"id":"tileB","kind":"tile","x":477,"y":262,"scale":0.94,"variant":1},{"id":"tileC","kind":"tile","x":297,"y":442,"scale":0.94,"variant":2},{"id":"tileD","kind":"tile","x":477,"y":442,"scale":0.94,"variant":3},{"id":"nexus","kind":"nexus","x":387,"y":352,"scale":1}],"bind":{"a":"tileA","b":"tileB","c":"tileC","d":"tileD","hero":"nexus"}},{"id":"resolution","section":"Финальный акцент","title":["Остаётся","главное"],"body":"Когда движение заканчивается, на сцене остаётся то, что стоит запомнить.","style":"night","motion":"settle","mark":"09 · ЯСНОСТЬ","layers":[{"id":"lamp","kind":"lamp","x":391,"y":366,"scale":1.7},{"id":"orbits","kind":"orbits","x":391,"y":360,"scale":1.29},{"id":"nexus","kind":"nexus","x":391,"y":360,"scale":2.13}],"bind":{"lamp":"lamp","orbits":"orbits","hero":"nexus"}}]},"styles":{"ink":{"name":"Печатный оттиск","reference":"reel.gif, 00:02.38–00:04.38","palette":{"ground":"#e9dfc6","deep":"#c6b691","surface":"#f3ead7","ink":"#221c18","muted":"#55463d","accent":"#ad392c","light":"#f8edcd","secondary":"#6e342e"},"grain":0.24,"lightX":69,"layers":[{"depth":"far","role":"бумага и дальние штрихи","parallax":0.2},{"depth":"mid","role":"плоская геометрия с печатным контуром","parallax":0.55},{"depth":"near","role":"контрастный знак, рамка или плоскость","parallax":1}],"construction":"Соберите силуэт из 2–4 плоских граней. Ведите линии к одной точке схода. Добавьте редкие штрихи и зерно. Акцентный цвет используйте на одном главном объекте.","appliesTo":["титульная иллюстрация","направление процесса","сопоставление формы"]},"water":{"name":"Толща света","reference":"reel.gif, 00:10.63–00:12.63","palette":{"ground":"#0b353e","deep":"#081c29","surface":"#114958","ink":"#edf4eb","muted":"#b3d6d4","accent":"#65ead4","light":"#bbfae9","secondary":"#247888"},"grain":0.18,"lightX":77,"layers":[{"depth":"far","role":"градиент глубины и растровые точки","parallax":0.18},{"depth":"mid","role":"полупрозрачные косые лучи и волны","parallax":0.48},{"depth":"near","role":"скользящий объект с отдельной гибкой частью","parallax":1}],"construction":"Сделайте контрастный силуэт из кривых. Дайте корпусу мягкую горизонтальную траекторию, а придаточной форме — более короткую дугу вокруг шарнира. Лучи и точки создают среду, редкие кольца обозначают след.","appliesTo":["поток данных","дрейф объекта","послойная сборка","разворот таблички"]},"night":{"name":"Локальный свет","reference":"reel.gif, 00:23.50–00:25.75","palette":{"ground":"#202437","deep":"#111424","surface":"#2e354d","ink":"#f5ebd6","muted":"#c5bcae","accent":"#ffbe6d","light":"#ffe1a2","secondary":"#667497"},"grain":0.2,"lightX":73,"layers":[{"depth":"far","role":"силуэты и прохладная дымка","parallax":0.19},{"depth":"mid","role":"матовые вертикальные поверхности","parallax":0.5},{"depth":"near","role":"тёплый свет и подсвеченная область","parallax":1}],"construction":"Разведите холодный фон и тёплый акцент. Дайте свету мягкий радиальный ореол и отдельное пятно на поверхности. Привяжите их к объекту или перемещайте между двумя смысловыми областями.","appliesTo":["выделение этапа","появление важного вывода","смена главы","финальный акцент"]}},"library":{"version":1,"easing":{"arrive":"cubic-bezier(.18,.78,.22,1)","glide":"cubic-bezier(.26,.58,.35,1)","inOut":"cubic-bezier(.65,0,.25,1)","linear":"linear"},"motions":{"sweep":{"name":"Въезд и посадка","use":"Первое появление сильного силуэта","duration":1050,"tracks":[{"target":"hero","start":0.05,"end":1,"ease":"arrive","frames":[{"x":154,"y":27,"rotate":-19,"scale":0.73,"opacity":0},{"at":0.72,"x":-9,"y":0,"rotate":2,"scale":1.035,"opacity":1},{}]},{"target":"planes","start":0,"end":0.82,"ease":"arrive","frames":[{"x":72,"y":25,"opacity":0.2},{}]}]},"parallax":{"name":"Параллакс слоёв","use":"Показ глубины или контекста вокруг идеи","duration":1100,"tracks":[{"target":"far","depth":"far","start":0,"end":1,"ease":"glide","frames":[{"x":-175,"y":28,"opacity":0.45},{}]},{"target":"middle","depth":"mid","start":0,"end":1,"ease":"glide","frames":[{"x":-175,"y":28,"opacity":0.25},{}]},{"target":"near","depth":"near","start":0,"end":1,"ease":"glide","frames":[{"x":-175,"y":28,"opacity":0},{}]}]},"glide":{"name":"Дрейф с запаздыванием","use":"Мягкий поток и связанная с ним подвижная деталь","duration":1330,"tracks":[{"target":"hero","start":0,"end":1,"ease":"glide","frames":[{"x":-182,"y":42,"rotate":-13,"scale":0.87,"opacity":0},{"at":0.63,"x":-24,"y":-13,"rotate":4,"scale":1.02,"opacity":1},{}]},{"target":"fin","start":0.15,"end":0.96,"ease":"linear","frames":[{"rotate":-22},{"at":0.56,"rotate":17},{}]},{"target":"wake","start":0.26,"end":1,"ease":"arrive","frames":[{"x":-54,"opacity":0},{}]}]},"turn":{"name":"Разворот таблички","use":"Заголовок или число выходит в читаемую фронтальную позицию","duration":1180,"tracks":[{"target":"panel","start":0.04,"end":1,"ease":"arrive","frames":[{"x":66,"y":42,"z":-180,"rx":23,"ry":-69,"rotate":-8,"opacity":0},{"at":0.68,"x":-5,"y":-2,"z":12,"rx":-2,"ry":5,"rotate":1,"opacity":1},{}]},{"target":"shadow","start":0.15,"end":0.84,"ease":"arrive","frames":[{"scale":0.68,"opacity":0.15},{}]}]},"spot":{"name":"Локальная подсветка","use":"Перевод внимания с одной смысловой области на другую","duration":1320,"tracks":[{"target":"lamp","start":0,"end":1,"ease":"inOut","frames":[{"x":-267,"scale":0.72,"opacity":0.6},{"at":0.75,"x":8,"scale":1.05,"opacity":1},{}]},{"target":"focus","start":0.38,"end":0.95,"ease":"arrive","frames":[{"opacity":0.16,"scale":0.93},{}]}]},"eclipse":{"name":"Затемнение и проявление","use":"Пауза перед новой мыслью или смена главы","duration":1210,"tracks":[{"target":"veil","start":0,"end":1,"ease":"linear","frames":[{"opacity":0},{"at":0.24,"opacity":0.95},{"at":0.39,"opacity":0.82},{"at":1,"opacity":0}]},{"target":"hero","start":0.32,"end":1,"ease":"arrive","frames":[{"scale":0.91,"opacity":0},{}]},{"target":"copy","start":0.44,"end":0.93,"ease":"arrive","frames":[{"y":19,"opacity":0},{}]}]},"reshape":{"name":"Изменение формы","use":"Знакомый знак становится новой рамкой или контейнером","duration":1220,"tracks":[{"target":"morph","start":0.04,"end":1,"ease":"inOut","frames":[{"sx":0.59,"sy":1,"radius":50,"rotate":-18},{"at":0.28,"sx":0.62,"sy":0.88,"radius":49,"rotate":-8},{"radius":6}]},{"target":"inside","start":0.56,"end":1,"ease":"arrive","frames":[{"y":13,"opacity":0},{}]}]},"assemble":{"name":"Послойная сборка","use":"Компоненты занимают свои места и показывают устройство системы","duration":1220,"tracks":[{"target":"a","start":0,"end":0.66,"ease":"arrive","frames":[{"x":-80,"y":-110,"rotate":-12,"opacity":0},{}]},{"target":"b","start":0.13,"end":0.79,"ease":"arrive","frames":[{"x":95,"y":-67,"rotate":13,"opacity":0},{}]},{"target":"c","start":0.24,"end":0.9,"ease":"arrive","frames":[{"x":-113,"y":77,"rotate":-10,"opacity":0},{}]},{"target":"d","start":0.34,"end":1,"ease":"arrive","frames":[{"x":88,"y":91,"rotate":9,"opacity":0},{}]},{"target":"hero","start":0.65,"end":1,"ease":"arrive","frames":[{"scale":0.52,"opacity":0},{}]}]},"settle":{"name":"Сведение к выводу","use":"Завершение: движение останавливается на главном","duration":1400,"tracks":[{"target":"orbits","start":0,"end":1,"ease":"glide","frames":[{"scale":1.52,"rotate":-25,"opacity":0.1},{}]},{"target":"lamp","start":0,"end":1,"ease":"arrive","frames":[{"scale":0.52,"opacity":0},{}]},{"target":"hero","start":0.22,"end":0.96,"ease":"arrive","frames":[{"scale":0.25,"opacity":0},{"at":0.63,"scale":1.12,"opacity":1},{}]},{"target":"copy","start":0.32,"end":1,"ease":"arrive","frames":[{"y":25,"opacity":0},{}]}]}}}}</script>
+  <script>const svgNS = 'http://www.w3.org/2000/svg';
+
+function svgNode(name, attributes = {}) {
+  const node = document.createElementNS(svgNS, name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  return node;
+}
+
+function htmlNode(name, className, text) {
+  const node = document.createElement(name);
+  node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
+
+function repeat(count, draw) {
+  return Array.from({length: count}, (_, index) => draw(index)).join('');
+}
+
+const drawings = {
+  fan: ({p}) => `${repeat(14, i => {
+    const x = (i - 7) * 48;
+    return `<path d="M${x} 193 ${x * .23 + 108} -202 ${x * .23 + 125} -202 ${x + 26} 193Z" fill="${i % 5 === 0 ? p.accent : p.ink}" opacity="${i % 3 === 0 ? .83 : .25}"/>`;
+  })}<path d="M-331 194H330M-277 216H298" fill="none" stroke="${p.ink}" opacity=".52"/>`,
+
+  rails: ({p}) => `<g fill="none" stroke="${p.ink}">${repeat(11, i => `<path d="M${(i - 5) * 95} 163 ${66 + i * 13} -65" opacity="${i % 3 === 0 ? .52 : .22}"${i >= 2 && i <= 8 ? ' data-guide=""' : ''}/>`)}${repeat(10, i => {
+    const y = -57 + i * i * 2.4;
+    return `<path d="M${-52 - (i + 1) * 25} ${y}H${225 + i * 17}" opacity=".36"/>`;
+  })}</g>`,
+
+  disc: ({p, id, style}) => `<circle cy="8" r="111" fill="${p.deep}" opacity=".5"/><circle r="108" fill="${p.accent}"/><circle r="106" fill="url(#${id}-ink-lines)" opacity="${style === 'ink' ? .75 : .32}"/><circle r="91" fill="none" stroke="${p.light}" opacity=".63" stroke-width="1"/><path d="M-21 0h42M0-21v42" stroke="${style === 'ink' ? p.light : p.ink}" stroke-width="1.5"/><circle r="5" fill="${p.light}"/>`,
+
+  orbit: ({p}) => `<g fill="none" stroke="${p.muted}">${repeat(3, i => `<circle r="${125 + i * 51}" stroke-width="${i === 1 ? 1.5 : 1}" opacity="${.74 - i * .16}" ${i === 1 ? 'stroke-dasharray="2 9"' : ''}/>`)}<path d="M-286 0H286M0-282V282" opacity=".42" stroke-dasharray="4 10"/><path d="M-225-14v28M225-14v28M-14-225h28M-14 225h28" opacity=".8"/></g>`,
+
+  frames: ({p}) => repeat(4, i => `<path d="M${-188 + i * 40} ${150 - i * 27}V${-199 + i * 41}H${205 - i * 32}V${150 - i * 27}" fill="none" stroke="${i % 2 ? p.ink : p.secondary}" stroke-width="${20 - i * 3}" opacity="${.54 + i * .1}"/>`),
+
+  gate: ({p, id}) => `<path d="M-249 207V-213L226-186V186L196 191V-158L-206-172V193Z" fill="${p.ink}"/><path d="M-249 207V-213L-206-172V193Z" fill="${p.accent}"/><path d="M-249-213 226-186 196-158-206-172Z" fill="${p.secondary}"/><path d="M-249 207V-213L226-186V186" fill="none" stroke="url(#${id}-ink-lines)" stroke-width="4"/><path d="M-217-160v322" stroke="${p.light}" opacity=".55"/>`,
+
+  shafts: ({p, id, layer}) => `${layer.rays === false ? '' : `<g fill="url(#${id}-shaft)">${repeat(7, i => `<path d="M${-375 + i * 96} -360l${36 + i * 5} 0 188 730h-${85 + i * 7}Z" opacity="${i % 2 ? .42 : .8}"/>`)}</g>`}<path d="M-388 50H388V378H-388Z" fill="url(#${id}-dots)" opacity=".55"/><path d="M-369 140Q-188 108-10 138T367 120M-369 198Q-198 165-18 193T367 181" stroke="${p.light}" stroke-width="1" opacity=".22" fill="none"/>`,
+
+  wake: ({p}) => `<g fill="none" stroke="${p.light}">${repeat(5, i => `<ellipse cx="${-65 - i * 22}" cy="${20 + i * 14}" rx="${65 + i * 17}" ry="${11 + i * 4}" transform="rotate(-13)" opacity="${.5 - i * .077}"/>`)}${repeat(13, i => `<circle cx="${-178 + (i * 41) % 230}" cy="${-125 + (i * 53) % 258}" r="${2 + i % 4}" opacity="${.12 + (i % 3) * .12}"/>`)}</g>`,
+
+  glider: ({p, id}) => `<path d="M-198 21Q-54-27 10-87L198-39Q131-22 92 40L-80 75Z" fill="${p.accent}" stroke="${p.light}" stroke-width="2"/><path d="M-198 21 14-13 198-39 92 40-80 75Z" fill="${p.surface}"/><path d="M-80 75 14-13 198-39 92 40Z" fill="url(#${id}-dots)" opacity=".8"/><path d="M-198 21 14-13 198-39M14-13-80 75" fill="none" stroke="${p.light}" stroke-width="2" opacity=".82"/><g transform="translate(-47 24)"><g data-part="fin"><path d="M0 0 93-8 32 99-15 54Z" fill="${p.secondary}" stroke="${p.light}" stroke-width="1.4"/><path d="M32 99 55 16" stroke="${p.light}" opacity=".64"/></g></g><circle cx="135" cy="-28" r="6" fill="${p.ink}"/>`,
+
+  pool: ({id}) => `<ellipse rx="241" ry="52" fill="url(#${id}-pool)" opacity=".72"/>`,
+
+  pillars: ({p, id}) => `<path d="M-356 160Q-160 107 0 130T355 165V355H-356Z" fill="${p.deep}"/><ellipse cx="8" cy="134" rx="359" ry="148" fill="url(#${id}-pool)" opacity=".27"/>${repeat(10, i => {
+    const x = (i - 4.5) * 69;
+    const width = 14 + (i % 3) * 18;
+    const base = 88 + (i % 3) * 34;
+    const top = -228 - (i * 17) % 60;
+    return `<path d="M${x - width / 2} ${base} ${x + 8 - width / 2} ${top} ${x + width / 2} ${top + 18} ${x + width / 2} ${base - 12}Z" fill="${i % 2 ? p.surface : p.secondary}" opacity="${.25 + (i % 4) * .12}"/><path d="M${x + width / 2} ${base - 12}V${top + 18}" stroke="${p.secondary}" opacity=".44"/>`;
+  })}<path d="M-337 180Q0 121 333 180M-337 206Q0 147 333 206" fill="none" stroke="${p.secondary}" opacity=".36"/>`,
+
+  lamp: ({id}) => `<ellipse cy="32" rx="251" ry="210" fill="url(#${id}-pool)"/><ellipse cy="119" rx="170" ry="47" fill="url(#${id}-pool)" opacity=".78"/>`,
+
+  beacon: ({p}) => `<path d="M-61 100V-89L36-119 71-94V77L15 109Z" fill="${p.deep}" stroke="${p.accent}" stroke-width="1.2"/><path d="M-61-89 36-119 71-94 15-69Z" fill="${p.light}" opacity=".9"/><path d="M-61-89 15-69V109L-61 100Z" fill="${p.accent}" opacity=".88"/><path d="M15-69 71-94V77L15 109Z" fill="${p.secondary}" opacity=".76"/><path d="M-44-64-2-52V76L-44 71Z" fill="none" stroke="${p.deep}" opacity=".7"/><path d="M-91 116H90M-91 116v-11M90 116v-11" fill="none" stroke="${p.accent}" opacity=".8"/>`,
+
+  tile: ({p, layer}) => {
+    const glyphs = ['M-31 0H31M0-31V31', 'M-30 18 0-25 30 18Z', 'M-29-21H29V21H-29Z M-18 0H18', 'M-30 0a30 30 0 1 0 60 0a30 30 0 1 0-60 0'];
+    return `<rect x="-84" y="-80" width="168" height="168" rx="10" fill="${p.deep}" opacity=".75"/><rect x="-84" y="-84" width="168" height="168" rx="10" fill="${p.surface}" stroke="${p.accent}" stroke-width="1.4"/><path d="M-62-62h12m-12 0v12m124 112h-12m12 0v-12" stroke="${p.light}" opacity=".7"/><path d="${glyphs[layer.variant]}" stroke="${p.light}" stroke-width="1.6" fill="none"/>`;
+  },
+
+  nexus: ({p}) => `<circle r="44" fill="${p.accent}" opacity=".28"/><path d="M0-29 29 0 0 29-29 0Z" fill="${p.accent}" stroke="${p.light}" stroke-width="2"/><path d="M-12 0h24M0-12v24" stroke="${p.deep}" stroke-width="1.4"/>`,
+
+  orbits: ({p}) => `<g fill="none" stroke="${p.accent}">${repeat(6, i => `<circle r="${72 + i * 28}" opacity="${.74 - i * .105}" ${i % 2 ? 'stroke-dasharray="3 7"' : ''}/>`)}<path d="M-244 0H244M0-244V244" opacity=".37"/><path d="M-212 0h22m380 0h22M0-212v22m0 380v22" stroke-width="2"/></g>`
+};
+
+function buildPlane(layer, host, targets) {
+  const place = htmlNode('div', `plane-place ${layer.kind}`);
+  place.style.left = `${layer.x / 7.2}%`;
+  place.style.top = `${layer.y / 7.2}%`;
+  place.style.setProperty('--plane-scale', layer.scale);
+  place.dataset.layer = layer.id;
+  const moving = htmlNode('div', 'plane-moving');
+  const inside = htmlNode('div', 'plane-inside');
+  const panel = htmlNode('div', 'plane-face');
+  const label = htmlNode('div', 'plane-label', layer.label);
+  const title = htmlNode('div', 'plane-title', layer.text);
+  const note = htmlNode('div', 'plane-note', layer.note);
+  inside.append(label, title, note);
+  panel.append(inside);
+  moving.append(panel);
+  place.append(moving);
+  host.append(place);
+  targets[layer.id] = moving;
+  targets[`${layer.id}.inside`] = inside;
+}
+
+function makeArtwork(slide, style, id) {
+  const host = htmlNode('div', 'art');
+  const canvas = svgNode('svg', {viewBox:'0 0 720 720', 'aria-hidden':'true'});
+  const p = style.palette;
+  canvas.innerHTML = `<defs>
+    <pattern id="${id}-ink-lines" width="6" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(25)"><path d="M0 0V7" stroke="${p.deep}" stroke-width="1.4" opacity=".68"/></pattern>
+    <pattern id="${id}-dots" width="11" height="10" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.55" fill="${p.deep}"/><circle cx="8.5" cy="8" r="1.1" fill="${p.deep}"/></pattern>
+    <linearGradient id="${id}-shaft" x1="0" x2="0" y1="0" y2="1"><stop stop-color="${p.light}" stop-opacity=".52"/><stop offset=".91" stop-color="${p.light}" stop-opacity="0"/></linearGradient>
+    <radialGradient id="${id}-pool"><stop stop-color="${p.light}" stop-opacity=".73"/><stop offset=".35" stop-color="${p.accent}" stop-opacity=".42"/><stop offset="1" stop-color="${p.accent}" stop-opacity="0"/></radialGradient>
+    <clipPath id="${id}-clip"><rect width="720" height="720"/></clipPath>
+  </defs>`;
+  const artLayer = svgNode('g', {'clip-path':`url(#${id}-clip)`});
+  canvas.append(artLayer);
+  host.append(canvas);
+  const targets = Object.create(null);
+  for (const layer of slide.layers) {
+    if (layer.kind === 'sign' || layer.kind === 'morph') {
+      buildPlane(layer, host, targets);
+      continue;
+    }
+    const place = svgNode('g', {transform:`translate(${layer.x} ${layer.y}) scale(${layer.scale})`, opacity:layer.opacity ?? 1, 'data-layer':layer.id});
+    const move = svgNode('g', {'class':'art-object'});
+    move.innerHTML = drawings[layer.kind]({p, id, layer, style:slide.style});
+    for (const part of move.querySelectorAll('[data-part]')) {
+      part.classList.add('art-object');
+      targets[`${layer.id}.${part.dataset.part}`] = part;
+    }
+    place.append(move);
+    artLayer.append(place);
+    targets[layer.id] = move;
+  }
+  return {host, targets};
+}
+
+const {deck, styles, library} = JSON.parse(document.querySelector('#deck-data').textContent);
+const stage = document.querySelector('.stage');
+const shell = document.querySelector('.shell');
+const veil = document.querySelector('.veil');
+const counter = document.querySelector('.counter');
+const currentName = document.querySelector('.current-name');
+const status = document.querySelector('#status');
+const steps = document.querySelector('.steps');
+const overview = document.querySelector('#overview');
+const overviewList = document.querySelector('.overview-list');
+const previous = document.querySelector('#previous');
+const next = document.querySelector('#next');
+const fullscreen = document.querySelector('#fullscreen');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const pad = number => String(number).padStart(2, '0');
+let index = -1;
+let serial = 0;
+let currentScene;
+let animations = [];
+let pending = null;
+let sharedArt;
+const transitions = deck.transitions ?? [];
+const transitionSettings = {fill:'both', easing:library.easing.inOut};
+
+document.title = deck.title;
+document.querySelector('.brand-text').textContent = deck.edition;
+stage.setAttribute('aria-label', deck.subtitle);
+
+function makeScene(slide, position) {
+  const style = styles[slide.style];
+  const scene = htmlNode('section', 'scene');
+  scene.dataset.style = slide.style;
+  if (transitions.some(recipe => recipe.type === 'lightBloom' && recipe.to === slide.id)) scene.dataset.lightBloom = '';
+  scene.setAttribute('aria-label', `Сцена ${position + 1}. ${slide.section}`);
+  for (const [key, value] of Object.entries(style.palette)) scene.style.setProperty(`--${key}`, value);
+  scene.style.setProperty('--grain', style.grain);
+  scene.style.setProperty('--light-x', `${style.lightX}%`);
+
+  const {host, targets} = makeArtwork(slide, style, `art-${++serial}`);
+  const backdrop = htmlNode('div', 'scene-backdrop');
+  const bands = transitions.find(recipe => recipe.type === 'bands' && recipe.to === slide.id);
+  if (bands) backdrop.append(makeWaterBands(bands, style.palette.light));
+  const frame = htmlNode('div', 'frame');
+  const grain = htmlNode('div', 'grain');
+  const slate = htmlNode('div', 'slate');
+  slate.append(htmlNode('span', '', deck.title), htmlNode('span', 'index', `${pad(position + 1)} / ${pad(deck.slides.length)}`));
+
+  const copy = htmlNode('div', 'copy');
+  const content = htmlNode('div', 'copy-content');
+  const title = htmlNode('h1', '');
+  slide.title.forEach(line => title.append(htmlNode('span', '', line)));
+  content.append(htmlNode('div', 'section-tag', slide.section), title, htmlNode('p', '', slide.body));
+  copy.append(content);
+
+  const mark = htmlNode('div', 'art-mark');
+  mark.append(htmlNode('span', '', slide.mark), htmlNode('span', '', style.name));
+  scene.append(backdrop, host, grain, frame, slate, copy, mark);
+  return {scene, targets:{...targets, art:host, copy:content, scene, veil}};
+}
+
+function toKeyframe(frame, depth) {
+  const {at, x = 0, y = 0, z = 0, rx = 0, ry = 0, rotate = 0, scale = 1, sx = scale, sy = scale, opacity = 1, radius} = frame;
+  const style = {
+    transform:`translate3d(${x * depth}px, ${y * depth}px, ${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${rotate}deg) scale(${sx}, ${sy})`,
+    opacity
+  };
+  if (at !== undefined) style.offset = at;
+  if (radius !== undefined) style.borderRadius = `${radius}%`;
+  return style;
+}
+
+function settle() {
+  animations.forEach(animation => animation.cancel());
+  animations = [];
+  for (const scene of stage.querySelectorAll('.scene')) {
+    if (scene !== currentScene) scene.remove();
+  }
+  sharedArt?.remove();
+  sharedArt = null;
+  for (const layer of currentScene?.querySelectorAll('[data-carried]') ?? []) {
+    layer.style.removeProperty('visibility');
+    delete layer.dataset.carried;
+  }
+  stage.dataset.phase = 'rest';
+}
+
+function finish() {
+  settle();
+  const queued = pending;
+  pending = null;
+  if (queued) render(queued.position, queued.replay);
+}
+
+function relativeBounds(node, origin) {
+  const rect = node.getBoundingClientRect();
+  return {x:rect.left - origin.x, y:rect.top - origin.y, w:rect.width, h:rect.height};
+}
+
+function markCarried(layer, hide = true) {
+  layer.dataset.carried = '';
+  if (hide) layer.style.visibility = 'hidden';
+}
+
+function transitionLayer(className, host) {
+  sharedArt = htmlNode('div', className);
+  sharedArt.setAttribute('aria-hidden', 'true');
+  host.append(sharedArt);
+  return sharedArt;
+}
+
+function polygon(points) {
+  return `polygon(${points.map(([x, y]) => `${x}% ${y}%`).join(', ')})`;
+}
+
+function bandPolygon(x, width, slant) {
+  return polygon([[x, 0], [x + width, 0], [x + width + slant, 100], [x + slant, 100]]);
+}
+
+function makeWaterBands(recipe, light) {
+  const host = htmlNode('div', 'water-bands');
+  host.setAttribute('aria-hidden', 'true');
+  for (let i = 0; i < 7; i++) {
+    const band = htmlNode('div', 'band');
+    band.style.clipPath = bandPolygon(4 + i * 14.2, recipe.width, recipe.slant);
+    band.style.backgroundColor = light;
+    band.style.opacity = recipe.opacity * (i % 2 ? .55 : 1);
+    host.append(band);
+  }
+  return host;
+}
+
+function normalizePoint(x, y, stageRect) {
+  return [(x - stageRect.x) * 100 / stageRect.width, (y - stageRect.y) * 100 / stageRect.height];
+}
+
+function projectPoint(node, x, y, stageRect) {
+  const projected = new DOMPoint(x, y).matrixTransform(node.getScreenCTM());
+  return normalizePoint(projected.x, projected.y, stageRect);
+}
+
+function inDirection(frames, backwards) {
+  return backwards ? frames.toReversed().map(frame => ({...frame, offset:1 - frame.offset})) : frames;
+}
+
+function animateBands(outgoing, scene, recipe, backwards, play) {
+  const depth = backwards ? scene : outgoing;
+  const water = backwards ? outgoing : scene;
+  const bands = water.querySelector('.water-bands');
+  const guides = [...depth.querySelectorAll(`[data-layer="${recipe.rails}"] [data-guide]`)];
+  const overlay = transitionLayer('band-transition', scene);
+  const stageRect = overlay.getBoundingClientRect();
+  markCarried(bands);
+  guides.forEach((guide, index) => {
+    const top = guide.getPointAtLength(guide.getTotalLength());
+    const bottom = guide.getPointAtLength(0);
+    const [tx, ty] = projectPoint(guide, top.x, top.y, stageRect);
+    const [bx, by] = projectPoint(guide, bottom.x, bottom.y, stageRect);
+    const initial = polygon([[tx - .06, ty], [tx + .06, ty], [bx + .06, by], [bx - .06, by]]);
+    const band = bands.children[index];
+    const moving = htmlNode('div', 'band');
+    overlay.append(moving);
+    play(guide, inDirection([{opacity:getComputedStyle(guide).opacity, offset:0}, {opacity:0, offset:.19}, {opacity:0, offset:1}], backwards));
+    const ink = depth.style.getPropertyValue('--ink');
+    const light = band.style.backgroundColor;
+    play(moving, inDirection([
+      {clipPath:initial, backgroundColor:ink, opacity:0, offset:0},
+      {clipPath:initial, backgroundColor:ink, opacity:.28, offset:.13},
+      {clipPath:bandPolygon(4 + index * 14.2, recipe.width * .55, 0), backgroundColor:light, opacity:recipe.opacity, offset:.58},
+      {clipPath:band.style.clipPath, backgroundColor:light, opacity:band.style.opacity, offset:1}
+    ], backwards));
+  });
+}
+
+// The source faces share edge points. At the other end they tile the sign face.
+const gliderFaces = [
+  {fill:'accent', from:[[-198,21],[-132,-1],[-75,-27],[-28,-55],[10,-87],[198,-39],[14,-13],[-92,4]], to:[[0,0],[.24,0],[.49,0],[.73,0],[.9,0],[.9,.5],[.5,.5],[0,.5]]},
+  {fill:'surface', from:[[-198,21],[14,-13],[198,-39],[149,-18],[116,5],[92,40],[-80,75]], to:[[0,.5],[.5,.5],[.9,.5],[.9,.69],[.9,.88],[.9,1],[0,1]]},
+  {fill:'secondary', from:[[-47,24],[46,16],[-15,123],[-62,78]], to:[[.9,0],[1,0],[1,1],[.9,1]]}
+];
+
+function animateFacets(outgoing, scene, recipe, backwards, play) {
+  const gliderScene = backwards ? scene : outgoing;
+  const signScene = backwards ? outgoing : scene;
+  const [[gliderId, signId]] = recipe.objects;
+  const glider = gliderScene.querySelector(`[data-layer="${gliderId}"]`);
+  const sign = signScene.querySelector(`[data-layer="${signId}"]`);
+  const overlay = transitionLayer('shared-art', stage);
+  const stageRect = overlay.getBoundingClientRect();
+  const panel = sign.getBoundingClientRect();
+  const ink = gliderScene.style;
+  const face = signScene.style.getPropertyValue('--surface');
+  markCarried(glider, false);
+  markCarried(sign, false);
+  const animate = (node, frames) => play(node, inDirection(frames, backwards));
+  animate(glider, [{opacity:1, offset:0}, {opacity:0, offset:.21}, {opacity:0, offset:1}]);
+  animate(sign, [{opacity:0, offset:0}, {opacity:0, offset:.66}, {opacity:1, offset:.91}, {opacity:1, offset:1}]);
+  animate(sign.querySelector('.plane-inside'), [{opacity:0, offset:0}, {opacity:0, offset:.77}, {opacity:1, offset:1}]);
+  for (const [index, facet] of gliderFaces.entries()) {
+    const moving = htmlNode('div', 'facet');
+    overlay.append(moving);
+    const from = facet.from.map(([x,y]) => projectPoint(glider,x,y,stageRect));
+    const to = facet.to.map(([x,y]) => normalizePoint(panel.left + x * panel.width, panel.top + y * panel.height, stageRect));
+    const fold = from.map(([x,y], point) => {
+      const [endX,endY] = to[point];
+      return [(x + endX) / 2 + (index - 1) * 1.15, (y + endY) / 2 - (index === 2 ? -1.5 : 1.7)];
+    });
+    const color = ink.getPropertyValue(`--${facet.fill}`);
+    animate(moving, [
+      {clipPath:polygon(from), backgroundColor:color, opacity:0, offset:0},
+      {clipPath:polygon(from), backgroundColor:color, opacity:1, offset:.17},
+      {clipPath:polygon(fold), backgroundColor:color, opacity:1, offset:.49},
+      {clipPath:polygon(to), backgroundColor:face, opacity:1, offset:.79},
+      {clipPath:polygon(to), backgroundColor:face, opacity:0, offset:.96},
+      {clipPath:polygon(to), backgroundColor:face, opacity:0, offset:1}
+    ]);
+  }
+}
+
+function animateLightBloom(outgoing, scene, recipe, backwards, play) {
+  const dark = backwards ? scene : outgoing;
+  const bright = backwards ? outgoing : scene;
+  const [[discId, panelId]] = recipe.objects;
+  const disc = dark.querySelector(`[data-layer="${discId}"]`);
+  const panel = bright.querySelector(`[data-layer="${panelId}"]`);
+  const darkBackdrop = dark.querySelector('.scene-backdrop');
+  const brightBackdrop = bright.querySelector('.scene-backdrop');
+  const overlay = transitionLayer('shared-art', stage);
+  const origin = overlay.getBoundingClientRect();
+  const circle = relativeBounds(disc, origin);
+  const card = relativeBounds(panel, origin);
+  const size = Math.min(circle.w, circle.h);
+  const x = circle.x + circle.w / 2;
+  const y = circle.y + circle.h / 2;
+  const dx = card.x + card.w / 2 - x;
+  const dy = card.y + card.h / 2 - y;
+  const reach = Math.hypot(Math.max(x, origin.width - x), Math.max(y, origin.height - y));
+  const animate = (node, frames) => play(node, inDirection(frames, backwards), 'linear');
+
+  // The paper is revealed from the disc's centre. The dark backdrop stays under the mask in either direction.
+  play(darkBackdrop, [{zIndex:-1}, {zIndex:-1}], 'linear');
+  const mask = 'radial-gradient(closest-side, #000 34%, #000c 59%, #0000 100%)';
+  const reveal = (offset, radius, opacity) => ({
+    offset, opacity, maskImage:mask, maskRepeat:'no-repeat',
+    maskSize:`${radius * 2}px ${radius * 2}px`, maskPosition:`${x - radius}px ${y - radius}px`
+  });
+  animate(brightBackdrop, [
+    reveal(0, size * .36, 0), reveal(.18, size * .52, .72), reveal(.39, reach * .42, 1),
+    reveal(.66, reach * .91, 1), reveal(1, reach * 3.1, 1)
+  ]);
+
+  const orb = htmlNode('div', 'light-orb');
+  const glint = htmlNode('div', 'light-orb-glint');
+  orb.append(glint);
+  overlay.append(orb);
+  Object.assign(orb.style, {
+    left:`${x - size / 2}px`, top:`${y - size / 2}px`, width:`${size}px`, height:`${size}px`,
+    backgroundColor:bright.style.getPropertyValue('--accent')
+  });
+  markCarried(panel, false);
+  animate(orb, [
+    {offset:0, transform:'scale(.12)', borderRadius:'50%', opacity:0},
+    {offset:.23, transform:'scale(.12)', borderRadius:'50%', opacity:0, easing:library.easing.arrive},
+    {offset:.49, transform:'scale(.78)', borderRadius:'50%', opacity:1, easing:library.easing.inOut},
+    {offset:.84, transform:`translate(${dx}px, ${dy}px) scale(${card.w / size}, ${card.h / size})`, borderRadius:'6%', opacity:1},
+    {offset:1, transform:`translate(${dx}px, ${dy}px) scale(${card.w / size}, ${card.h / size})`, borderRadius:'6%', opacity:0}
+  ]);
+  animate(glint, [{offset:0, opacity:1}, {offset:.51, opacity:1}, {offset:.8, opacity:0}, {offset:1, opacity:0}]);
+  animate(panel, [{offset:0, opacity:0}, {offset:.74, opacity:0}, {offset:.91, opacity:1}, {offset:1, opacity:1}]);
+  animate(panel.querySelector('.plane-inside'), [{offset:0, opacity:0}, {offset:.87, opacity:0}, {offset:1, opacity:1}]);
+}
+
+function snapshotLayer(scene, slide, layerId, origin) {
+  const layer = [...scene.querySelectorAll('[data-layer]')].find(node => node.dataset.layer === layerId);
+  const art = scene.querySelector('.art');
+  const bounds = relativeBounds(layer, origin);
+  const artBounds = relativeBounds(art, origin);
+  const {host} = makeArtwork({...slide, layers:slide.layers.filter(item => item.id === layerId)}, styles[slide.style], `art-${++serial}`);
+  const surface = htmlNode('div', 'shared-copy');
+  surface.style.cssText = scene.style.cssText;
+  Object.assign(surface.style, {inset:'0', transformOrigin:'0 0', width:`${bounds.w}px`, height:`${bounds.h}px`});
+  Object.assign(host.style, {
+    left:`${artBounds.x - bounds.x}px`, top:`${artBounds.y - bounds.y}px`, right:'auto', bottom:'auto',
+    width:`${artBounds.w}px`, transform:'none'
+  });
+  surface.append(host);
+  return {layer, bounds, surface};
+}
+
+function carryObjects(outgoing, scene, source, target, recipe, backwards, duration) {
+  transitionLayer('shared-art', stage);
+  const rect = sharedArt.getBoundingClientRect();
+  for (const [startId, endId] of recipe.objects) {
+    const from = snapshotLayer(outgoing, source, backwards ? endId : startId, rect);
+    const to = snapshotLayer(scene, target, backwards ? startId : endId, rect);
+    const a = from.bounds;
+    const b = to.bounds;
+    if (Math.min(a.w, a.h, b.w, b.h) <= 0) continue;
+    const wrapper = htmlNode('div', 'shared-copy');
+    Object.assign(wrapper.style, {left:`${a.x}px`, top:`${a.y}px`, width:`${a.w}px`, height:`${a.h}px`});
+    to.surface.style.transform = `scale(${a.w / b.w}, ${a.h / b.h})`;
+    wrapper.append(from.surface, to.surface);
+    sharedArt.append(wrapper);
+    markCarried(from.layer);
+    markCarried(to.layer);
+    const dx = b.x + b.w / 2 - a.x - a.w / 2;
+    const dy = b.y + b.h / 2 - a.y - a.h / 2;
+    const tilt = (backwards ? -1 : 1) * (recipe.tilt ?? 0);
+    animations.push(wrapper.animate([
+      {transform:'translate(0px, 0px) scale(1, 1)'},
+      {transform:`translate(${dx * .5}px, ${dy * .5 + recipe.arc * rect.width / 1280}px) perspective(800px) rotateY(${tilt}deg) scale(${Math.sqrt(b.w / a.w)}, ${Math.sqrt(b.h / a.h)})`, offset:.5},
+      {transform:`translate(${dx}px, ${dy}px) scale(${b.w / a.w}, ${b.h / a.h})`}
+    ], {...transitionSettings, duration}));
+    const fromFrames = [{opacity:1}, {opacity:1, offset:.22}, {opacity:0, offset:.77}, {opacity:0}];
+    const toFrames = [{opacity:0}, {opacity:0, offset:.18}, {opacity:1, offset:.8}, {opacity:1}];
+    if (recipe.round) {
+      const round = 'inset(-2% round 50%)';
+      const flat = 'inset(-8% round 6%)';
+      fromFrames[0].clipPath = toFrames[0].clipPath = backwards ? flat : round;
+      fromFrames[3].clipPath = toFrames[3].clipPath = backwards ? round : flat;
+    }
+    animations.push(from.surface.animate(fromFrames, {...transitionSettings, duration}));
+    animations.push(to.surface.animate(toFrames, {...transitionSettings, duration}));
+  }
+}
+
+function animateTransition(outgoing, scene, source, target) {
+  const backwards = deck.slides.indexOf(target) < deck.slides.indexOf(source);
+  const [from, to] = backwards ? [target.id, source.id] : [source.id, target.id];
+  const recipe = transitions.find(item => item.from === from && item.to === to);
+  const duration = recipe?.duration ?? 940;
+  const direction = backwards ? -1 : 1;
+  const play = (node, frames, easing = transitionSettings.easing) => animations.push(node.animate(frames, {...transitionSettings, duration, easing}));
+  if (recipe?.type === 'bands') animateBands(outgoing, scene, recipe, backwards, play);
+  else if (recipe?.type === 'facets') animateFacets(outgoing, scene, recipe, backwards, (node, frames) => play(node, frames, 'linear'));
+  else if (recipe?.type === 'lightBloom') animateLightBloom(outgoing, scene, recipe, backwards, play);
+  else if (recipe) carryObjects(outgoing, scene, source, target, recipe, backwards, duration);
+  if (recipe?.type !== 'lightBloom') play(scene.querySelector('.scene-backdrop'), [{opacity:0}, {opacity:1}]);
+  const artworkDelay = recipe?.type && !backwards ? .42 : .18;
+  const artworkShift = recipe?.type === 'lightBloom' ? 0 : direction * 23;
+  play(outgoing.querySelector('.art > svg'), [
+    {opacity:1, transform:'translateX(0px)'}, {opacity:0, transform:`translateX(${-artworkShift}px)`, offset:.72}, {opacity:0}
+  ]);
+  play(scene.querySelector('.art > svg'), [
+    {opacity:0, transform:`translateX(${artworkShift}px)`}, {opacity:0, offset:artworkDelay}, {opacity:1, transform:'translateX(0px)'}
+  ]);
+  for (const layer of [outgoing, scene]) {
+    const entering = layer === scene;
+    for (const node of layer.querySelectorAll('.plane-place:not([data-carried]), .grain, .frame, .slate, .copy-content, .art-mark')) {
+      const shift = node.classList.contains('copy-content') ? 14 * direction : 0;
+      const atRest = {opacity:1, transform:'translateY(0px)'};
+      const hidden = {opacity:0, transform:`translateY(${entering ? shift : -shift}px)`};
+      if (node.classList.contains('plane-place') || node.classList.contains('grain')) {
+        delete atRest.transform;
+        delete hidden.transform;
+        if (node.classList.contains('grain')) atRest.opacity = Number(getComputedStyle(node).opacity);
+      }
+      const reveal = recipe?.type === 'lightBloom' && !backwards && shift ? .53 : .33;
+      play(node, entering ? [hidden, {...hidden, offset:reveal}, {...atRest, offset:.88}, atRest] : [atRest, {...hidden, offset:.52}, hidden]);
+    }
+  }
+  if (recipe?.dim) play(veil, [{opacity:0}, {opacity:recipe.dim, offset:.51}, {opacity:0}]);
+  stage.dataset.transition = recipe?.type ?? (recipe ? 'shared' : 'dissolve');
+  return duration;
+}
+
+function animateDetails(slide, motion, style, targets, duration, transition, replay) {
+  const settings = {fill:'both', easing:library.easing.arrive};
+  if (!transition && !motion.tracks.some(track => track.target === 'copy')) {
+    animations.push(targets.copy.animate([
+      {transform:'translateY(16px)', opacity:replay ? .4 : 0},
+      {transform:'translateY(0px)', opacity:1}
+    ], {...settings, delay:duration * .11, duration:duration * .54}));
+  }
+  for (const track of motion.tracks) {
+    const target = targets[slide.bind[track.target] ?? track.target];
+    if (transition && (track.target === 'copy' || track.target === 'veil' || target.closest('[data-carried]'))) continue;
+    if (transition && stage.dataset.transition === 'bands' && (track.target === 'hero' || track.target === 'fin')) continue;
+    const depth = track.depth ? style.layers.find(layer => layer.depth === track.depth).parallax : 1;
+    const keyframes = track.frames.map(frame => toKeyframe(frame, depth));
+    animations.push(target.animate(keyframes, {
+      ...settings,
+      easing:library.easing[track.ease],
+      delay:duration * track.start,
+      duration:duration * (track.end - track.start)
+    }));
+  }
+}
+
+function render(position, replay = false) {
+  if (position < 0 || position >= deck.slides.length) return;
+  if (stage.dataset.phase === 'motion' && !reduce.matches) {
+    pending = position === index && !replay ? null : {position, replay};
+    return;
+  }
+  if (position === index && !replay) return;
+  const first = index === -1;
+  const source = deck.slides[index];
+  settle();
+  const slide = deck.slides[position];
+  const motion = library.motions[slide.motion];
+  const style = styles[slide.style];
+  const outgoing = currentScene;
+  const {scene, targets} = makeScene(slide, position);
+  if (outgoing) outgoing.setAttribute('aria-hidden', 'true');
+  stage.insertBefore(scene, veil);
+  currentScene = scene;
+  index = position;
+  stage.dataset.index = position;
+  stage.dataset.scene = slide.id;
+  stage.dataset.motion = slide.motion;
+  delete stage.dataset.transition;
+  counter.textContent = `${pad(position + 1)} / ${pad(deck.slides.length)}`;
+  currentName.textContent = motion.name;
+  status.textContent = `${slide.section}. ${slide.title.join(' ')}`;
+  previous.disabled = position === 0;
+  next.disabled = position === deck.slides.length - 1;
+  for (const buttons of [steps.children, overviewList.children]) {
+    for (const [buttonIndex, button] of [...buttons].entries()) {
+      if (buttonIndex === index) button.setAttribute('aria-current', 'step');
+      else button.removeAttribute('aria-current');
+    }
+  }
+  if (reduce.matches || !scene.animate || (first && new URLSearchParams(location.search).get('still') === '1')) {
+    settle();
+    return;
+  }
+
+  const transition = Boolean(outgoing && !replay);
+  const duration = transition ? animateTransition(outgoing, scene, source, slide) : motion.duration;
+  if (!transition) outgoing?.remove();
+  animateDetails(slide, motion, style, targets, duration, transition, replay);
+  stage.dataset.phase = 'motion';
+  Promise.allSettled(animations.map(animation => animation.finished)).then(() => {
+    if (currentScene === scene) finish();
+  });
+}
+
+function openOverview() {
+  if (overview.open) return;
+  overview.showModal();
+  overviewList.children[index].focus();
+}
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else if (shell.requestFullscreen) shell.requestFullscreen().catch(() => {});
+}
+
+deck.slides.forEach((slide, position) => {
+  const button = htmlNode('button', '', pad(position + 1));
+  button.type = 'button';
+  button.setAttribute('aria-label', `${position + 1}. ${slide.section}`);
+  button.title = slide.section;
+  button.addEventListener('click', () => render(position));
+  steps.append(button);
+
+  const card = htmlNode('button', 'overview-card');
+  card.type = 'button';
+  card.style.setProperty('--chip', styles[slide.style].palette.accent);
+  card.append(htmlNode('small', '', `${pad(position + 1)} · ${slide.section}`), htmlNode('strong', '', slide.title.join(' ')));
+  card.addEventListener('click', () => {
+    overview.close();
+    render(position);
+  });
+  overviewList.append(card);
+});
+
+const selectedIndex = () => pending?.position ?? index;
+const step = delta => render(selectedIndex() + delta);
+previous.addEventListener('click', () => step(-1));
+next.addEventListener('click', () => step(1));
+document.querySelector('#replay').addEventListener('click', () => render(selectedIndex(), true));
+document.querySelector('#show-overview').addEventListener('click', openOverview);
+document.querySelector('#close-overview').addEventListener('click', () => overview.close());
+fullscreen.addEventListener('click', toggleFullscreen);
+fullscreen.hidden = !document.fullscreenEnabled;
+stage.addEventListener('click', event => {
+  if (!document.fullscreenElement) return;
+  const {left, width} = stage.getBoundingClientRect();
+  step(event.clientX < left + width / 2 ? -1 : 1);
+});
+reduce.addEventListener('change', event => {
+  if (event.matches) finish();
+});
+window.addEventListener('resize', () => { if (sharedArt) finish(); });
+
+document.addEventListener('keydown', event => {
+  if (overview.open || event.altKey || event.ctrlKey || event.metaKey) return;
+  const key = event.key.toLowerCase();
+  if (key === ' ' && event.target.closest?.('button')) return;
+  const actions = {
+    arrowright:() => step(1), pagedown:() => step(1), ' ':() => step(1),
+    arrowleft:() => step(-1), pageup:() => step(-1),
+    home:() => render(0), end:() => render(deck.slides.length - 1),
+    r:() => render(selectedIndex(), true), o:openOverview, f:toggleFullscreen
+  };
+  if (!Object.hasOwn(actions, key)) return;
+  event.preventDefault();
+  actions[key]();
+});
+
+render(0);
+</script>
+</body>
+</html>
