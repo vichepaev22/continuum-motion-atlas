@@ -83,9 +83,108 @@ body{font-synthesis:none;-webkit-font-smoothing:antialiased}
  .metric{padding:18px}
 }
 @media(prefers-reduced-motion:reduce){.sector,.nav button{transition:none}}
+
+/* Mobile editorial layout: phone-first reading and accessible navigation */
+html,body{max-width:100%;overflow-x:clip}
+img,svg,iframe{max-width:100%}
+.main,.wrap,.section,.panel,.hero,.visual-story,.context-intro{min-width:0}
+@media(max-width:780px){
+ .top{position:sticky;top:0;z-index:12;height:62px;padding:0 16px;background:#f9faf6}
+ .top .eyebrow{font-size:12px;letter-spacing:0;font-weight:700}
+ .topright{gap:0;white-space:nowrap}
+ .topright>span:first-child{font-size:11px}
+ .mobilebar{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;font-size:22px;border-radius:10px}
+ .side{display:flex;visibility:hidden;transform:translateX(-105%);transition:transform .22s ease,visibility .22s ease;inset:0 auto 0 0;width:min(85vw,320px);max-height:100dvh;overflow-y:auto;z-index:31;box-shadow:12px 0 36px #071c1740}
+ .side.show{visibility:visible;transform:translateX(0)}
+ body.menu-open{overflow:hidden}
+ .menu-scrim{position:fixed;inset:0;background:rgba(8,22,17,.55);z-index:30;opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s ease}
+ .menu-scrim.show{opacity:1;visibility:visible}
+ .side .nav{gap:3px}
+ .side .nav button{min-height:48px;font-size:15px}
+ .wrap{padding:16px 16px 70px}
+ .hero{display:flex;flex-direction:column;min-height:0;border-radius:18px}
+ .herotext{padding:30px 23px 25px}
+ .hero h1{font-size:clamp(33px,8.3vw,50px);line-height:1.09;letter-spacing:-.045em;margin:17px 0}
+ .hero p{font-size:15px;line-height:1.75}
+ .hero .over{font-size:11px;line-height:1.5}
+ .heroart{min-height:240px;aspect-ratio:16/9}
+ .hero-photo-caption{font-size:11px}
+ .hero-actions{display:grid;grid-template-columns:1fr;gap:9px}
+ .hero-actions a{justify-content:center;text-align:center;min-height:48px}
+ .scrollnote{font-size:11px;line-height:1.6;margin-top:20px}
+ .context-intro{margin:20px 0 28px;padding:18px;border-radius:15px}
+ .context-intro h2{font-size:clamp(26px,7vw,34px)}
+ .context-grid{grid-template-columns:1fr;gap:10px}
+ .context-tile{padding:17px}
+ .reading-example{padding:18px}
+ .reading-example h3{font-size:20px}
+ .reading-example p,.context-intro .lead{font-size:15px;line-height:1.75}
+ .journey{display:grid;grid-template-columns:1fr;gap:8px}
+ .journey a{display:flex;align-items:center;min-height:46px;font-size:14px}
+ .visual-story{grid-template-columns:minmax(0,1fr);gap:20px;margin:24px 0 28px;padding:20px;border-radius:17px}
+ .visual-story h2{font-size:clamp(25px,7vw,34px)}
+ .visual-story p{font-size:15px}
+ .wellness-photo-mosaic{min-width:0;width:100%;max-width:100%;overflow:hidden}
+ .wellness-photo-mosaic img{min-width:0}
+ .metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 36px}
+ .metric{min-width:0;padding:17px 14px}
+ .metric .v{font-size:clamp(23px,6.4vw,32px);letter-spacing:-.055em;overflow-wrap:anywhere}
+ .metric .k,.metric .s{font-size:12px;line-height:1.45}
+ .section{margin-top:56px;scroll-margin-top:78px}
+ #guide{scroll-margin-top:78px}
+ .sectionhead{display:block;margin-bottom:22px}
+ .section h2{font-size:clamp(27px,7.3vw,37px);letter-spacing:-.035em}
+ .section .sub{font-size:15px;line-height:1.75}
+ .editorial-visual{margin-bottom:21px;min-height:0;border-radius:15px}
+ .editorial-visual img{height:clamp(175px,50vw,260px)}
+ .two,.trend,.hypo,.cards{grid-template-columns:minmax(0,1fr)}
+ .panel{padding:18px;border-radius:14px;min-width:0}
+ .charthead{align-items:stretch;flex-direction:column;gap:12px}
+ .charthead h3{font-size:19px}
+ .seg{width:100%;display:grid;grid-template-columns:1fr 1fr}
+ .seg button{min-width:0;min-height:44px;padding:10px 7px;font-size:13px}
+ #structure .barrow{display:grid;grid-template-columns:minmax(0,1fr) 72px;column-gap:10px;row-gap:7px;min-height:0;padding:12px 2px;margin:0;border-bottom:1px solid #e9eee7}
+ #structure .barlabel{grid-column:1;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
+ #structure .barvalue{grid-column:2;grid-row:1;font-size:15px;align-self:center}
+ #structure .track{grid-column:1/-1;grid-row:2;height:11px}
+ #structure .insight p{font-size:15px}
+ #structure .insight b{font-size:17px}
+ .searchrow{flex-direction:column;gap:12px}
+ .search{width:100%;min-width:0;font-size:16px}
+ .filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .filter{min-height:46px;font-size:13px;padding:10px 8px}
+ .sector{padding:18px;border-radius:14px}
+ .sector-photo{margin:-18px -18px 18px;height:190px}
+ .sector h3{font-size:19px}
+ .sector .amount{font-size:29px}
+ .sector .desc,.sector-meaning{font-size:14px}
+ .trend{gap:12px}
+ .hypo{gap:12px}
+ .hypo article{padding:20px}
+ .hypo p,.hypo .test{font-size:15px}
+ .forecast{gap:5px;height:215px;padding:10px 0 0}
+ .fcol{min-width:0;gap:7px}
+ .fcol b{font-size:clamp(12px,3.5vw,16px)}
+ .fcol small{font-size:11px;padding:6px 0}
+ .fbar{border-radius:6px 6px 0 0}
+ #fullreport iframe{min-height:420px!important;height:68dvh!important}
+ .footer{margin-top:50px;font-size:12px;overflow-wrap:anywhere}
+}
+@media(max-width:360px){
+ .wrap{padding-left:12px;padding-right:12px}
+ .top{padding:0 12px}
+ .top .eyebrow{font-size:11px}
+ .hero h1{font-size:32px}
+ .metric{padding:14px 11px}
+ .metric .v{font-size:22px}
+ .filters{grid-template-columns:1fr}
+ .forecast{gap:3px}
+ .fcol b{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.side,.menu-scrim{transition:none}}
 </style><link rel="stylesheet" href="https://unpkg.com/lenis@1.3.27/dist/lenis.css"></head><body>
-<aside class="side" id="sidebar"><div class="brand"><div class="logo">✳</div><div><strong>WELLNESS ATLAS</strong><small>GLOBAL REPORT / 2026</small></div></div><nav class="nav" id="nav"><button class="active" data-target="overview"><span class="num">01</span> Обзор экономики</button><button data-target="guide"><span class="num">↳</span> О сайте и навигация</button><button data-target="structure"><span class="num">02</span> Структура рынка</button><button data-target="sectors"><span class="num">03</span> 11 секторов</button><button data-target="trends"><span class="num">04</span> Драйверы роста</button><button data-target="forecast"><span class="num">05</span> Прогноз до 2030</button><button data-target="hypotheses"><span class="num">06</span> Бизнес-гипотезы</button><button data-target="sources"><span class="num">07</span> Источники и метод</button><button data-target="fullreport"><span class="num">08</span> Полный отчёт GWI</button></nav><div class="sidefoot">Независимая интерактивная адаптация исследования GWI.<br><a href="https://globalwellnessinstitute.org/industry-research/2026-global-wellness-economy-monitor/" target="_blank" rel="noopener">Оригинальный отчёт ↗</a></div></aside>
-<main class="main"><header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="mobilebar" id="menuBtn" aria-label="Открыть меню">☰</button><div class="eyebrow">Wellness Economy Atlas</div></div><div class="topright"><span>ДАННЫЕ: 2025</span><span class="pill">GWI / 2026</span></div></header><div class="wrap">
+<aside class="side" id="sidebar" aria-label="Навигация по разделам"><div class="brand"><div class="logo">✳</div><div><strong>WELLNESS ATLAS</strong><small>GLOBAL REPORT / 2026</small></div></div><nav class="nav" id="nav"><button class="active" data-target="overview"><span class="num">01</span> Обзор экономики</button><button data-target="guide"><span class="num">↳</span> О сайте и навигация</button><button data-target="structure"><span class="num">02</span> Структура рынка</button><button data-target="sectors"><span class="num">03</span> 11 секторов</button><button data-target="trends"><span class="num">04</span> Драйверы роста</button><button data-target="forecast"><span class="num">05</span> Прогноз до 2030</button><button data-target="hypotheses"><span class="num">06</span> Бизнес-гипотезы</button><button data-target="sources"><span class="num">07</span> Источники и метод</button><button data-target="fullreport"><span class="num">08</span> Полный отчёт GWI</button></nav><div class="sidefoot">Независимая интерактивная адаптация исследования GWI.<br><a href="https://globalwellnessinstitute.org/industry-research/2026-global-wellness-economy-monitor/" target="_blank" rel="noopener">Оригинальный отчёт ↗</a></div></aside>
+<div class="menu-scrim" id="menuScrim" aria-hidden="true"></div><main class="main"><header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="mobilebar" id="menuBtn" aria-label="Открыть меню" aria-controls="sidebar" aria-expanded="false">☰</button><div class="eyebrow">Wellness Economy Atlas</div></div><div class="topright"><span>ДАННЫЕ: 2025</span><span class="pill">GWI / 2026</span></div></header><div class="wrap">
 <section class="hero section" id="overview" style="margin-top:0"><div class="herotext"><div class="over">GLOBAL WELLNESS ECONOMY MONITOR · 2026</div><h1>Экономика<br>хорошего<br><span style="color:#b8f17b">самочувствия.</span></h1><p>Русскоязычный разбор международного исследования Global Wellness Economy Monitor 2026, подготовленного Global Wellness Institute (GWI). Разбираем, сколько люди и организации во всём мире тратят на здоровье и благополучие, как меняются 11 направлений и что означают прогнозы.</p><div class="scrollnote">ИССЛЕДОВАНИЕ GWI · ДАННЫЕ ЗА 2025 ГОД · ПРОГНОЗ ДО 2030 ГОДА</div><div class="hero-actions"><a href="#guide">Что это за исследование?</a><a href="#structure">Как читать цифры?</a></div></div><div class="heroart hero-photo" role="img" aria-label="Практика медитации на природе — пример темы wellness"><div class="hero-photo-caption">ЗДОРОВЬЕ · ДВИЖЕНИЕ · ВОССТАНОВЛЕНИЕ</div></div></section>
 
 <section class="context-intro" id="guide"><figure class="editorial-visual"><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&amp;fit=crop&amp;w=1500&amp;q=82" alt="Человек практикует медитацию на природе" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><h2>Как пользоваться атласом</h2><p class="lead"><strong>Wellness Economy Atlas 2026</strong> — русскоязычный интерактивный путеводитель по мировой экономике благополучия на основе исследования <em>Global Wellness Economy Monitor 2026</em> института Global Wellness Institute (GWI). Исследование подготовил Global Wellness Institute — международная исследовательская организация, изучающая индустрию wellness. Термин wellness здесь шире SPA: он включает физическую активность, питание, профилактику, ментальное благополучие, туризм, недвижимость и другие товары и услуги, связанные с поддержанием здоровья и качества жизни. <strong>Сайт не продаёт услуги и не показывает потенциальную выручку отдельного предпринимателя:</strong> он объясняет оценки мировых расходов по категориям. Это независимая русскоязычная аналитическая адаптация, а не официальный перевод GWI.</p><div class="context-grid"><div class="context-tile"><h3>Понять рынок</h3><p>Узнать, какие 11 направлений входят в wellness-экономику, что именно учитывается в каждом и насколько велики мировые расходы.</p></div><div class="context-tile"><h3>Увидеть изменения</h3><p>Сопоставить масштаб направлений, выделить драйверы роста и изучить прогнозы. Различать фактические показатели и оценки будущего.</p></div><div class="context-tile"><h3>Проверить бизнес-идеи</h3><p>Использовать глобальные тренды как отправную точку для бизнес-гипотез — с проверкой локального спроса, конкурентов и экономики проекта.</p></div></div><div class="reading-example"><div class="tag">ПРИМЕР · КАК ЧИТАТЬ ПОКАЗАТЕЛИ</div><h3>«Ментальное благополучие — $301 млрд» — что это означает?</h3><p>Это оценочный <strong>мировой объём расходов за один год — 2025-й</strong> на товары и услуги, которые GWI относит к этому сектору. Это <strong>доллары США, не рубли</strong>, не прибыль компаний и не сумма расходов за шесть лет. Чтобы оценить конкретный бизнес, нужны данные о стране, аудитории, конкурентах, ценах и издержках.</p><p><strong>«+11,9% в год за 2019–2025»</strong> — другой показатель: среднегодовой темп изменения объёма сектора за период, а не сумма денег и не обещание роста в будущем.</p></div><h3 style="font-size:16px;margin:25px 0 6px">С какого вопроса начать?</h3><div class="journey"><a href="#structure">Какие рынки самые большие? ↗</a><a href="#sectors">Что входит в каждый сектор? ↗</a><a href="#trends">Что движет ростом? ↗</a><a href="#forecast">Что ожидается к 2030 году? ↗</a><a href="#hypotheses">Какие идеи проверить? ↗</a><a href="#fullreport">Где прочитать первоисточник? ↗</a></div><div class="explain"><strong>Как читать цифры:</strong> объём рынка — это оценка расходов, а не прибыль компаний. Темпы роста за прошлые годы — не гарантия роста в будущем. Прогнозы — сценарные оценки, а бизнес-гипотезы на этом сайте — самостоятельные выводы, не рекомендации GWI. Для проверки точных определений, таблиц и методологии откройте оригинальный отчёт внизу страницы.</div></section>
@@ -120,7 +219,13 @@ function syncFilters(){document.querySelectorAll('.filter').forEach(b=>b.classLi
 function renderCards(){const q=document.getElementById('search').value.toLowerCase().trim();const matches=data.filter(d=>(mode==='all'||mode==='large'&&d.value>=1000||mode==='growth'&&d.growth&&d.growth.includes('Лидер'))&&(d.name+' '+d.desc+' '+d.keywords).toLowerCase().includes(q));document.getElementById('count').textContent=matches.length+' из 11';document.getElementById('cards').innerHTML=matches.length?matches.map(d=>'<article class="sector"><div class="sector-photo"><img loading="lazy" decoding="async" alt="Тематическая иллюстрация сектора: '+d.name+'" src="https://images.unsplash.com/'+sectorPhotos[data.indexOf(d)]+'?auto=format&amp;fit=crop&amp;w=680&amp;q=78"></div><div class="symbol" style="background:'+d.color+'">'+d.icon+'</div><h3>'+d.name+'</h3><div class="amount">'+fmt(d.value)+'</div>'+(d.growth?'<div class="growth"><b>Среднегодовой темп роста:</b> '+d.growth+'</div>':'<div class="growth muted-growth">Темп роста: пока не добавлен в карточку; это не означает нулевой рост.</div>')+'<div class="desc">'+d.desc+'</div><div class="sector-meaning">Оценка мировых расходов за 2025 год, в долларах США. Не выручка отдельной компании.</div></article>').join(''):'<div class="empty">Ничего не найдено. Попробуйте другой запрос или снимите фильтр.</div>'}
 document.getElementById('search').addEventListener('input',renderCards);document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.filter;syncFilters();renderCards()}));document.getElementById('sortSize').onclick=()=>{sort='size';document.getElementById('sortSize').classList.add('sel');document.getElementById('sortName').classList.remove('sel');renderBars()};document.getElementById('sortName').onclick=()=>{sort='name';document.getElementById('sortName').classList.add('sel');document.getElementById('sortSize').classList.remove('sel');renderBars()};
 document.getElementById('forecastChart').innerHTML=[2025,2026,2027,2028,2029,2030].map(y=>{let v=y===2030?10.9:7.5*Math.pow(1.077,y-2025);return '<div class="fcol"><b>'+v.toFixed(1).replace('.',',')+'</b><div class="fbar" style="height:'+(v/10.9*150)+'px"></div><small>'+y+'</small></div>'}).join('');
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.getElementById(b.dataset.target).scrollIntoView({behavior:'smooth'});document.getElementById('sidebar').classList.remove('show')}));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('show');
+const sidebar=document.getElementById('sidebar'),menuBtn=document.getElementById('menuBtn'),menuScrim=document.getElementById('menuScrim');let menuFocusReturn=null;
+function setMobileMenu(open){sidebar.classList.toggle('show',open);menuScrim.classList.toggle('show',open);document.body.classList.toggle('menu-open',open);menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');if(open){menuFocusReturn=document.activeElement;sidebar.querySelector('.nav button')?.focus()}else if(sidebar.contains(document.activeElement)){(menuFocusReturn||menuBtn).focus()}}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{setMobileMenu(false);document.getElementById(b.dataset.target)?.scrollIntoView({behavior:'smooth'})}));
+menuBtn.addEventListener('click',()=>setMobileMenu(!sidebar.classList.contains('show')));
+menuScrim.addEventListener('click',()=>setMobileMenu(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sidebar.classList.contains('show'))setMobileMenu(false)});
+window.matchMedia('(min-width:781px)').addEventListener?.('change',e=>{if(e.matches)setMobileMenu(false)});
 if('IntersectionObserver'in window){const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.target===e.target.id))}})},{rootMargin:'-15% 0px -70% 0px'});document.querySelectorAll('section[id]').forEach(el=>obs.observe(el))}
 renderBars();renderCards();
 </script>
