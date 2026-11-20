@@ -1,0 +1,15 @@
+name: ITMO model links — weekly verification
+on:
+  schedule:
+    - cron: '15 8 * * 1'
+  workflow_dispatch:
+jobs:
+  model-access-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check confirmed external model destinations
+        run: node itmo-llm-2026/scripts/check-model-links.mjs
