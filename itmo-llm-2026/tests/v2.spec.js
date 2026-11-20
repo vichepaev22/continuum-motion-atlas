@@ -3,6 +3,7 @@ test('atlas 2.0: artwork, lab and seven-stage interactive guide',async({page})=>
  const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('./');
  await expect(page.locator('#atlas-lab-heading')).toBeVisible();
  await expect(page.locator('.android-story img')).toHaveAttribute('src','assets/editorial-stone-android.svg');
+ await page.locator('.android-story img').scrollIntoViewIfNeeded();
  await expect.poll(()=>page.locator('.android-story img').evaluate(e=>e.complete&&e.naturalWidth>0)).toBeTruthy();
  await expect(page.locator('#atlas-model option')).toHaveCount(16);
  await expect(page.locator('#atlas-stage-tabs [role="tab"]')).toHaveCount(7);
