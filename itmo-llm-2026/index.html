@@ -881,6 +881,24 @@ $('#bookmark-continue').addEventListener('click',function(){var id=getSavedPosit
 $('#bookmark-clear').addEventListener('click',function(){try{localStorage.removeItem(readingKey);updateReadingResume();toast('Место чтения сброшено')}catch(e){toast('Настройки браузера не позволяют изменить сохранение')}});
 updateReadingResume();
 
+
+// Vendor-neutral interaction hooks for future opt-in analytics. No requests, cookies,
+// fingerprinting, search queries or page text are collected here.
+function reportEditionEvent(event,dimensions){try{document.dispatchEvent(new CustomEvent('itmo:interaction',{detail:Object.assign({event:event},dimensions||{})}))}catch(e){}}
+['#searchbtn','#navsearch','#coversearch'].forEach(function(s){$(s).addEventListener('click',function(){reportEditionEvent('search_open',{source:s.slice(1)})})});
+$('#searchresults').addEventListener('click',function(e){var btn=e.target.closest('button[data-target]');if(btn)reportEditionEvent('search_result_open',{chapter:btn.dataset.target,kind:btn.dataset.model!=null?'model':btn.dataset.term!=null?'glossary':'article'})});
+$('#access-filters').addEventListener('click',function(e){var btn=e.target.closest('button[data-access]');if(btn)reportEditionEvent('model_access_filter',{value:btn.dataset.access})});
+$('#model-filters').addEventListener('click',function(e){var btn=e.target.closest('button[data-group]');if(btn)reportEditionEvent('model_type_filter',{value:btn.dataset.group})});
+$('#compare-a').addEventListener('change',function(){reportEditionEvent('compare_models',{a:Number($('#compare-a').value),b:Number($('#compare-b').value)})});
+$('#compare-b').addEventListener('change',function(){reportEditionEvent('compare_models',{a:Number($('#compare-a').value),b:Number($('#compare-b').value)})});
+$('#test-prompt-list').addEventListener('click',function(e){var b=e.target.closest('[data-copy-prompt]');if(b)reportEditionEvent('test_prompt_copy',{prompt:Number(b.dataset.copyPrompt)})});
+$('#stagenext').addEventListener('click',function(){reportEditionEvent('stage_next')});
+$('#stageprev').addEventListener('click',function(){reportEditionEvent('stage_previous')});
+$('#share-issue').addEventListener('click',function(){reportEditionEvent('share_issue')});
+$$('[data-scenario]').forEach(function(b){b.addEventListener('click',function(){reportEditionEvent('scenario_selected',{scenario:b.dataset.scenario})})});
+$('#nav').addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(a)reportEditionEvent('chapter_navigation',{chapter:a.getAttribute('href').slice(1)})});
+document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(a&&a.href.indexOf('ITMO_LLM_research.pdf')!==-1)reportEditionEvent('source_pdf_open')});
+
 var sections=$$('section[id]'),navlinks=$$('#nav a'),progress=$('#progress');function onScroll(){var top=window.scrollY;var h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?Math.min(100,top/h*100):0)+'%';var current='cover';sections.forEach(function(s){if(s.getBoundingClientRect().top<innerHeight*.42)current=s.id});navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)})}
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 })();
