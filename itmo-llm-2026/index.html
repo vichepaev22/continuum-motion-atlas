@@ -229,6 +229,16 @@ nav a.active .n{color:var(--acid)}
 @media(max-width:680px){.top{height:57px}.top .action{padding:8px 10px}.top .action.pdf{display:none}.cover h1{font-size:42px;letter-spacing:-2px}.h2{font-size:29px;letter-spacing:-1.25px}.cover-art{min-height:280px}.chapter{padding-top:62px}.heading-row{align-items:start;flex-direction:column;gap:6px}.dek{font-size:15px}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)!important}.stat:last-child{border-bottom:0!important}.insights,.model-list,.bench-list,.usecases,.players,.glossary,.factcheck,.source-list,.compare-out{grid-template-columns:1fr}.compare{padding:22px}.mast{padding:62px 0}.mast h2{font-size:32px}.photo-panel{margin:20px 0}.quote-band{margin:40px 0}.quote-band blockquote{font-size:20px;letter-spacing:-1px}.panel{padding:23px}.dialog-panel{padding:25px 18px}.memo{padding:24px}.meta-strip{font-size:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 @media print{.side,.top,.mob-head,.progress,.dialog,.filter,.railbtn,.cta-row{display:none!important}.main{margin-left:0}.cover{min-height:300px}.cover-art{display:none}.chapter{page-break-inside:avoid}.w{padding:0 20px}.model-list{grid-template-columns:1fr 1fr}}
+
+/* Editorial visual system — responsive image stories */
+.editorial-visual{margin:28px 0 34px;position:relative;overflow:hidden;border-radius:22px;background:#22213b;box-shadow:0 18px 48px #191b1922;isolation:isolate}
+.editorial-visual img{display:block;width:100%;height:clamp(220px,32vw,400px);object-fit:cover;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
+.editorial-visual:hover img{transform:scale(1.035)}
+.editorial-visual figcaption{position:absolute;left:20px;bottom:18px;right:20px;color:#fff;font:11px/1.5 var(--mono);text-shadow:0 1px 8px #000a;letter-spacing:.4px}
+.editorial-visual:after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#121426aa);pointer-events:none}
+.editorial-visual figcaption{z-index:1}
+@media(max-width:650px){.editorial-visual{margin:20px 0 25px;border-radius:14px}.editorial-visual img{height:240px}.editorial-visual figcaption{font-size:10px;left:14px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){.editorial-visual img{transition:none}.editorial-visual:hover img{transform:none}}
 </style>
 </head>
 <body>
@@ -313,6 +323,8 @@ nav a.active .n{color:var(--acid)}
 
 <section class="w chapter" id="data">
 <div class="heading-row"><div><div class="kicker">03 / С чего начинается модель</div><h2 class="h2">Данных должно быть много.<br>Но каких именно?</h2><p class="dek">Российский языковой корпус определяет качество локального контекста. Международные данные и код расширяют диапазон задач.</p></div><span class="pill">PDF · стр. 20–28</span></div>
+<figure class="editorial-visual"><img src="assets/editorial-data.svg" alt="Языковые корпуса и структура данных. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ЯЗЫКОВЫЕ КОРПУСА И СТРУКТУРА ДАННЫХ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
+
 <div class="fig-grid">
 <div class="panel"><div class="caps">Интерактивный сценарий / модельная доля корпуса</div><div class="range-head"><h3>Сколько русского языка в обучающих данных?</h3><div class="big-percent" id="shareval">15%</div></div>
 <input class="range" id="share" type="range" min="5" max="30" value="15" step="1" aria-label="Сценарная доля русскоязычных текстов в обучающем корпусе, проценты">
@@ -339,6 +351,8 @@ nav a.active .n{color:var(--acid)}
 
 <section class="w chapter" id="models">
 <div class="heading-row"><div><div class="kicker">04 / Кто создаёт модели</div><h2 class="h2">Атлас российских LLM</h2><p class="dek">16 позиций из таблиц исследования: большие технологические компании, академические команды и независимые разработчики. Откройте карточку, отфильтруйте или сравните два подхода.</p></div><span class="pill">PDF · стр. 9–11</span></div>
+<figure class="editorial-visual"><img src="assets/editorial-models.svg" alt="Экосистема российских языковых моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ЭКОСИСТЕМА РОССИЙСКИХ ЯЗЫКОВЫХ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
+
 <div class="filters" id="model-filters">
 <button class="filter" data-group="all" aria-pressed="true">Все разработки</button>
 <button class="filter" data-group="open" aria-pressed="false">Открытые веса</button>
@@ -360,6 +374,8 @@ nav a.active .n{color:var(--acid)}
 
 <section class="w chapter" id="training">
 <div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте горизонтально: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><span class="pill">PDF · стр. 20–21</span></div>
+<figure class="editorial-visual"><img src="assets/editorial-compute.svg" alt="Вычисления и обучение моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВЫЧИСЛЕНИЯ И ОБУЧЕНИЕ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
+
 <div class="steps" id="steps"></div>
 <div class="editor-note"><strong>ВАЖНО ПРО МАСШТАБ</strong>Табличные объёмы из PDF — <b>ориентиры, зависящие от размера модели, стадии и методики</b>, а не обязательные спецификации для всех российских LLM. Объёмы предобучения измеряются токенами, а разметка после обучения — примерами или парами ответов.</div>
 </section>
@@ -378,6 +394,8 @@ nav a.active .n{color:var(--acid)}
 
 <section class="w chapter" id="future">
 <div class="heading-row"><div><div class="kicker">08 / Стратегия на несколько лет</div><h2 class="h2">Кто должен делать следующий ход?</h2><p class="dek">В исследовании конкурентоспособность российских LLM — результат совместной работы, а не достижение одной компании.</p></div><span class="pill">PDF · стр. 29–34</span></div>
+<figure class="editorial-visual"><img src="assets/editorial-future.svg" alt="Возможные траектории развития отрасли. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВОЗМОЖНЫЕ ТРАЕКТОРИИ РАЗВИТИЯ ОТРАСЛИ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
+
 <div class="players"><div class="player"><div class="ico">01</div><h3>Государство</h3><p>Правовые механизмы доступа к данным, исследовательские вычислительные центры и правила для отрасли.</p></div><div class="player"><div class="ico">02</div><h3>Бизнес</h3><p>Внедрение моделей в реальные процессы, отраслевые датасеты, кооперация и открытые разработки.</p></div><div class="player"><div class="ico">03</div><h3>Наука</h3><p>Методология подготовки данных, архитектуры, независимые тесты и исследовательские гипотезы.</p></div><div class="player"><div class="ico">04</div><h3>Образование</h3><p>Подготовка инженеров, экспертов по предметным данным и передача практического опыта.</p></div></div>
 <div class="fig-grid" style="margin-top:15px"><div class="panel"><div class="caps">Три формата кооперации</div><h3>Как можно объединить усилия</h3><p><b>Агентные рынки:</b> компании обмениваются готовыми отраслевыми помощниками, вместо дублирования однотипных разработок.</p><p><b>Модели-полуфабрикаты:</b> общую отраслевую модель донастраивают под предприятие.</p><p><b>Компактные LLM + базы знаний:</b> меньше ресурсов на запуск, больше внимания к инженерии данных и поиску.</p><div class="source">По разделу 5.3 исследования ИТМО.</div></div>
 <div class="panel" style="background:#e6edcf"><div class="caps">Редакционная интерпретация · гипотеза, не вывод интервью</div><h3>А что это означает для бизнеса?</h3><p>Самая доступная точка входа для компании — не обучение собственного конкурента GPT, а небольшой <b>проверяемый пилот</b>: один рабочий процесс, измеримый результат, локальная база знаний и оценка качества на реальных запросах.</p><p><b>Тест:</b> взять 30 типовых документов, сравнить ответы человека и системы и посчитать точность, экономию времени и критические ошибки. Это предлагаемая практическая проверка, а не эксперимент, проведённый авторами PDF.</p></div></div>
