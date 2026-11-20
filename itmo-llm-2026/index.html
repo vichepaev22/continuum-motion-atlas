@@ -491,6 +491,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 @media(max-width:680px){.access-intro{padding:19px;gap:13px}.access-icon{width:38px;height:38px;font-size:21px}.access-filter-row{gap:7px}.access-filter{font-size:11px;padding:9px 11px;gap:5px}.model{padding:20px}.model .model-links{flex-direction:column;align-items:stretch}.model .model-link{justify-content:center}.test-compare-lab{padding:21px}.test-prompt{align-items:flex-start;flex-direction:column}.test-prompt button{align-self:flex-start}}
 @media(prefers-reduced-motion:reduce){.model .model-link:hover{transform:none}}
 </style>
+<link rel="stylesheet" href="v2.css">
 </head>
 <body>
 <a class="skip-link" href="#context">Перейти к содержанию исследования</a>
@@ -624,6 +625,35 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 <div class="catalog-summary"><span id="modelcount">Показаны 16 позиций</span><input class="mini-input" type="search" id="modelsearch" placeholder="Название, компания, задача..." aria-label="Фильтрация моделей"></div>
 <div class="model-list" id="model-list" aria-live="polite"></div>
+<section class="atlas-lab" id="atlas-lab" aria-labelledby="atlas-lab-heading">
+ <span class="atlas-kicker">Лаборатория читателя / выпуск 2.0</span>
+ <h3 id="atlas-lab-heading">Проверьте ответы российских LLM на одном задании</h3>
+ <p>Выберите одну и ту же задачу для нескольких моделей, откройте официальный чат или опубликованные веса, а затем сохраните и сравните ответы. Это ручной эксперимент читателя, <strong>не научный рейтинг и не автоматический бенчмарк</strong>.</p>
+ <div class="atlas-lab-grid">
+  <div>
+   <label class="atlas-field" for="atlas-task">1. Задание для проверки <select id="atlas-task"></select></label>
+   <div class="atlas-lab-prompt"><span class="atlas-kicker">Одинаковый промпт для всех моделей</span><blockquote id="atlas-prompt"></blockquote></div>
+   <div class="atlas-lab-actions"><button class="atlas-btn atlas-btn-primary" id="atlas-copy" type="button">Копировать задание</button></div>
+   <p class="atlas-lab-tip">Не меняйте формулировку между тестами. Отмечайте дату и точную версию модели, если сервис её сообщает.</p>
+  </div>
+  <div>
+   <label class="atlas-field" for="atlas-model">2. Модель из каталога <select id="atlas-model"></select></label>
+   <div class="atlas-lab-actions"><a id="atlas-model-link" class="atlas-btn-link" target="_blank" rel="noopener noreferrer" href="#models">Открыть модель ↗</a></div>
+   <p class="atlas-lab-tip" id="atlas-model-access"></p>
+   <label class="atlas-field" for="atlas-version">Точная версия (если известна) <input id="atlas-version" type="text" maxlength="90" placeholder="Например, версия из интерфейса сервиса"></label>
+   <label class="atlas-field" for="atlas-answer">3. Вставьте ответ, полученный у модели <textarea id="atlas-answer" maxlength="4000" placeholder="Вставьте ответ из чата. Текст остаётся в вашем браузере." spellcheck="false"></textarea></label>
+  </div>
+ </div>
+ <div class="atlas-rating">
+  <label class="atlas-field" for="atlas-accuracy">Фактическая точность¹ <select id="atlas-accuracy"><option value="">Оцените от 1 до 5</option><option value="1">1 — много ошибок</option><option value="2">2 — ошибки</option><option value="3">3 — частично верно</option><option value="4">4 — в основном верно</option><option value="5">5 — проверено и верно</option></select></label>
+  <label class="atlas-field" for="atlas-complete">Полнота ответа¹ <select id="atlas-complete"><option value="">Оцените от 1 до 5</option><option value="1">1 — не отвечает</option><option value="2">2 — неполно</option><option value="3">3 — частично</option><option value="4">4 — почти полностью</option><option value="5">5 — полностью</option></select></label>
+  <label class="atlas-field" for="atlas-verify">Проверяемость¹ <select id="atlas-verify"><option value="">Оцените от 1 до 5</option><option value="1">1 — нельзя проверить</option><option value="2">2 — сложно проверить</option><option value="3">3 — частично</option><option value="4">4 — в целом можно</option><option value="5">5 — все ключевые тезисы проверены</option></select></label>
+ </div>
+ <div class="atlas-lab-actions"><button class="atlas-btn atlas-btn-primary" id="atlas-save" type="button">Добавить результат</button><button class="atlas-btn" id="atlas-export" type="button">Экспорт JSON</button><button class="atlas-btn" id="atlas-clear" type="button">Очистить результаты</button></div>
+ <p role="status" aria-live="polite" id="atlas-feedback" class="atlas-lab-tip"></p>
+ <div class="atlas-results"><span class="atlas-kicker">Мои наблюдения · <span id="atlas-results-count">0 результатов</span></span><div id="atlas-results-list"></div></div>
+ <p class="atlas-footnote">¹ Все оценки выставляет сам читатель. Они не публикуются и не показывают объективного превосходства модели. Ответы хранятся только в локальном хранилище этого браузера (не более 50 записей); экспортируемый JSON может содержать вставленный текст. Не вводите конфиденциальные данные.</p>
+</section>
 <div class="test-compare-lab" id="test-compare-lab">
 <div><span class="kicker">Лаборатория читателя / 04</span><h3>Как сравнивать ответы честно?</h3><p>Используйте одинаковое задание в доступных чатах и сравните фактическую точность, полноту, ссылки на источники и ошибки. Прямой доступ к каждой версии модели есть не всегда.</p></div>
 <div class="test-prompt-list" id="test-prompt-list"></div>
@@ -641,8 +671,23 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 
 <section class="w chapter" id="training">
 <div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте этапы стрелками, колёсиком мыши или жестом по экрану: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=20" target="_blank" rel="noopener" title="Открыть PDF, страница 20">PDF · стр. 20–21 ↗</a></div>
-<figure class="editorial-visual"><img src="assets/editorial-compute.svg" alt="Вычисления и обучение моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВЫЧИСЛЕНИЯ И ОБУЧЕНИЕ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
+<figure class="android-story"><img src="assets/editorial-stone-android.svg" alt="Каменный андроид: мраморный бюст с механическими сочленениями, светящимися схемами и фиолетовым нимбом. Художественный образ сочетания человека и искусственного интеллекта." loading="lazy" decoding="async" width="1100" height="550"><figcaption>КАМЕННЫЙ АНДРОИД / АВТОРСКАЯ ВИЗУАЛЬНАЯ МЕТАФОРА ОБУЧЕНИЯ ИИ — НЕ НАУЧНАЯ СХЕМА И НЕ ДАННЫЕ ИТМО</figcaption></figure>
 
+<section class="atlas-flow" id="atlas-flow" aria-labelledby="atlas-flow-title">
+ <span class="atlas-kicker">Интерактивный объяснитель / 7 этапов</span>
+ <h3 id="atlas-flow-title">Как модель проходит путь от текста к ответу</h3>
+ <p>Выберите любой этап и посмотрите, зачем он нужен. Этапы взяты из технической таблицы ИТМО; схема «данные — обучение — настройка — ответ» условная, не изображает внутреннюю архитектуру конкретной LLM.</p>
+ <div class="atlas-flow-layout">
+  <div id="atlas-stage-tabs" class="atlas-stage-tabs" role="tablist" aria-label="Этапы обучения" aria-orientation="vertical"></div>
+  <div id="atlas-flow-stage-panel" class="atlas-flow-panel" role="tabpanel" tabindex="0" aria-live="polite">
+   <span id="atlas-flow-number" class="atlas-flow-number">ЭТАП 01 / 07</span>
+   <div class="atlas-flow-nodes" aria-hidden="true"><div class="atlas-flow-node" data-active="true">Данные</div><span class="atlas-flow-arrow">→</span><div class="atlas-flow-node">Обучение</div><span class="atlas-flow-arrow">→</span><div class="atlas-flow-node">Настройка</div><span class="atlas-flow-arrow">→</span><div class="atlas-flow-node">Ответ</div></div>
+   <div class="atlas-flow-progress" aria-hidden="true"><i id="atlas-flow-progress"></i></div>
+   <h4 id="atlas-flow-name">Адаптация словаря</h4><p id="atlas-flow-desc"></p><div class="atlas-flow-amount" id="atlas-flow-amount"></div>
+   <p class="atlas-flow-notice">Ориентировочные диапазоны из PDF, стр. 20–21, не универсальная настройка любой российской модели.</p>
+  </div>
+ </div>
+</section>
 <div class="stage-controls"><div class="stage-label"><span>ЭТАПЫ ОБУЧЕНИЯ</span><span id="stepindicator" aria-live="polite">01 / 07</span></div><div class="stage-buttons"><button class="stage-button" id="stageprev" type="button" aria-controls="steps" aria-label="Предыдущий этап обучения">← <span>Назад</span></button><button class="stage-button" id="stagenext" type="button" aria-controls="steps" aria-label="Следующий этап обучения"><span>Далее</span> →</button></div></div>
 <div class="steps" id="steps" tabindex="0" role="region" aria-roledescription="карусель" aria-label="Семь этапов обучения языковой модели. Можно листать горизонтально."></div>
 <div class="editor-note"><strong>ВАЖНО ПРО МАСШТАБ</strong>Табличные объёмы из PDF — <b>ориентиры, зависящие от размера модели, стадии и методики</b>, а не обязательные спецификации для всех российских LLM. Объёмы предобучения измеряются токенами, а разметка после обучения — примерами или парами ответов.</div>
@@ -675,6 +720,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="glossary" id="glossary-items"></div>
 </section>
 
+<aside class="atlas-privacy" role="note"><strong>Прозрачность аналитики, версия 2.0.</strong><p>Сайт фиксирует взаимодействия как локальные события JavaScript, но не отправляет поисковые запросы, оценки лаборатории или ответы моделей на сервер. Сбор статистики реальных посетителей не включён: для этого потребуется выбрать аналитический сервис, настроить уведомление и правовое основание обработки данных. Локальные записи лаборатории можно удалить здесь же.</p></aside>
 <section class="w chapter" id="sources">
 <div class="heading-row"><div><div class="kicker">10 / Прозрачность, без которой нельзя</div><h2 class="h2">Источники, метод и редакторские замечания</h2><p class="dek">Издание следует структуре исследования ИТМО, но не заменяет полный PDF. Сохранены ссылки на оригинальные данные; цифры и экспертные оценки не смешаны с нашими пояснениями.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=35" target="_blank" rel="noopener" title="Открыть PDF, страница 35">PDF · стр. 35–45 ↗</a></div>
 <div class="factcheck"><div class="fact"><h3>Прогноз мировых расходов Gartner менялся</h3><p>В PDF приведён майский прогноз 2026 года: <b>$2,59 трлн</b> мировых расходов на ИИ в 2026 году. В сентябре Gartner выпустил обновлённую оценку <b>$2,7 трлн</b>. Поэтому цифра из отчёта исторически корректна для майского выпуска, но не является самой свежей на 20.11.2026. Пересчёт в рубли зависит от выбранного курса.</p><div class="source"><a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-19-gartner-forecasts-worldwide-ai-spending-to-grow-47-percent-in-2026" target="_blank" rel="noopener">Майский релиз Gartner</a> · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026" target="_blank" rel="noopener">Сентябрьское обновление</a></div></div>
@@ -901,7 +947,9 @@ document.addEventListener('click',function(e){var a=e.target.closest('a[href]');
 
 var sections=$$('section[id]'),navlinks=$$('#nav a'),progress=$('#progress');function onScroll(){var top=window.scrollY;var h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?Math.min(100,top/h*100):0)+'%';var current='cover';sections.forEach(function(s){if(s.getBoundingClientRect().top<innerHeight*.42)current=s.id});navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)})}
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+window.ITMO_ATLAS_DATA={models:models.map(function(m,i){return {name:m.name,by:m.by,accessLinks:(modelAccess[i]&&modelAccess[i].links||[]).map(function(l){return {kind:l.kind,url:l.url,title:l.title}})}}),stages:stages.map(function(x){return {name:x.name,desc:x.desc,amount:x.amount}})};
 })();
 </script>
+<script src="v2.js"></script>
 </body>
 </html>
