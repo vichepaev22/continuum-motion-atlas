@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 550" role="img" aria-labelledby="t d">
+<title id="t">Бенчмарки — разные измерения интеллекта</title><desc id="d">Футуристические весы из светлого камня и металла, окружённые четырьмя независимыми измерительными кольцами: язык, код, логика, культура. Не реальные данные.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0f142b"/><stop offset=".5" stop-color="#332248"/><stop offset="1" stop-color="#432c63"/></linearGradient>
+<radialGradient id="g"><stop stop-color="#8a70da" stop-opacity=".62"/><stop offset="1" stop-color="#7b54b7" stop-opacity="0"/></radialGradient>
+<linearGradient id="silver" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f6eef5"/><stop offset=".52" stop-color="#b8b1ca"/><stop offset="1" stop-color="#817b98"/></linearGradient>
+<linearGradient id="lilac"><stop stop-color="#eedcff"/><stop offset="1" stop-color="#9d78d8"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="4"/></filter>
+<pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0V38" fill="none" stroke="#bda6ee" stroke-opacity=".12"/></pattern>
+</defs>
+<rect width="1100" height="550" fill="url(#bg)"/><rect width="1100" height="550" fill="url(#grid)"/><circle cx="642" cy="270" r="325" fill="url(#g)"/>
+<g stroke="#ad91e3" stroke-opacity=".55" fill="none"><circle cx="632" cy="275" r="223" stroke-dasharray="4 12"/><circle cx="632" cy="275" r="183"/><path d="M632 36v469M400 275h466"/></g>
+<g fill="#f2eafa" font-family="Georgia,serif"><text x="62" y="125" font-size="44">НЕ ОДИН</text><text x="62" y="172" font-size="44">ТЕСТ</text></g><text x="64" y="213" font-family="monospace" font-size="12" letter-spacing="2" fill="#d9bbf2">РАЗНЫЕ СПОСОБНОСТИ · РАЗНЫЕ КРИТЕРИИ</text>
+<g stroke="#685d83" stroke-width="4" fill="url(#silver)">
+<path d="M619 178L640 178L646 442L606 442Z"/><path d="M548 440Q631 415 715 440L741 462H522Z"/><circle cx="631" cy="174" r="24"/><path d="M442 220L824 190L827 207L440 239Z"/>
+</g>
+<g fill="none" stroke="url(#lilac)" stroke-width="3"><path d="M474 228l-35 103m35-103 38 103"/><path d="M788 199l-37 103m37-103 37 103"/></g>
+<g fill="url(#silver)" stroke="#ddd0ef" stroke-width="2"><path d="M401 331Q474 385 540 331Z"/><path d="M717 302Q789 356 854 302Z"/></g>
+<g fill="none" stroke="#d5a7ff" stroke-width="2"><ellipse cx="475" cy="342" rx="62" ry="13"/><ellipse cx="784" cy="314" rx="61" ry="13"/></g>
+<g fill="#d9b8ff" font-family="monospace" font-size="15" text-anchor="middle"><text x="416" y="114">ЯЗЫК</text><text x="850" y="133">КОД</text><text x="350" y="437">ЛОГИКА</text><text x="845" y="432">КУЛЬТУРА</text></g>
+<g stroke="#d3adfb" stroke-width="1.6" fill="none"><path d="M416 124L453 191M834 147l-31 30M399 426l55-50M835 420l-36-80"/></g>
+<g fill="#cda8fb"><circle cx="416" cy="114" r="5"/><circle cx="850" cy="133" r="5"/><circle cx="350" cy="437" r="5"/><circle cx="845" cy="432" r="5"/></g>
+<text x="66" y="465" fill="#cfb7e5" font-family="monospace" font-size="13" letter-spacing="2">EDITORIAL / EVALUATION</text><text x="812" y="488" fill="#cfb7e5" font-family="monospace" font-size="11">НЕ НАУЧНАЯ ДИАГРАММА</text><rect x="20" y="20" width="1060" height="510" stroke="#d7b7ff" stroke-opacity=".3" fill="none"/></svg>
