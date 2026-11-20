@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 550" role="img" aria-labelledby="t d">
+<title id="t">Каменный андроид — искусственный интеллект как новая скульптура мысли</title>
+<desc id="d">Античный бюст андроида из светлого мрамора с механическими суставами, фиолетовым нимбом и тонкими линиями данных.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d0d21"/><stop offset=".52" stop-color="#28203f"/><stop offset="1" stop-color="#533365"/></linearGradient>
+  <radialGradient id="aura"><stop stop-color="#b899ff" stop-opacity=".65"/><stop offset=".38" stop-color="#7c59d9" stop-opacity=".24"/><stop offset="1" stop-color="#6b51b7" stop-opacity="0"/></radialGradient>
+  <linearGradient id="marble" x1=".05" y1=".02" x2=".9" y2="1"><stop stop-color="#fffaf1"/><stop offset=".33" stop-color="#c8c2d2"/><stop offset=".65" stop-color="#8e91a9"/><stop offset="1" stop-color="#5c536d"/></linearGradient>
+  <linearGradient id="front" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#f1e9ed"/><stop offset=".58" stop-color="#b2acc6"/><stop offset="1" stop-color="#797188"/></linearGradient>
+  <linearGradient id="shadow" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#62546f"/><stop offset=".45" stop-color="#302a45"/><stop offset="1" stop-color="#16152c"/></linearGradient>
+  <linearGradient id="metal" x1="0" x2="1"><stop stop-color="#aea8ba"/><stop offset=".45" stop-color="#333046"/><stop offset="1" stop-color="#857d98"/></linearGradient>
+  <linearGradient id="glow" x1="0" x2="1"><stop stop-color="#dbc6ff"/><stop offset="1" stop-color="#9872ff"/></linearGradient>
+  <filter id="grain" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".19" numOctaves="3" seed="8" result="noise"/><feColorMatrix in="noise" type="saturate" values="0" result="mono"/><feComponentTransfer in="mono" result="alpha"><feFuncA type="linear" slope=".085"/></feComponentTransfer><feBlend in="SourceGraphic" in2="alpha" mode="multiply"/></filter>
+  <filter id="bloom" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+  <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="17" cy="17" r="1.4" fill="#ccb0ff" opacity=".28"/></pattern>
+</defs>
+<rect width="1100" height="550" fill="url(#bg)"/><rect width="1100" height="550" fill="url(#dots)"/>
+<ellipse cx="654" cy="236" rx="340" ry="330" fill="url(#aura)"/>
+<g fill="none" stroke="#ab86ff" opacity=".37"><circle cx="642" cy="244" r="182" stroke-width="1.4"/><circle cx="642" cy="244" r="222" stroke-width=".7" stroke-dasharray="5 13"/><circle cx="642" cy="244" r="266" stroke-width=".6"/><path d="M128 100H310M112 445H315M860 105H1010M844 448H1025" stroke-dasharray="3 8"/></g>
+<g fill="#d3b2ff" font-family="ui-monospace, monospace" opacity=".82"><text x="78" y="103" font-size="12" letter-spacing="3">HUMAN × MACHINE</text><text x="82" y="138" font-size="37" letter-spacing="-1" font-family="Georgia,serif" fill="#f1e8ff">НОВАЯ</text><text x="82" y="179" font-size="37" letter-spacing="-1" font-family="Georgia,serif" fill="#f1e8ff">ПРИРОДА</text><text x="82" y="220" font-size="37" letter-spacing="-1" font-family="Georgia,serif" fill="#f1e8ff">РАЗУМА</text><text x="82" y="274" font-size="12" letter-spacing="2" fill="#d0b7f0">КРЕМНИЙ · МРАМОР · ЗНАНИЯ</text><text x="82" y="453" font-size="12" letter-spacing="2">EDITORIAL ART / ITMO 2026</text><text x="874" y="105" font-size="13" letter-spacing="2">SYNTHESIS 06/07</text></g>
+<g opacity=".5" stroke="#d7b4ff" fill="none" stroke-width="1.2">
+ <path d="M90 325h195l54 25h122"/><circle cx="285" cy="325" r="4" fill="#c6b4ed"/>
+ <path d="M857 295h111l32-30h40"/><circle cx="968" cy="295" r="4" fill="#c6b4ed"/>
+ <path d="M850 396h102l22 36h64"/><circle cx="952" cy="396" r="4" fill="#c6b4ed"/>
+</g>
+<g filter="url(#grain)">
+ <path d="M423 538Q424 466 463 438L528 406L561 379H712L752 412L809 432Q862 456 875 538Z" fill="url(#shadow)" stroke="#a59bb6" stroke-width="3"/>
+ <path d="M441 538Q439 488 470 458L555 421L603 432L636 513L665 432L719 419L805 457Q840 488 844 538Z" fill="url(#marble)" stroke="#6a617c" stroke-width="3"/>
+ <path d="M483 468Q500 472 530 466L574 435L607 445L636 525L662 443L715 432L753 470Q787 477 811 466" fill="none" stroke="#f6eaf6" stroke-width="2" opacity=".65"/>
+ <path d="M523 440Q564 411 581 373L691 369Q705 407 752 442L709 463Q671 476 640 511L592 468Z" fill="url(#front)" stroke="#8f889d" stroke-width="3"/>
+ <path d="M574 382L590 330L699 328L718 394L675 423L615 421Z" fill="url(#metal)" stroke="#d3c1df" stroke-width="3"/>
+ <path d="M600 349L615 296L691 296L701 351L677 392L622 394Z" fill="url(#marble)" stroke="#655a70" stroke-width="3"/>
+ <g stroke="#514b64" stroke-width="3" fill="none" opacity=".8"><path d="M618 351h67M615 370h71"/><path d="M624 383l12 11m34-10l-10 11"/></g>
+ <path d="M569 184Q583 130 632 113Q684 104 723 143Q755 169 759 220L753 280L713 320L673 340L626 330L592 304L573 261Z" fill="url(#marble)" stroke="#b9aec4" stroke-width="3.5"/>
+ <path d="M592 190Q616 155 670 156Q718 158 732 194L729 255L701 295L660 314L617 301L590 269Z" fill="url(#front)" stroke="#665d76" stroke-width="1.5"/>
+ <path d="M592 195Q620 182 641 194L634 219L589 230Z" fill="#a8a3b7" opacity=".65"/>
+ <path d="M689 194Q713 181 733 194L735 230L693 219Z" fill="#a8a3b7" opacity=".65"/>
+ <path d="M593 240L635 236L643 242M685 242l10-7 39 6" stroke="#51465e" stroke-width="4" fill="none" stroke-linecap="round"/>
+ <path d="M626 272Q656 260 688 270L682 288H637Z" fill="url(#shadow)" stroke="#d5cadc" stroke-width="2"/>
+ <path d="M635 287L657 301L682 286M648 311L659 319L670 311" stroke="#696079" stroke-width="2" fill="none"/>
+ <path d="M662 225l-3 35 14 6" fill="none" stroke="#665a78" stroke-width="2"/>
+ <path d="M588 187L601 159L626 139L660 133L698 143L728 167" fill="none" stroke="#fff9f3" stroke-width="2.5" opacity=".85"/>
+ <path d="M583 220L573 231L573 270L592 291L604 269L604 236Z" fill="url(#metal)" stroke="#d1bfe0" stroke-width="2"/>
+ <circle cx="580" cy="247" r="29" fill="url(#front)" stroke="#6d647c" stroke-width="4"/><circle cx="580" cy="247" r="17" fill="url(#metal)" stroke="#dccbdf" stroke-width="2"/><circle cx="580" cy="247" r="6" fill="#b692ff"/>
+ <path d="M739 218L761 229L760 271L745 290L732 267L733 235Z" fill="url(#metal)" stroke="#bbb3c6" stroke-width="2"/><circle cx="753" cy="249" r="29" fill="url(#front)" stroke="#6d647c" stroke-width="4"/><circle cx="753" cy="249" r="17" fill="url(#metal)" stroke="#d6cce2" stroke-width="2"/><circle cx="753" cy="249" r="6" fill="#b692ff"/>
+ <g stroke="#756b80" stroke-width="2" fill="none"><path d="M620 161l5 28-14 37 5 38M697 159l-5 22 14 29-6 45M592 284l29 18 11 25M735 285l-30 18-12 26"/><path d="M529 470l30 33 17 34m188-66-26 31-20 35"/></g>
+ <g stroke="#c3a3ff" stroke-width="3" opacity=".95" fill="none" stroke-linecap="round"><path d="M588 247l24-13M747 247l-25-13"/><path d="M602 388l48 20 49-20"/><path d="M633 445l17 27 17-27"/></g>
+</g>
+<g fill="#dbc3ff"><circle cx="284" cy="325" r="4"/><circle cx="968" cy="295" r="4"/><circle cx="956" cy="396" r="4"/></g>
+<rect x="20" y="20" width="1060" height="510" fill="none" stroke="#e4c7ff" stroke-opacity=".3"/>
+</svg>
