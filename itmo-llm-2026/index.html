@@ -299,6 +299,73 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 .quote-band{margin:100px 0;padding-top:65px;padding-bottom:65px}
 @media(max-width:950px){.cover{grid-template-columns:1fr;min-height:0}.cover-art{order:-1;min-height:58vw;max-height:570px}.cover-copy{padding:55px 28px 72px}.cover h1{font-size:clamp(46px,8vw,76px);margin:15px 0 22px;letter-spacing:-.065em}.cover-art .sculpture{object-position:50% 29%}.chapter{padding-top:78px}}
 @media(max-width:680px){.cover-art{min-height:390px}.cover-copy{padding:42px 23px 58px}.cover h1{font-size:clamp(43px,11vw,68px);line-height:1.06}.cover p{font-size:15px}.cover-art .sculpture{object-position:53% 22%}.cover-ring{top:34%}.chapter{padding-top:65px}.insight{min-height:0;padding:27px}.quote-band{margin:55px 0}.editorial-visual img{height:260px}}
+
+/* Editorial readability and alignment improvements, November 2026 */
+#searchbtn{display:flex;align-items:center;justify-content:flex-start;gap:12px;min-width:242px;min-height:50px;padding:12px 18px;border-radius:28px;border:1px solid #d2b9dc;background:#f4eafa;color:#2c1741;font-size:14px;font-weight:800;box-shadow:0 3px 14px #2b113214;transition:background .18s,box-shadow .18s,transform .18s}
+#searchbtn:hover{background:#e8d3f6;box-shadow:0 8px 22px #2c12332b;transform:translateY(-1px)}
+#searchbtn .search-icon{flex:none;color:#7d48a6}
+#searchbtn .search-title{white-space:nowrap}
+#searchbtn .search-key{font:700 11px var(--mono);color:#755a86;margin-left:auto;border-radius:14px;border:1px solid #c6a8d7;padding:4px 7px;white-space:nowrap}
+#searchdialog .dialog-panel{width:min(900px,calc(100vw - 30px));background:#fbf7fd;border-radius:18px;padding:clamp(24px,4vw,48px)}
+#searchdialog .searchbox{min-height:64px;border:2px solid #bea3d0;border-radius:12px;background:#fff;font-size:18px;padding:18px 20px}
+#searchdialog .searchbox:focus{border-color:#7b43a9;outline:2px solid #dabaf7;outline-offset:2px}
+#searchdialog .result{border-radius:9px;padding:16px 20px}
+#searchdialog .result:hover{background:#efe3fa}
+#searchdialog .result strong{font-size:15px}
+#searchdialog .result span{font-size:12px}
+.railbtn{font-size:12px;min-height:44px}
+.cta{font-size:14px;line-height:1.3;min-height:48px;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.filter{font-size:13px;padding:12px 17px;min-height:42px}
+.pill{font-size:11px}
+.caps{font-size:11px}
+.kicker{font-size:12px}
+.source{font-size:11px}
+.action:not(#searchbtn){font-size:12px}
+#training .stage-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px 0 10px}
+#training .stage-label{font:700 12px var(--mono);letter-spacing:.7px;display:flex;align-items:center;gap:16px;color:#6c527d}
+#training #stepindicator{background:#2d193b;color:#f7eaff;padding:8px 13px;border-radius:22px;min-width:73px;text-align:center}
+#training .stage-buttons{display:flex;gap:8px}
+#training .stage-button{border:1px solid #cbb5d5;border-radius:25px;background:#fff9fe;color:#2b173c;padding:11px 18px;min-height:44px;font-size:13px;font-weight:700}
+#training .stage-button:hover:not(:disabled){background:#e5d0f2;border-color:#a77cc2}
+#training .stage-button:disabled{opacity:.38;cursor:default}
+#training .steps{display:flex;align-items:stretch;gap:16px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-padding-inline:3px;scrollbar-width:thin;scrollbar-color:#ad84c3 #efe2f3;padding:8px 3px 22px}
+#training .steps:focus-visible{outline-offset:3px}
+#training .step{box-sizing:border-box;scroll-snap-align:start;flex:0 0 clamp(258px,28vw,315px);min-height:384px;padding:27px;display:flex;flex-direction:column;background:#fffafd;border:1px solid #dfcfdf;border-radius:12px}
+#training .step:nth-child(even){background:#efe5f8}
+#training .step .n{font:800 42px/1.1 var(--display);color:#9c6abc;min-height:56px}
+#training .step h3{font:700 16px/1.4 var(--display);letter-spacing:-.4px;height:72px;min-height:72px;display:flex;align-items:flex-start;margin:9px 0 12px;overflow-wrap:anywhere}
+#training .step p{font-size:13px;line-height:1.65;color:#584a5d;flex:1;margin:0 0 16px}
+#training .step b{font:11px/1.55 var(--mono);border-top:1px solid #d8c8dc;padding-top:15px;min-height:64px;display:block;color:#3a2d48}
+#future .section-break{margin:55px 0 20px;padding:25px 0 0;border-top:1px solid #ae94b7}
+#future .section-break span{font:700 11px var(--mono);color:#78578d;letter-spacing:1px}
+#future .section-break h3{font:700 clamp(20px,2.8vw,29px)/1.25 var(--display);letter-spacing:-1px;margin:12px 0 8px}
+#future .section-break p{font-size:14px;color:#716376;max-width:760px;margin:0}
+#future .future-collaboration{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:0;align-items:stretch}
+#future .future-collaboration .panel{min-width:0;height:100%;padding:30px;border-radius:8px}
+#future .future-collaboration .panel:nth-child(2){background:#eddef3!important}
+#future .future-collaboration .panel .caps{font-size:11px;line-height:1.5}
+#sources .factcheck,#sources .source-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#sources .source-notes{margin-top:14px}
+#sources .fact,#sources .source-notes .panel{box-sizing:border-box;min-width:0;padding:29px 30px;border:1px solid #e3d5e4;border-left:5px solid #ae78ca;border-radius:8px;background:#fffafd}
+#sources .fact:first-child{border-left-color:#d88bab}
+#sources .source-notes .panel:first-child{border-left-color:#8a70c8}
+#sources .source-notes .panel:last-child{border-left-color:#c79a78}
+#sources .fact h3,#sources .source-notes h3{font:700 18px/1.35 var(--display);letter-spacing:-.4px;margin:0 0 15px}
+#sources .fact p,#sources .source-notes p{font-size:13px;line-height:1.8;color:#504457}
+#sources .source-list{gap:14px;margin-top:30px}
+#sources .source-list a:hover{background:#eee0f4}
+.end{background:linear-gradient(125deg,#1a0e29,#321748 68%,#451f58);color:#fff}
+.end-kicker{color:#e5bfff!important}
+.end h2{color:#fff}
+.end p{color:#e0cce6}
+.end .cta:not(.secondary){background:#e5c2ff!important;color:#241037!important;border:2px solid #f0d6ff!important;box-shadow:0 5px 25px #0004}
+.end .cta:not(.secondary):hover{background:#fff1ff!important;color:#241037!important}
+.end .cta.secondary{background:transparent!important;color:#fff!important;border:2px solid #b9a0c8!important}
+.end .cta.secondary:hover{background:#ffffff1f!important}
+.end .smallprint{border-color:#70577e;color:#c8b8d0}
+@media(max-width:950px){#searchbtn{min-width:212px}#future .future-collaboration{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){#searchbtn{min-width:156px;min-height:44px;padding:9px 13px;gap:8px;font-size:12px}#searchbtn .search-icon{width:18px;height:18px}#searchbtn .search-key{display:none}#searchbtn .search-title{font-size:12px}#training .stage-label{font-size:10px;gap:8px}#training .stage-controls{gap:8px}#training .stage-button{padding:10px 12px}#training .stage-button span{display:none}#training .step{flex-basis:min(82vw,300px);min-height:360px;padding:23px}#training .step h3{height:72px;min-height:72px}#future .future-collaboration,#sources .factcheck,#sources .source-notes{grid-template-columns:1fr}#future .section-break{margin-top:38px}#sources .fact,#sources .source-notes .panel{padding:24px}#searchdialog .dialog-panel{max-height:93dvh}#searchdialog .searchbox{font-size:16px;min-height:58px;padding:14px}#searchdialog .result{padding:13px}}
+@media(prefers-reduced-motion:reduce){#searchbtn{transition:none}#searchbtn:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -327,7 +394,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 </aside>
 <main class="main">
-<header class="top"><div class="left"><span><i class="edition-dot"></i>Исследование / 2026</span><span>Аналитика + визуальные объяснения</span></div><div class="top-actions"><button class="action" id="searchbtn">⌕ &nbsp; Поиск <span style="color:#999">⌘K</span></button><a class="action pdf" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">PDF 45 стр. ↗</a><button class="action menu-btn" id="topmenu">☰</button></div></header>
+<header class="top"><div class="left"><span><i class="edition-dot"></i>Исследование / 2026</span><span>Аналитика + визуальные объяснения</span></div><div class="top-actions"><button class="action" id="searchbtn" type="button" aria-haspopup="dialog" aria-controls="searchdialog" aria-label="Открыть поиск по всему изданию"><svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"></circle><path d="m16 16 5 5"></path></svg><span class="search-title">Поиск по изданию</span><span class="search-key" aria-hidden="true">Найти →</span></button><a class="action pdf" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">PDF 45 стр. ↗</a><button class="action menu-btn" id="topmenu">☰</button></div></header>
 
 <section class="cover" id="cover" aria-label="Обложка исследования">
 <div class="cover-copy">
@@ -421,10 +488,11 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="training">
-<div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте горизонтально: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><span class="pill">PDF · стр. 20–21</span></div>
+<div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте этапы стрелками, колёсиком мыши или жестом по экрану: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><span class="pill">PDF · стр. 20–21</span></div>
 <figure class="editorial-visual"><img src="assets/editorial-compute.svg" alt="Вычисления и обучение моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВЫЧИСЛЕНИЯ И ОБУЧЕНИЕ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
-<div class="steps" id="steps"></div>
+<div class="stage-controls"><div class="stage-label"><span>ЭТАПЫ ОБУЧЕНИЯ</span><span id="stepindicator" aria-live="polite">01 / 07</span></div><div class="stage-buttons"><button class="stage-button" id="stageprev" type="button" aria-controls="steps" aria-label="Предыдущий этап обучения">← <span>Назад</span></button><button class="stage-button" id="stagenext" type="button" aria-controls="steps" aria-label="Следующий этап обучения"><span>Далее</span> →</button></div></div>
+<div class="steps" id="steps" tabindex="0" role="region" aria-roledescription="карусель" aria-label="Семь этапов обучения языковой модели. Можно листать горизонтально."></div>
 <div class="editor-note"><strong>ВАЖНО ПРО МАСШТАБ</strong>Табличные объёмы из PDF — <b>ориентиры, зависящие от размера модели, стадии и методики</b>, а не обязательные спецификации для всех российских LLM. Объёмы предобучения измеряются токенами, а разметка после обучения — примерами или парами ответов.</div>
 </section>
 
@@ -445,7 +513,8 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <figure class="editorial-visual"><img src="assets/editorial-future.svg" alt="Возможные траектории развития отрасли. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВОЗМОЖНЫЕ ТРАЕКТОРИИ РАЗВИТИЯ ОТРАСЛИ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
 <div class="players"><div class="player"><div class="ico">01</div><h3>Государство</h3><p>Правовые механизмы доступа к данным, исследовательские вычислительные центры и правила для отрасли.</p></div><div class="player"><div class="ico">02</div><h3>Бизнес</h3><p>Внедрение моделей в реальные процессы, отраслевые датасеты, кооперация и открытые разработки.</p></div><div class="player"><div class="ico">03</div><h3>Наука</h3><p>Методология подготовки данных, архитектуры, независимые тесты и исследовательские гипотезы.</p></div><div class="player"><div class="ico">04</div><h3>Образование</h3><p>Подготовка инженеров, экспертов по предметным данным и передача практического опыта.</p></div></div>
-<div class="fig-grid" style="margin-top:15px"><div class="panel"><div class="caps">Три формата кооперации</div><h3>Как можно объединить усилия</h3><p><b>Агентные рынки:</b> компании обмениваются готовыми отраслевыми помощниками, вместо дублирования однотипных разработок.</p><p><b>Модели-полуфабрикаты:</b> общую отраслевую модель донастраивают под предприятие.</p><p><b>Компактные LLM + базы знаний:</b> меньше ресурсов на запуск, больше внимания к инженерии данных и поиску.</p><div class="source">По разделу 5.3 исследования ИТМО.</div></div>
+<div class="section-break"><span>ПРАКТИЧЕСКИЕ МЕХАНИКИ / 08</span><h3>Как участникам рынка действовать вместе</h3><p>Далее — варианты кооперации из исследования и отдельная редакционная гипотеза для бизнеса.</p></div>
+<div class="fig-grid future-collaboration"><div class="panel"><div class="caps">Три формата кооперации</div><h3>Как можно объединить усилия</h3><p><b>Агентные рынки:</b> компании обмениваются готовыми отраслевыми помощниками, вместо дублирования однотипных разработок.</p><p><b>Модели-полуфабрикаты:</b> общую отраслевую модель донастраивают под предприятие.</p><p><b>Компактные LLM + базы знаний:</b> меньше ресурсов на запуск, больше внимания к инженерии данных и поиску.</p><div class="source">По разделу 5.3 исследования ИТМО.</div></div>
 <div class="panel" style="background:#e6edcf"><div class="caps">Редакционная интерпретация · гипотеза, не вывод интервью</div><h3>А что это означает для бизнеса?</h3><p>Самая доступная точка входа для компании — не обучение собственного конкурента GPT, а небольшой <b>проверяемый пилот</b>: один рабочий процесс, измеримый результат, локальная база знаний и оценка качества на реальных запросах.</p><p><b>Тест:</b> взять 30 типовых документов, сравнить ответы человека и системы и посчитать точность, экономию времени и критические ошибки. Это предлагаемая практическая проверка, а не эксперимент, проведённый авторами PDF.</p></div></div>
 </section>
 
@@ -459,7 +528,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="factcheck"><div class="fact"><h3>Прогноз мировых расходов Gartner менялся</h3><p>В PDF приведён майский прогноз 2026 года: <b>$2,59 трлн</b> мировых расходов на ИИ в 2026 году. В сентябре Gartner выпустил обновлённую оценку <b>$2,7 трлн</b>. Поэтому цифра из отчёта исторически корректна для майского выпуска, но не является самой свежей на 20.11.2026. Пересчёт в рубли зависит от выбранного курса.</p><div class="source"><a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-19-gartner-forecasts-worldwide-ai-spending-to-grow-47-percent-in-2026" target="_blank" rel="noopener">Майский релиз Gartner</a> · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026" target="_blank" rel="noopener">Сентябрьское обновление</a></div></div>
 <div class="fact"><h3>Термины «национальная» и «суверенная»</h3><p>В <b>стр. 8 и 42–43</b> PDF пояснения к этим категориям изложены неодинаково. Поэтому здесь мы не выдаём краткую трактовку из стр. 8 за юридически точное определение. При правоприменении нужно смотреть полный текст ФЗ № 243-ФЗ и последующие подзаконные акты.</p><div class="source"><a href="https://www.consultant.ru/document/cons_doc_LAW_540336/" target="_blank" rel="noopener">ФЗ № 243-ФЗ от 26.07.2026</a> · оригинал PDF, стр. 8, 42–43</div></div>
 </div>
-<div class="fig-grid" style="margin-top:16px"><div class="panel"><h3>Как подготовлено исследование</h3><p>Авторы провели <b>14 глубинных полуструктурированных интервью</b> с представителями бигтеха, академических институтов, независимых команд и других участников отрасли; дополнили их обзором моделей, бенчмарков и этапов обучения. Это качественное исследование экспертных мнений, не статистически репрезентативный опрос всех разработчиков России.</p><div class="source">Стр. 7, 35; официальная страница ITMO Open Source.</div></div>
+<div class="fig-grid source-notes"><div class="panel"><h3>Как подготовлено исследование</h3><p>Авторы провели <b>14 глубинных полуструктурированных интервью</b> с представителями бигтеха, академических институтов, независимых команд и других участников отрасли; дополнили их обзором моделей, бенчмарков и этапов обучения. Это качественное исследование экспертных мнений, не статистически репрезентативный опрос всех разработчиков России.</p><div class="source">Стр. 7, 35; официальная страница ITMO Open Source.</div></div>
 <div class="panel"><h3>Как устроена эта адаптация</h3><p><b>Источник:</b> исследование ИТМО, 2026, 45 страниц.<br><b>Наша работа:</b> редакционная структура, объяснения терминов и цифр, интерактивные таблицы, сценарный ползунок и практическая гипотеза.<br><b>Не делали:</b> собственное тестирование LLM, новое экспертное исследование или независимую проверку всех заявлений каждого интервьюируемого.</p><div class="source">Данные каталога актуальны по состоянию на публикацию исходного исследования, не являются автоматически обновляемыми.</div></div></div>
 <div class="source-list">
 <a href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener"><b>Полный PDF — ИТМО</b><small>45 страниц · первоисточник</small></a>
@@ -473,7 +542,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 </section>
 
-<footer class="end"><div class="w"><div class="kicker" style="color:#cfeea6">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a></div><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
+<footer class="end"><div class="w"><div class="kicker end-kicker">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a></div><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
 </main>
 <div class="dialog" id="searchdialog" role="dialog" aria-modal="true" aria-label="Поиск по изданию"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div class="intro">ПОИСК ПО ИЗДАНИЮ / МОДЕЛЯМ / ТЕРМИНАМ / ТЕСТАМ</div><h2>Что вы хотите найти?</h2><input id="globalsearch" type="search" class="searchbox" placeholder="Например: GigaChat, русский язык, RAG..." aria-label="Запрос поиска"><div class="searchlist" id="searchresults" aria-live="polite"></div></div></div>
 <div class="dialog" id="detaildialog" role="dialog" aria-modal="true" aria-label="Подробности модели"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div id="modeldetail"></div></div></div>
@@ -567,7 +636,16 @@ var sels=['#compare-a','#compare-b'];sels.forEach(function(s){$(s).innerHTML=mod
 function renderCompare(){var a=models[+$('#compare-a').value],b=models[+$('#compare-b').value];$('#compareout').innerHTML=[a,b].map(function(m){return '<div class="compare-item"><strong>'+esc(m.name)+'</strong><div class="mini">'+esc(m.by)+'</div><p>'+esc(m.desc)+'</p><div class="mini">ДОСТУП · '+esc(m.access)+'</div><div class="mini">ИСТОЧНИК · PDF, СТР. '+m.page+'</div></div>'}).join('')}renderCompare();
 var benchGroup='all';function renderBench(){var data=benchmarks.filter(function(x){return benchGroup==='all'||x.kind===benchGroup});$('#bench-list').innerHTML=data.map(function(x){return '<article class="bench"><div class="kind">'+esc(x.by)+'</div><strong>'+esc(x.name)+'</strong><p>'+esc(x.short)+'</p></article>'}).join('')}
 $$('#benchfilters button').forEach(function(b){b.addEventListener('click',function(){benchGroup=b.dataset.kind;$$('#benchfilters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});renderBench()})});renderBench();
-$('#steps').innerHTML=stages.map(function(s,i){return '<article class="step"><div class="n">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(s.name)+'</h3><p>'+esc(s.desc)+'</p><b>'+esc(s.amount)+'</b></article>'}).join('');
+$('#steps').innerHTML=stages.map(function(s,i){return '<article class="step" aria-label="Этап '+(i+1)+' из '+stages.length+'"><div class="n">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(s.name)+'</h3><p>'+esc(s.desc)+'</p><b>'+esc(s.amount)+'</b></article>'}).join('');
+var stageTrack=$('#steps'),stageBack=$('#stageprev'),stageNext=$('#stagenext'),stageIndicator=$('#stepindicator');
+function activeStageIndex(){var cards=$('.step',stageTrack),left=stageTrack.getBoundingClientRect().left,closest=0,distance=Infinity;cards.forEach(function(card,i){var diff=Math.abs(card.getBoundingClientRect().left-left);if(diff<distance){distance=diff;closest=i}});return closest}
+function updateStageControls(){var n=activeStageIndex(),last=stages.length;stageIndicator.textContent=String(n+1).padStart(2,'0')+' / '+String(last).padStart(2,'0');stageBack.disabled=stageTrack.scrollLeft<5;stageNext.disabled=stageTrack.scrollLeft>=stageTrack.scrollWidth-stageTrack.clientWidth-5}
+function moveStage(direction){var cards=$('.step',stageTrack),next=Math.max(0,Math.min(cards.length-1,activeStageIndex()+direction));stageTrack.scrollTo({left:cards[next].offsetLeft-cards[0].offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+stageBack.addEventListener('click',function(){moveStage(-1)});
+stageNext.addEventListener('click',function(){moveStage(1)});
+stageTrack.addEventListener('scroll',updateStageControls,{passive:true});
+stageTrack.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();moveStage(e.key==='ArrowRight'?1:-1)}});
+window.addEventListener('resize',updateStageControls,{passive:true});updateStageControls();
 $('#glossary-items').innerHTML=terms.map(function(t){return '<details><summary>'+esc(t[0])+'</summary><p>'+esc(t[1])+'</p></details>'}).join('');
 function updateShare(){var v=+$('#share').value;$('#shareval').textContent=v+'%';$('#rusfill').style.width=v+'%';$('#legendru').textContent='Русскоязычные: '+v+'%';$('#legendother').textContent='Другие языки и код: '+(100-v)+'%';$('#sharetext').textContent=v+'% — выбранный сценарий в экспертном диапазоне 5–30%. Эта визуализация не предсказывает качество модели: важны источники, языки, очистка и задачи.'}
 $('#share').addEventListener('input',updateShare);updateShare();
