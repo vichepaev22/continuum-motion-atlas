@@ -616,8 +616,10 @@ var terms=[
 ['Common Crawl','Открытый архив слепков веб-страниц, один из источников предварительного обучения.']
 ];
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function openModal(id){$(id).classList.add('open');document.body.style.overflow='hidden';var focus=$('input',$(id))||$('button',$(id));if(focus)focus.focus()}
-function closeModals(){ $$('.dialog').forEach(function(e){e.classList.remove('open')});document.body.style.overflow='';}
+var modalPreviousFocus=null;
+function openModal(id){var dialog=$(id);if(!dialog)return;modalPreviousFocus=document.activeElement;dialog.classList.add('open');document.body.style.overflow='hidden';var focus=$('input',dialog)||$('button',dialog);if(focus)focus.focus()}
+function closeModals(){var wasOpen=$('.dialog.open');$('.dialog').forEach(function(e){e.classList.remove('open')});document.body.style.overflow='';if(wasOpen&&modalPreviousFocus&&typeof modalPreviousFocus.focus==='function')modalPreviousFocus.focus();modalPreviousFocus=null;}
+document.addEventListener('keydown',function(e){var active=$('.dialog.open');if(!active||e.key!=='Tab')return;var items=$('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',active).filter(function(el){return el.getClientRects().length>0});if(!items.length){e.preventDefault();return}var first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}});
 $$('[data-close]').forEach(function(b){b.addEventListener('click',closeModals)});
 $$('.dialog').forEach(function(d){d.addEventListener('click',function(e){if(e.target===d)closeModals()})});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModals();if((e.key==='k'&&(e.metaKey||e.ctrlKey))||(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName))){e.preventDefault();openSearch()}});
