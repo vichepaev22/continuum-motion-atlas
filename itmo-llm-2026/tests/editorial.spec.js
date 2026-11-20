@@ -107,3 +107,18 @@ test('the trial laboratory offers three copyable standardized prompts', async ({
   await expect(page.locator('#test-prompt-list [data-copy-prompt]')).toHaveCount(3);
   await expect(page.locator('#test-compare-lab')).toContainText('одинаковое задание');
 });
+
+test('all sixteen ITMO model entries expose a verified destination and an explicit access disclaimer', async ({ page }) => {
+  await page.goto('./');
+  for (let i = 0; i < 16; i++) {
+    const card = page.locator('#catalog-model-' + i);
+    await expect(card).toBeVisible();
+    await expect(card.locator('a.model-link').first()).toHaveAttribute('href', /^https:\/\//);
+    await card.locator('[data-detail]').first().click();
+    await expect(page.locator('#detaildialog')).toHaveClass(/open/);
+    await expect(page.locator('#modeldetail .detail-model-links a').first()).toHaveAttribute('href', /^https:\/\//);
+    await expect(page.locator('#modeldetail .detail-model-links')).toContainText('Доступ к модели');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#detaildialog')).not.toHaveClass(/open/);
+  }
+});
