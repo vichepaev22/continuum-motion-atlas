@@ -1,0 +1,46 @@
+# Источники доступа к моделям из исследования ИТМО (2026)
+
+Проверка: **20 ноября 2026 года**. Базовый первоисточник: `ITMO_LLM_research.pdf`, таблицы на стр. 9–11 и список источников на стр. 40–45. Ссылки ниже добавлены на основании отдельных карточек разработчиков, репозиториев Hugging Face и официальных публикаций.
+
+В каталоге исследовательские факты не смешиваются с новостями о текущем доступе. **Онлайн-чат != точная опубликованная модель != наличие открытых весов**. Если провайдер обновит движок веб-чата, сервис может отвечать другой версией, чем описана в отчёте. Hugging Face может требовать запуск модели в собственном окружении, а демонстрации иногда недоступны.
+
+| № | Позиция ИТМО | Подтверждённый путь | Ссылки |
+|---|---|---|---|
+| 01 | GigaChat 3 | Веб-чат/демо для семейства | [Попробовать GigaChat](https://giga.chat/portal)<br>[Веса семейства GigaChat 3](https://huggingface.co/collections/ai-sage/gigachat3)<br>[Документация GigaChat 3 Ultra](https://developers.sber.ru/docs/ru/gigachat/models/gigachat-3-ultra) |
+| 02 | AliceAI Foundation 80B | Веса / исходный код | [Веса AliceAI Foundation 80B](https://huggingface.co/yandex/AliceAI-Foundation-80B-A3B-Base) |
+| 03 | Alice AI LLM | Веб-чат/демо для семейства | [Открыть чат Алисы AI](https://alice.yandex.ru/)<br>[Модели в Yandex AI Studio](https://aistudio.yandex.ru/ru/model-gallery) |
+| 04 | AliceAI T5-35B | Веса / исходный код | [Веса AliceAI T5 35B](https://huggingface.co/yandex/AliceAI-T5-35B-A0.6B) |
+| 05 | T-Lite / T-Pro 2.0 | Веса / исходный код | [Веса T-Pro 2.0](https://huggingface.co/t-tech/T-pro-it-2.0)<br>[Веса T-Lite 2.1 (новее)](https://huggingface.co/t-tech/T-lite-it-2.1)<br>[Демо T-Pro 2.0 (может спать)](https://t-pro-2-0.streamlit.app/) |
+| 06 | Cotype Nano / VL | Веса / исходный код | [Веса Cotype Nano](https://huggingface.co/MTSAIR/Cotype-Nano)<br>[Описание Cotype VL от MWS AI](https://mts.ai/tehnologii/mws-ai-vypustila-pervuju-multimodalnuju-model-dlya-raboty-s-izobrazheniyami-i-tekstom/) |
+| 07 | A-vibe | Веса / исходный код | [Веса A-vibe от Авито](https://huggingface.co/AvitoTech/avibe) |
+| 08 | BerryLM-XL / v2 | Только исследовательские сведения | [Результат BerryLM-XL в MERA](https://mera.a-ai.ru/ru/text/submits/16045)<br>[Опыт RWB с BerryLM](https://habr.com/ru/companies/rwb/articles/1106046/) |
+| 09 | OzonGPT | Только исследовательские сведения | [Материал об OzonGPT](https://secrets.tbank.ru/novosti/novaya-neyroset-ot-ozon/) |
+| 10 | MetalGPT-1 | Веса / исходный код | [Веса MetalGPT-1](https://huggingface.co/nn-tech/MetalGPT-1) |
+| 11 | Diona | Только исследовательские сведения | [VK AI Space — официальная информация](https://vk.company.ru/ru/press/releases/12490/)<br>[Материал о Diona](https://www.kommersant.ru/doc/8180892) |
+| 12 | RuAdapt | Веса / исходный код | [RuAdapt — исходный код](https://github.com/LAIR-RCC/ruadapt)<br>[Адаптированная LLaMA-2 7B](https://huggingface.co/rccmsu/ruadapt_llama2_7b_v0.1) |
+| 13 | meno-lite / tiny / whisper | Веса / исходный код | [Веса Meno-Lite 0.1](https://huggingface.co/bond005/meno-lite-0.1)<br>[Веса Meno-Tiny 0.1](https://huggingface.co/bond005/meno-tiny-0.1)<br>[Whisper — распознавание речи](https://huggingface.co/bond005/whisper-podlodka-turbo) |
+| 14 | Gamayun | Только исследовательские сведения | [Научная статья о Gamayun](https://arxiv.org/abs/2512.21580) |
+| 15 | Vikhr | Веса / исходный код | [Веса Vikhr Nemo 12B](https://huggingface.co/Vikhrmodels/Vikhr-Nemo-12B-Instruct-R-21-09-24)<br>[Все модели Vikhr](https://huggingface.co/Vikhrmodels) |
+| 16 | Saiga | Веб-чат/демо для семейства | [Попробовать Saiga Nemo 12B](https://huggingface.co/spaces/IlyaGusev/saiga_nemo_12b_gptq_demo)<br>[Коллекция моделей Saiga](https://huggingface.co/collections/IlyaGusev/saiga)<br>[Saiga 7B LoRA (ранняя версия)](https://huggingface.co/IlyaGusev/saiga_7b_lora) |
+
+## Существенные оговорки
+
+- GigaChat и Алиса AI: открывается официальный публичный сервис. Нет гарантии выбора конкретной версии из таблицы ИТМО.
+- Saiga: демо является **Saiga Nemo 12B**; ранние LoRA-модели из семейства — другие версии.
+- T-Pro 2.0: опубликован исследовательский веб-демонстратор, но при проверке он находился в спящем режиме Streamlit. Работоспособность после пробуждения не гарантируется.
+- T-Lite: в качестве дополнительной ссылки использована более новая версия 2.1; рядом предоставлены точные веса T-Pro 2.0.
+- Cotype: доступны веса Nano, но отдельная публикация для VL подтверждает продукт, не свободное публичное демо.
+- BerryLM, OzonGPT, Diona, Gamayun: прямое общедоступное тестирование точных моделей не удалось подтвердить. Предоставлены статьи, результаты оценки или продуктовая информация, а не фальшивые «тестовые» ссылки.
+- RuAdapt: название обозначает прежде всего методику и семейство адаптированных моделей.
+- Meno: объединены языковые мини-модели и отдельная модель для распознавания речи.
+- Наличие открытых весов не равнозначно наличию лицензии для любого использования; смотрите условия каждой карточки.
+
+## Как перепроверять перед публикацией
+
+1. Проверить, что ссылка ведёт на **конкретную модель**, а не поисковую выдачу или случайный форк.
+2. Убедиться, что статус «Попробовать онлайн» действительно означает доступ к чату (и указать возможную разницу версий).
+3. Публичные веса и исходный код отмечать отдельными типами ссылок; наличие весов не гарантирует виджет инференса.
+4. Для закрытых моделей указывать «прямой публичный доступ не подтверждён», а не делать заключение, что доступ невозможен навсегда.
+5. Проверять работоспособность адресов и лицензии при следующих обновлениях каталога.
+
+В настоящей версии веб-сайт **не проксирует запросы к LLM и не собирает введённые в чужих чатах промпты**. Читатель переходит непосредственно к площадке поставщика.
