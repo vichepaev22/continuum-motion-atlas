@@ -439,6 +439,13 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 .heading-row a.pill:hover{background:#e7d4ef}
 @media(max-width:680px){.scenario-output{grid-template-columns:1fr}.scenario-lab{margin:25px 0;padding:22px}.scenario-picker{flex-direction:column}.scenario-choice{text-align:left}.bookmark-save{padding:8px!important;min-width:42px;justify-content:center}.bookmark-save .bookmark-label{display:none}.bookmark-resume{margin-top:12px}}
 @media(max-width:950px){.bookmark-save .bookmark-label{display:none}}
+
+/* Keep the reading bookmark available while scrolling long-form chapters */
+#bookmark-save{position:fixed;bottom:25px;right:25px;z-index:85;display:flex;align-items:center;justify-content:center;min-height:49px;padding:12px 18px!important;background:#f7e9ff!important;color:#372044!important;border:1px solid #bf90d5!important;border-radius:25px!important;box-shadow:0 8px 30px #2c163a44;transition:transform .2s,background .2s}
+#bookmark-save:hover{transform:translateY(-3px);background:#eed7ff!important}
+#bookmark-save .bookmark-label{font-size:12px;font-weight:800}
+@media(max-width:680px){#bookmark-save{right:14px;bottom:15px;width:48px;height:48px;padding:7px!important;border-radius:50%!important}#bookmark-save .bookmark-label{display:none}}
+@media print{#bookmark-save{display:none!important}}
 </style>
 </head>
 <body>
@@ -485,7 +492,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <a class="route-card" href="#findings"><span class="route-top"><span>01 / КОРОТКО</span><span aria-hidden="true">↗</span></span><strong>Главное за 2 минуты</strong><span class="route-desc">Шесть важных выводов. Данные, ограничения и стратегические возможности — без технического перегруза.</span><span class="route-action">Смотреть выводы →</span></a>
 <a class="route-card" href="#context"><span class="route-top"><span>02 / ПО ПОРЯДКУ</span><span aria-hidden="true">↗</span></span><strong>Пройти всю историю</strong><span class="route-desc">Начните с контекста и двигайтесь через цифры, модели и устройство их обучения к будущему отрасли.</span><span class="route-action">Начать с первой главы →</span></a>
 <a class="route-card" href="#models"><span class="route-top"><span>03 / КАК ИНСТРУМЕНТ</span><span aria-hidden="true">↗</span></span><strong>Работать с исследованием</strong><span class="route-desc">Каталог 16 разработок, их сопоставление, бенчмарки, терминология и ссылки на исходный документ.</span><span class="route-action">Открыть каталог →</span></a>
-</div><div class="bookmark-resume" id="bookmark-resume" hidden><span>ВЫ УЖЕ ЧИТАЛИ ЭТО ИЗДАНИЕ</span><button type="button" id="bookmark-continue">Продолжить с сохранённого места →</button><small>Хранится только в вашем браузере. Никакие данные не передаются на сервер.</small></div></section>
+</div><div class="bookmark-resume" id="bookmark-resume" hidden><span>ВЫ УЖЕ ЧИТАЛИ ЭТО ИЗДАНИЕ</span><button type="button" id="bookmark-continue">Продолжить с сохранённого места →</button><button type="button" id="bookmark-clear" aria-label="Удалить сохранённое место">Сбросить</button><small>Хранится только в вашем браузере. Никакие данные не передаются на сервер.</small></div></section>
 
 <section class="w mast" id="context">
 <div class="mast-grid">
@@ -793,6 +800,7 @@ function getSavedPosition(){try{return localStorage.getItem(readingKey)}catch(e)
 function updateReadingResume(){var id=getSavedPosition(),el=id&&document.getElementById(id),box=$('#bookmark-resume');box.hidden=!el;if(!el)return;var title=$('h2',el);$('#bookmark-continue').textContent='Продолжить: '+(title?title.textContent:'раздел')+' →'}
 $('#bookmark-save').addEventListener('click',function(){var active=Array.from(document.querySelectorAll('main section[id]')).filter(function(e){return e.getBoundingClientRect().top<innerHeight*.43}).pop()||$('#context');try{localStorage.setItem(readingKey,active.id);toast('Место сохранено только в этом браузере');updateReadingResume()}catch(e){toast('Сохранение недоступно в настройках браузера')}});
 $('#bookmark-continue').addEventListener('click',function(){var id=getSavedPosition(),el=id&&document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})});
+$('#bookmark-clear').addEventListener('click',function(){try{localStorage.removeItem(readingKey);updateReadingResume();toast('Место чтения сброшено')}catch(e){toast('Настройки браузера не позволяют изменить сохранение')}});
 updateReadingResume();
 
 var sections=$$('section[id]'),navlinks=$$('#nav a'),progress=$('#progress');function onScroll(){var top=window.scrollY;var h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?Math.min(100,top/h*100):0)+'%';var current='cover';sections.forEach(function(s){if(s.getBoundingClientRect().top<innerHeight*.42)current=s.id});navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)})}
