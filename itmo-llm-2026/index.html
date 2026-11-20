@@ -413,6 +413,32 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 #searchresults .result:hover{border-color:#ad83c6}
 [id^="read-fragment-"]{scroll-margin-top:100px}
 #searchresults .result span:last-child{font-size:12px;line-height:1.55;color:#52465c}
+
+/* Practical scenarios and browser-local reading bookmark */
+.scenario-lab{border:1px solid #dac3e6;background:linear-gradient(130deg,#fbf5fd,#f0e2f9);padding:clamp(23px,4vw,45px);margin:44px 0 36px;border-radius:16px}
+.scenario-head h3{font:700 clamp(21px,2.5vw,34px)/1.25 var(--display);letter-spacing:-.7px;margin:13px 0}
+.scenario-head p{font-size:14px;line-height:1.7;color:#695b73}
+.scenario-picker{display:flex;gap:9px;flex-wrap:wrap;margin:24px 0}
+.scenario-choice{background:#fff;border:1px solid #ceb6dd;border-radius:24px;padding:12px 17px;color:#412a58;font-size:13px;font-weight:700;min-height:44px}
+.scenario-choice[aria-pressed="true"]{background:#301741;color:#fff;border-color:#301741}
+.scenario-output{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.scenario-output>div{padding:23px;background:#fffafd;border:1px solid #e3d3ed;border-radius:10px}
+.scenario-output h4{font:700 18px/1.4 var(--display);margin:11px 0}
+.scenario-output p{font-size:14px;line-height:1.75;color:#55435d}
+.scenario-output a{font-weight:700;color:#6d3b8b;font-size:12px}
+.scenario-label{font:10px var(--mono);letter-spacing:.7px;color:#865c9b}
+.scenario-note{font:11px/1.7 var(--mono);color:#715e7c;margin:20px 0 0}
+.bookmark-save{display:flex;align-items:center;gap:7px;min-height:44px;color:#60416d!important;border-color:#dac8df!important}
+.bookmark-save .bookmark-label{font-size:11px;font-weight:700}
+.bookmark-resume{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px;background:#eee3f4;border:1px solid #d8c3e0;padding:18px 21px;border-radius:10px}
+.bookmark-resume[hidden]{display:none}
+.bookmark-resume span{font:10px var(--mono);letter-spacing:.3px}
+.bookmark-resume button{border:1px solid #ac8cbb;border-radius:20px;padding:9px 14px;background:#fff;color:#4c2b61;font-size:12px;font-weight:700;cursor:pointer}
+.bookmark-resume small{color:#685c71;font-size:11px}
+.heading-row a.pill{text-decoration:none;transition:background .2s}
+.heading-row a.pill:hover{background:#e7d4ef}
+@media(max-width:680px){.scenario-output{grid-template-columns:1fr}.scenario-lab{margin:25px 0;padding:22px}.scenario-picker{flex-direction:column}.scenario-choice{text-align:left}.bookmark-save{padding:8px!important;min-width:42px;justify-content:center}.bookmark-save .bookmark-label{display:none}.bookmark-resume{margin-top:12px}}
+@media(max-width:950px){.bookmark-save .bookmark-label{display:none}}
 </style>
 </head>
 <body>
@@ -441,7 +467,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 </aside>
 <main class="main">
-<header class="top"><div class="left"><span><i class="edition-dot"></i>Исследование / 2026</span><span>Аналитика + визуальные объяснения</span></div><div class="top-actions"><button class="action" id="searchbtn" type="button" aria-haspopup="dialog" aria-controls="searchdialog" aria-label="Открыть поиск по всему изданию"><svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"></circle><path d="m16 16 5 5"></path></svg><span class="search-title">Поиск по изданию</span><span class="search-key" aria-hidden="true">Найти →</span></button><a class="action pdf" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">PDF 45 стр. ↗</a><button class="action menu-btn" id="topmenu">☰</button></div></header>
+<header class="top"><div class="left"><span><i class="edition-dot"></i>Исследование / 2026</span><span>Аналитика + визуальные объяснения</span></div><div class="top-actions"><button class="action" id="searchbtn" type="button" aria-haspopup="dialog" aria-controls="searchdialog" aria-label="Открыть поиск по всему изданию"><svg class="search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"></circle><path d="m16 16 5 5"></path></svg><span class="search-title">Поиск по изданию</span><span class="search-key" aria-hidden="true">Найти →</span></button><a class="action pdf" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">PDF 45 стр. ↗</a><button class="action bookmark-save" id="bookmark-save" type="button" aria-label="Сохранить текущее место чтения" title="Запомнить место чтения"><span aria-hidden="true">▣</span><span class="bookmark-label">Запомнить место</span></button><button class="action menu-btn" id="topmenu">☰</button></div></header>
 
 <section class="cover" id="cover" aria-label="Обложка исследования">
 <div class="cover-copy">
@@ -459,7 +485,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <a class="route-card" href="#findings"><span class="route-top"><span>01 / КОРОТКО</span><span aria-hidden="true">↗</span></span><strong>Главное за 2 минуты</strong><span class="route-desc">Шесть важных выводов. Данные, ограничения и стратегические возможности — без технического перегруза.</span><span class="route-action">Смотреть выводы →</span></a>
 <a class="route-card" href="#context"><span class="route-top"><span>02 / ПО ПОРЯДКУ</span><span aria-hidden="true">↗</span></span><strong>Пройти всю историю</strong><span class="route-desc">Начните с контекста и двигайтесь через цифры, модели и устройство их обучения к будущему отрасли.</span><span class="route-action">Начать с первой главы →</span></a>
 <a class="route-card" href="#models"><span class="route-top"><span>03 / КАК ИНСТРУМЕНТ</span><span aria-hidden="true">↗</span></span><strong>Работать с исследованием</strong><span class="route-desc">Каталог 16 разработок, их сопоставление, бенчмарки, терминология и ссылки на исходный документ.</span><span class="route-action">Открыть каталог →</span></a>
-</div></section>
+</div><div class="bookmark-resume" id="bookmark-resume" hidden><span>ВЫ УЖЕ ЧИТАЛИ ЭТО ИЗДАНИЕ</span><button type="button" id="bookmark-continue">Продолжить с сохранённого места →</button><small>Хранится только в вашем браузере. Никакие данные не передаются на сервер.</small></div></section>
 
 <section class="w mast" id="context">
 <div class="mast-grid">
@@ -479,7 +505,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="findings">
-<div class="heading-row"><div><div class="kicker">02 / Главная идея</div><h2 class="h2">Шесть выводов,<br>которые меняют картину</h2><p class="dek">Главное из 45 страниц — без потери важнейших оговорок и с привязкой к разделам оригинала.</p></div><span class="pill">PDF · стр. 3–6</span></div>
+<div class="heading-row"><div><div class="kicker">02 / Главная идея</div><h2 class="h2">Шесть выводов,<br>которые меняют картину</h2><p class="dek">Главное из 45 страниц — без потери важнейших оговорок и с привязкой к разделам оригинала.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=3" target="_blank" rel="noopener" title="Открыть PDF, страница 3">PDF · стр. 3–6 ↗</a></div>
 <div class="insights">
 <article class="insight"><span class="idx">01 / СИСТЕМА</span><h3>Для сильных моделей мало только GPU</h3><p>Нужны ясные правила, доступ к данным, вычислительная инфраструктура, качественная оценка и кадры. Недостаток одного звена тормозит остальные.</p></article>
 <article class="insight"><span class="idx">02 / РЕСУРС</span><h3>Закрытые знания — возможное преимущество</h3><p>Библиотеки, архивы, научные и профессиональные коллекции способны улучшать качество отраслевых решений — при законном доступе и подготовке.</p></article>
@@ -491,7 +517,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="quote-band"><blockquote>«Вопрос не в количестве, а в качестве».</blockquote><small>Иван Оселедец · генеральный директор AIRI · исследование ИТМО, стр. 26</small></div>
 
 <section class="w chapter" id="data">
-<div class="heading-row"><div><div class="kicker">03 / С чего начинается модель</div><h2 class="h2">Данных должно быть много.<br>Но каких именно?</h2><p class="dek">Российский языковой корпус определяет качество локального контекста. Международные данные и код расширяют диапазон задач.</p></div><span class="pill">PDF · стр. 20–28</span></div>
+<div class="heading-row"><div><div class="kicker">03 / С чего начинается модель</div><h2 class="h2">Данных должно быть много.<br>Но каких именно?</h2><p class="dek">Российский языковой корпус определяет качество локального контекста. Международные данные и код расширяют диапазон задач.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=20" target="_blank" rel="noopener" title="Открыть PDF, страница 20">PDF · стр. 20–28 ↗</a></div>
 <figure class="editorial-visual"><img src="assets/editorial-data.svg" alt="Языковые корпуса и структура данных. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ЯЗЫКОВЫЕ КОРПУСА И СТРУКТУРА ДАННЫХ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
 <div class="fig-grid">
@@ -512,6 +538,14 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <p class="source">Стр. 23. Не единый рейтинг качества: размеры из разных корпусов и методик сбора напрямую несопоставимы. EN для HPLT v2 — приблизительно «в пять раз больше», по тексту исследования.</p></div>
 <div class="panel"><div class="caps">Практическое различие</div><h3>Три типа данных — три разных эффекта</h3><p><b>Открытый интернет:</b> широкий охват знаний, языков и тематик, но требуется очистка от шума и дублей.</p><p><b>Архивы и корпоративные материалы:</b> глубокая предметная экспертиза, но с правовыми, качественными и организационными ограничениями.</p><p><b>Экспертные и синтетические примеры:</b> обучение поведению модели, логике решения задач и полезным форматам ответа — после проверки качества.</p><div class="cardfoot">Вывод: вместо одного «идеального датасета» нужны управляемые смеси на разных этапах обучения.</div></div>
 </div>
+<div class="scenario-lab" id="scenario-lab" aria-labelledby="scenario-title">
+<div class="scenario-head"><span class="kicker">ИНТЕРАКТИВНОЕ ОБЪЯСНЕНИЕ / НЕ ПРОГНОЗ</span><h3 id="scenario-title">Какие данные нужны модели для вашей задачи?</h3><p>Выберите сценарий: меняется не выдуманный «балл качества», а объяснение того, какие знания и ограничения важны.</p></div>
+<div class="scenario-picker" role="group" aria-label="Сценарий применения">
+<button type="button" class="scenario-choice" data-scenario="general" aria-pressed="true">Универсальная LLM</button>
+<button type="button" class="scenario-choice" data-scenario="medical" aria-pressed="false">Медицинский помощник</button>
+<button type="button" class="scenario-choice" data-scenario="code" aria-pressed="false">Модель для программирования</button>
+</div><div class="scenario-output" aria-live="polite"><div><span class="scenario-label">ПРИОРИТЕТНЫЕ ТИПЫ ДАННЫХ</span><h4 id="scenario-output-title">Широкая и многоязычная база знаний</h4><p id="scenario-output-text">Для универсальной модели важны разнообразные языки, научные публикации, код, качественные русскоязычные тексты и проверяемые данные.</p></div><div><span class="scenario-label">ЧТО НУЖНО ПРОВЕРИТЬ</span><p id="scenario-output-risk">Ни один процент русского языка не гарантирует качество сам по себе: результат зависит от состава и подготовки корпуса и от тестируемых задач.</p><a id="scenario-output-source" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=22" target="_blank" rel="noopener">Исследование ИТМО, стр. 22–24 ↗</a></div></div>
+<p class="scenario-note">Редакционное объяснение по исследованию ИТМО. Сценарии не являются результатом отдельного эксперимента и не задают количественный оптимум для конкретной модели.</p></div>
 <div class="photo-panel">
 <div class="photo" role="img" aria-label="Фотография серверного оборудования в дата-центре"></div>
 <div class="photo-copy"><span class="overline">Вычислительная инфраструктура</span><h3>Данные — топливо.<br>Но модель нужен двигатель.</h3><p>Исследование описывает одновременно нехватку вычислительных мощностей, специалистов инфраструктуры и проверенных русскоязычных корпусов. Оценка разрыва с США в 660 раз приведена из внешнего источника и не является прямым измерением самой команды ИТМО.</p><p class="source" style="color:#b6c1bf">PDF, стр. 2, 12–14 · ComNews, 14.05.2026</p></div>
@@ -519,7 +553,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="models">
-<div class="heading-row"><div><div class="kicker">04 / Кто создаёт модели</div><h2 class="h2">Атлас российских LLM</h2><p class="dek">16 позиций из таблиц исследования: большие технологические компании, академические команды и независимые разработчики. Откройте карточку, отфильтруйте или сравните два подхода.</p></div><span class="pill">PDF · стр. 9–11</span></div>
+<div class="heading-row"><div><div class="kicker">04 / Кто создаёт модели</div><h2 class="h2">Атлас российских LLM</h2><p class="dek">16 позиций из таблиц исследования: большие технологические компании, академические команды и независимые разработчики. Откройте карточку, отфильтруйте или сравните два подхода.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=9" target="_blank" rel="noopener" title="Открыть PDF, страница 9">PDF · стр. 9–11 ↗</a></div>
 <figure class="editorial-visual"><img src="assets/editorial-models.svg" alt="Экосистема российских языковых моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ЭКОСИСТЕМА РОССИЙСКИХ ЯЗЫКОВЫХ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
 <div class="filters" id="model-filters">
@@ -535,14 +569,14 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="benchmarks">
-<div class="heading-row"><div><div class="kicker">05 / Как понять, какая модель лучше</div><h2 class="h2">Один тест — не вся картина</h2><p class="dek">Бенчмарк — стандартизированное испытание. Культурные знания, математика, программирование, документы и безопасность требуют разных наборов задач.</p></div><span class="pill">PDF · стр. 14–16</span></div>
+<div class="heading-row"><div><div class="kicker">05 / Как понять, какая модель лучше</div><h2 class="h2">Один тест — не вся картина</h2><p class="dek">Бенчмарк — стандартизированное испытание. Культурные знания, математика, программирование, документы и безопасность требуют разных наборов задач.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=14" target="_blank" rel="noopener" title="Открыть PDF, страница 14">PDF · стр. 14–16 ↗</a></div>
 <div class="filters" id="benchfilters"><button class="filter" data-kind="all" aria-pressed="true">Все тесты</button><button class="filter" data-kind="culture" aria-pressed="false">Культура / язык</button><button class="filter" data-kind="code" aria-pressed="false">Код / математика</button><button class="filter" data-kind="visual" aria-pressed="false">Мультимодальность</button><button class="filter" data-kind="other" aria-pressed="false">Другие задачи</button></div>
 <div class="bench-list" id="bench-list"></div>
 <div class="editor-note"><strong>НЕ ПУТАЙТЕ ЗАДАЧИ</strong>В начале 2026 года первые шесть мест SLAVA в отдельном эксперименте на вопросах о российском культурном контексте занимали отечественные модели. Это <b>не значит</b>, что они заняли первые места во всех международных LLM-бенчмарках, включая код и сложные рассуждения. Источник: PDF, стр. 4 и 16–17.</div>
 </section>
 
 <section class="w chapter" id="training">
-<div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте этапы стрелками, колёсиком мыши или жестом по экрану: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><span class="pill">PDF · стр. 20–21</span></div>
+<div class="heading-row"><div><div class="kicker">06 / Под капотом модели</div><h2 class="h2">Как обучение превращает тексты в ответы</h2><p class="dek">Семь этапов из технической таблицы ИТМО. Листайте этапы стрелками, колёсиком мыши или жестом по экрану: от словаря токенов до задач с автоматически проверяемым результатом.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=20" target="_blank" rel="noopener" title="Открыть PDF, страница 20">PDF · стр. 20–21 ↗</a></div>
 <figure class="editorial-visual"><img src="assets/editorial-compute.svg" alt="Вычисления и обучение моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВЫЧИСЛЕНИЯ И ОБУЧЕНИЕ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
 <div class="stage-controls"><div class="stage-label"><span>ЭТАПЫ ОБУЧЕНИЯ</span><span id="stepindicator" aria-live="polite">01 / 07</span></div><div class="stage-buttons"><button class="stage-button" id="stageprev" type="button" aria-controls="steps" aria-label="Предыдущий этап обучения">← <span>Назад</span></button><button class="stage-button" id="stagenext" type="button" aria-controls="steps" aria-label="Следующий этап обучения"><span>Далее</span> →</button></div></div>
@@ -551,7 +585,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="sectors">
-<div class="heading-row"><div><div class="kicker">07 / Задачи, а не абстрактный рейтинг</div><h2 class="h2">Где российский контекст действительно важен</h2><p class="dek">Примеры применения по направлениям исследования. Для каждой сферы — задача, данные и оговорка о границах качества.</p></div><span class="pill">PDF · стр. 17–19</span></div>
+<div class="heading-row"><div><div class="kicker">07 / Задачи, а не абстрактный рейтинг</div><h2 class="h2">Где российский контекст действительно важен</h2><p class="dek">Примеры применения по направлениям исследования. Для каждой сферы — задача, данные и оговорка о границах качества.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=17" target="_blank" rel="noopener" title="Открыть PDF, страница 17">PDF · стр. 17–19 ↗</a></div>
 <div class="usecases">
 <article class="case"><div class="c-title">01 / Медицина</div><h3>Помощник врача</h3><p><b>Задача:</b> структурировать анамнез из разговора с пациентом.<br><b>Нужны:</b> обезличенные диалоги, истории болезни, российские стандарты.<br><b>Контроль:</b> решение принимает специалист; особая защита данных.</p></article>
 <article class="case"><div class="c-title">02 / Право</div><h3>Анализ документов</h3><p><b>Задача:</b> искать нормы, резюмировать дела и выявлять риски.<br><b>Нужны:</b> актуальные акты, судебная практика, проверяемые ссылки.<br><b>Контроль:</b> юридическая проверка, актуальность баз.</p></article>
@@ -563,7 +597,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="future">
-<div class="heading-row"><div><div class="kicker">08 / Стратегия на несколько лет</div><h2 class="h2">Кто должен делать следующий ход?</h2><p class="dek">В исследовании конкурентоспособность российских LLM — результат совместной работы, а не достижение одной компании.</p></div><span class="pill">PDF · стр. 29–34</span></div>
+<div class="heading-row"><div><div class="kicker">08 / Стратегия на несколько лет</div><h2 class="h2">Кто должен делать следующий ход?</h2><p class="dek">В исследовании конкурентоспособность российских LLM — результат совместной работы, а не достижение одной компании.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=29" target="_blank" rel="noopener" title="Открыть PDF, страница 29">PDF · стр. 29–34 ↗</a></div>
 <figure class="editorial-visual"><img src="assets/editorial-future.svg" alt="Возможные траектории развития отрасли. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ВОЗМОЖНЫЕ ТРАЕКТОРИИ РАЗВИТИЯ ОТРАСЛИ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
 <div class="players"><div class="player"><div class="ico">01</div><h3>Государство</h3><p>Правовые механизмы доступа к данным, исследовательские вычислительные центры и правила для отрасли.</p></div><div class="player"><div class="ico">02</div><h3>Бизнес</h3><p>Внедрение моделей в реальные процессы, отраслевые датасеты, кооперация и открытые разработки.</p></div><div class="player"><div class="ico">03</div><h3>Наука</h3><p>Методология подготовки данных, архитектуры, независимые тесты и исследовательские гипотезы.</p></div><div class="player"><div class="ico">04</div><h3>Образование</h3><p>Подготовка инженеров, экспертов по предметным данным и передача практического опыта.</p></div></div>
@@ -573,12 +607,12 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </section>
 
 <section class="w chapter" id="glossary">
-<div class="heading-row"><div><div class="kicker">09 / Словарь без сложных слов</div><h2 class="h2">Понятия, которые стоит знать</h2><p class="dek">Нажмите на термин, чтобы раскрыть объяснение. Определения адаптированы из словаря на странице 44 оригинального отчёта.</p></div><span class="pill">PDF · стр. 44</span></div>
+<div class="heading-row"><div><div class="kicker">09 / Словарь без сложных слов</div><h2 class="h2">Понятия, которые стоит знать</h2><p class="dek">Нажмите на термин, чтобы раскрыть объяснение. Определения адаптированы из словаря на странице 44 оригинального отчёта.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=44" target="_blank" rel="noopener" title="Открыть PDF, страница 44">PDF · стр. 44 ↗</a></div>
 <div class="glossary" id="glossary-items"></div>
 </section>
 
 <section class="w chapter" id="sources">
-<div class="heading-row"><div><div class="kicker">10 / Прозрачность, без которой нельзя</div><h2 class="h2">Источники, метод и редакторские замечания</h2><p class="dek">Издание следует структуре исследования ИТМО, но не заменяет полный PDF. Сохранены ссылки на оригинальные данные; цифры и экспертные оценки не смешаны с нашими пояснениями.</p></div><span class="pill">PDF · стр. 35–45</span></div>
+<div class="heading-row"><div><div class="kicker">10 / Прозрачность, без которой нельзя</div><h2 class="h2">Источники, метод и редакторские замечания</h2><p class="dek">Издание следует структуре исследования ИТМО, но не заменяет полный PDF. Сохранены ссылки на оригинальные данные; цифры и экспертные оценки не смешаны с нашими пояснениями.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=35" target="_blank" rel="noopener" title="Открыть PDF, страница 35">PDF · стр. 35–45 ↗</a></div>
 <div class="factcheck"><div class="fact"><h3>Прогноз мировых расходов Gartner менялся</h3><p>В PDF приведён майский прогноз 2026 года: <b>$2,59 трлн</b> мировых расходов на ИИ в 2026 году. В сентябре Gartner выпустил обновлённую оценку <b>$2,7 трлн</b>. Поэтому цифра из отчёта исторически корректна для майского выпуска, но не является самой свежей на 20.11.2026. Пересчёт в рубли зависит от выбранного курса.</p><div class="source"><a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-19-gartner-forecasts-worldwide-ai-spending-to-grow-47-percent-in-2026" target="_blank" rel="noopener">Майский релиз Gartner</a> · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026" target="_blank" rel="noopener">Сентябрьское обновление</a></div></div>
 <div class="fact"><h3>Термины «национальная» и «суверенная»</h3><p>В <b>стр. 8 и 42–43</b> PDF пояснения к этим категориям изложены неодинаково. Поэтому здесь мы не выдаём краткую трактовку из стр. 8 за юридически точное определение. При правоприменении нужно смотреть полный текст ФЗ № 243-ФЗ и последующие подзаконные акты.</p><div class="source"><a href="https://www.consultant.ru/document/cons_doc_LAW_540336/" target="_blank" rel="noopener">ФЗ № 243-ФЗ от 26.07.2026</a> · оригинал PDF, стр. 8, 42–43</div></div>
 </div>
@@ -686,7 +720,7 @@ $$('#nav a').forEach(function(a){a.addEventListener('click',function(){$('#side'
 function buildModel(m,i){return '<article class="model"><div class="model-top"><div><div class="by">'+esc(m.by)+'</div><h3>'+esc(m.name)+'</h3></div><button class="more" data-detail="'+i+'" aria-label="Подробности '+esc(m.name)+'">+</button></div><p>'+esc(m.desc)+'</p><div class="attrs"><span class="chip '+(m.open===true?'lilac':'')+'">'+esc(m.access)+'</span><span class="chip">'+(m.group==='own'?'С нуля':m.group==='adapt'?'Адаптация':'Тип обучения не уточнён')+'</span>'+(m.niche?'<span class="chip salmon">Отрасль</span>':'')+'</div></article>'}
 var group='all';
 function renderModels(){var search=$('#modelsearch').value.toLowerCase().trim();var out=models.map(function(m,i){return {m:m,i:i}}).filter(function(o){var m=o.m;return (group==='all'||group==='open'&&m.open===true||group==='own'&&m.group==='own'||group==='adapt'&&m.group==='adapt'||group==='niche'&&m.niche)&&((m.name+' '+m.by+' '+m.desc).toLowerCase().includes(search))});$('#model-list').innerHTML=out.map(function(o){return buildModel(o.m,o.i)}).join('')||'<div class="empty">По текущим фильтрам моделей не найдено. Сбросьте фильтр или измените запрос.</div>';$('#modelcount').textContent='Показано '+out.length+' из '+models.length+' позиций каталога';$$('[data-detail]').forEach(function(b){b.addEventListener('click',function(){showModel(+b.dataset.detail)})})}
-function showModel(i){var m=models[i];$('#modeldetail').innerHTML='<div class="intro">КАТАЛОГ МОДЕЛЕЙ / ИССЛЕДОВАНИЕ ИТМО / СТР. '+m.page+'</div><h2>'+esc(m.name)+'</h2><div class="caps">'+esc(m.by)+'</div><p>'+esc(m.desc)+'</p><p><b>Статус публикации:</b> '+esc(m.access)+'<br><b>По обучению:</b> '+(m.group==='own'?'исследование указывает обучение с нуля':m.group==='adapt'?'адаптация готовой основы':'однозначное указание в сводной таблице отсутствует')+'</p><div class="editor-note"><strong>ПОЯСНЕНИЕ К ЗАПИСИ</strong>'+esc(m.note)+'</div><p><a href="'+PDF+'" target="_blank" rel="noopener">Перейти к оригинальному PDF (стр. '+m.page+') ↗</a></p>';openModal('#detaildialog')}
+function showModel(i){var m=models[i];$('#modeldetail').innerHTML='<div class="intro">КАТАЛОГ МОДЕЛЕЙ / ИССЛЕДОВАНИЕ ИТМО / СТР. '+m.page+'</div><h2>'+esc(m.name)+'</h2><div class="caps">'+esc(m.by)+'</div><p>'+esc(m.desc)+'</p><p><b>Статус публикации:</b> '+esc(m.access)+'<br><b>По обучению:</b> '+(m.group==='own'?'исследование указывает обучение с нуля':m.group==='adapt'?'адаптация готовой основы':'однозначное указание в сводной таблице отсутствует')+'</p><div class="editor-note"><strong>ПОЯСНЕНИЕ К ЗАПИСИ</strong>'+esc(m.note)+'</div><p><a href="'+PDF+'#page='+encodeURIComponent(m.page)+'" target="_blank" rel="noopener">Перейти к оригинальному PDF (стр. '+m.page+') ↗</a></p>';openModal('#detaildialog')}
 $$('#model-filters button').forEach(function(b){b.addEventListener('click',function(){group=b.dataset.group;$$('#model-filters button').forEach(function(c){c.setAttribute('aria-pressed',c===b?'true':'false')});renderModels()})});
 $('#modelsearch').addEventListener('input',renderModels);renderModels();
 var sels=['#compare-a','#compare-b'];sels.forEach(function(s){$(s).innerHTML=models.map(function(m,i){return '<option value="'+i+'">'+esc(m.name)+'</option>'}).join('');$(s).addEventListener('change',renderCompare)});$('#compare-a').value='0';$('#compare-b').value='9';
@@ -746,6 +780,20 @@ function toast(message){var t=$('#sharetoast');t.textContent=message;t.classList
 function copyPageLink(url){if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(url).then(function(){toast('Ссылка скопирована')}).catch(function(){toast('Скопируйте ссылку из адресной строки')})}toast('Скопируйте ссылку из адресной строки');return Promise.resolve()}
 $('#share-issue').addEventListener('click',function(){if(navigator.share){navigator.share({title:document.title,url:issueUrl}).catch(function(){})}else{copyPageLink(issueUrl)}});
 $$('.chapter[id],.mast[id]').forEach(function(section){var head=$('.heading-row',section);if(!head)return;var link=document.createElement('button');link.className='section-share';link.type='button';link.textContent='↗ Поделиться разделом';link.setAttribute('aria-label','Скопировать ссылку на раздел '+(section.querySelector('h2')?.textContent||section.id));link.addEventListener('click',function(){copyPageLink(issueUrl+'#'+section.id)});head.appendChild(link)});
+
+
+var scenarios={
+general:{name:'Широкая и многоязычная база знаний',text:'Для универсальной модели важны разнообразные языки, научные публикации, программный код, качественные русскоязычные тексты и проверяемые обучающие примеры.',risk:'Ни один процент русского языка не гарантирует качество сам по себе: результат зависит от состава корпуса, очистки данных и проверяемых навыков.',page:'22',label:'Исследование ИТМО, стр. 22–24 ↗'},
+medical:{name:'Клинические документы и профессиональные стандарты',text:'Врачебному помощнику нужны надежные специализированные источники, стандарты оформления документации и законно используемые обезличенные примеры. Профессиональную ценность дают экспертные знания.',risk:'Нужны проверка медицинской точности, защита персональных данных, актуальность рекомендаций и обязательное участие квалифицированного специалиста.',page:'18',label:'Исследование ИТМО, стр. 18–19 и 27 ↗'},
+code:{name:'Код и задачи с проверяемым результатом',text:'Для программирования критичны программный код, техническая документация, реальные задачи, тесты и проверяемые результаты. Одних русскоязычных текстов недостаточно.',risk:'Качество необходимо проверять реальным запуском тестов, безопасностью решений и способностью работать с инструментами, а не только грамотностью русских ответов.',page:'22',label:'Исследование ИТМО, стр. 22–25 ↗'}
+};
+$$('[data-scenario]').forEach(function(button){button.addEventListener('click',function(){var sc=scenarios[button.dataset.scenario];$$('[data-scenario]').forEach(function(b){b.setAttribute('aria-pressed',b===button?'true':'false')});$('#scenario-output-title').textContent=sc.name;$('#scenario-output-text').textContent=sc.text;$('#scenario-output-risk').textContent=sc.risk;$('#scenario-output-source').textContent=sc.label;$('#scenario-output-source').href=PDF+'#page='+sc.page;})});
+var readingKey='itmo-llm-2026-reading-position';
+function getSavedPosition(){try{return localStorage.getItem(readingKey)}catch(e){return null}}
+function updateReadingResume(){var id=getSavedPosition(),el=id&&document.getElementById(id),box=$('#bookmark-resume');box.hidden=!el;if(!el)return;var title=$('h2',el);$('#bookmark-continue').textContent='Продолжить: '+(title?title.textContent:'раздел')+' →'}
+$('#bookmark-save').addEventListener('click',function(){var active=Array.from(document.querySelectorAll('main section[id]')).filter(function(e){return e.getBoundingClientRect().top<innerHeight*.43}).pop()||$('#context');try{localStorage.setItem(readingKey,active.id);toast('Место сохранено только в этом браузере');updateReadingResume()}catch(e){toast('Сохранение недоступно в настройках браузера')}});
+$('#bookmark-continue').addEventListener('click',function(){var id=getSavedPosition(),el=id&&document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})});
+updateReadingResume();
 
 var sections=$$('section[id]'),navlinks=$$('#nav a'),progress=$('#progress');function onScroll(){var top=window.scrollY;var h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?Math.min(100,top/h*100):0)+'%';var current='cover';sections.forEach(function(s){if(s.getBoundingClientRect().top<innerHeight*.42)current=s.id});navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)})}
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
