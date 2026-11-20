@@ -62,3 +62,48 @@ test('responsive layout has no body-level horizontal overflow', async ({ page })
   await expect(page.locator('.route-card')).toHaveCount(3);
   await expect(page.locator('#bookmark-save')).toBeVisible();
 });
+
+test('verified model links have three public chats, nine open-weight entries and four restricted entries', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('./');
+  await expect(page.locator('#model-list .model')).toHaveCount(16);
+  await expect(page.locator('#access-count-chat')).toHaveText('3');
+  await expect(page.locator('#access-count-weights')).toHaveText('9');
+  await expect(page.locator('#access-count-restricted')).toHaveText('4');
+  await page.locator('#access-filters [data-access="chat"]').click();
+  await expect(page.locator('#model-list .model')).toHaveCount(3);
+  await expect(page.locator('#model-list .model a[href*="giga.chat"]')).toHaveCount(1);
+  await expect(page.locator('#model-list .model a[href*="alice.yandex.ru"]')).toHaveCount(1);
+  await expect(page.locator('#model-list .model a[href*="saiga_nemo_12b_gptq_demo"]')).toHaveCount(1);
+  await page.locator('#access-filters [data-access="weights"]').click();
+  await expect(page.locator('#model-list .model')).toHaveCount(9);
+  await page.locator('#access-filters [data-access="restricted"]').click();
+  await expect(page.locator('#model-list .model')).toHaveCount(4);
+  await expect(page.locator('#model-list')).toContainText('BerryLM-XL');
+  await expect(page.locator('#model-list')).toContainText('Gamayun');
+  expect(errors, errors.join('\n')).toEqual([]);
+});
+
+test('each model has grounded outbound sources and detail view explains access', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('#model-list .model a.model-link')).toHaveCount(17);
+  const links = await page.locator('#model-list .model a.model-link').evaluateAll(els => els.map(el => ({url:el.href,target:el.target,rel:el.rel})));
+  for (const link of links) {
+    expect(link.url).toMatch(/^https:\/\//);
+    expect(link.target).toBe('_blank');
+    expect(link.rel).toContain('noopener');
+  }
+  await page.locator('#model-list [data-detail="15"]').first().click();
+  await expect(page.locator('#detaildialog')).toHaveClass(/open/);
+  await expect(page.locator('#modeldetail')).toContainText('Saiga Nemo');
+  await expect(page.locator('#modeldetail a[href*="saiga_nemo_12b_gptq_demo"]')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#detaildialog')).not.toHaveClass(/open/);
+});
+
+test('the trial laboratory offers three copyable standardized prompts', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('#test-prompt-list [data-copy-prompt]')).toHaveCount(3);
+  await expect(page.locator('#test-compare-lab')).toContainText('одинаковое задание');
+});
