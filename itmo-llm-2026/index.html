@@ -3,7 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#171b19">
+<meta name="theme-color" content="#1a102a">
+<link rel="canonical" href="https://vichepaev22.github.io/continuum-motion-atlas/itmo-llm-2026/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="За пределами языка — исследование российских LLM">
+<meta property="og:description" content="Интерактивное цифровое издание по исследованию ИТМО: модели, данные, бенчмарки и ключевые выводы.">
+<meta property="og:url" content="https://vichepaev22.github.io/continuum-motion-atlas/itmo-llm-2026/">
+<meta property="og:image" content="https://commons.wikimedia.org/wiki/Special:FilePath/Marble%20bust%20of%20a%20woman%20MET%20DP344998.jpg?width=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="За пределами языка — цифровое издание по исследованию ИТМО">
+<meta name="twitter:description" content="Модели, обучающие данные и будущее российских LLM — в интерактивных историях и сравнениях.">
 <meta name="description" content="Интерактивное цифровое издание по исследованию ITMO Open Source «Российский рынок LLM и данных для их обучения» (2026). Модели, бенчмарки, объяснения, эксперты, источники и поиск.">
 <title>За пределами языка — Атлас российских LLM · ИТМО 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -366,6 +376,35 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 @media(max-width:950px){#searchbtn{min-width:212px}#future .future-collaboration{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){#searchbtn{min-width:156px;min-height:44px;padding:9px 13px;gap:8px;font-size:12px}#searchbtn .search-icon{width:18px;height:18px}#searchbtn .search-key{display:none}#searchbtn .search-title{font-size:12px}#training .stage-label{font-size:10px;gap:8px}#training .stage-controls{gap:8px}#training .stage-button{padding:10px 12px}#training .stage-button span{display:none}#training .step{flex-basis:min(82vw,300px);min-height:360px;padding:23px}#training .step h3{height:72px;min-height:72px}#future .future-collaboration,#sources .factcheck,#sources .source-notes{grid-template-columns:1fr}#future .section-break{margin-top:38px}#sources .fact,#sources .source-notes .panel{padding:24px}#searchdialog .dialog-panel{max-height:93dvh}#searchdialog .searchbox{font-size:16px;min-height:58px;padding:14px}#searchdialog .result{padding:13px}}
 @media(prefers-reduced-motion:reduce){#searchbtn{transition:none}#searchbtn:hover{transform:none}}
+
+/* Reader pathways and evidence-led comparison */
+.reading-routes{padding-top:66px;padding-bottom:64px}
+.routes-header h2{font:800 clamp(27px,3.2vw,46px)/1.18 var(--display);letter-spacing:-1.8px;margin:11px 0 12px}
+.routes-header p{font-size:16px;line-height:1.65;color:#6c5d72;max-width:760px}
+.routes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:27px}
+.route-card{background:#fffafd;border:1px solid #e1d3e1;border-radius:14px;min-height:256px;padding:27px;text-decoration:none;display:flex;flex-direction:column;gap:14px;transition:transform .2s,background .2s}
+.route-card:nth-child(1){background:#e9d5f6}.route-card:nth-child(2){background:#f4e5f3}.route-card:nth-child(3){background:#251532;color:#f8e8ff;border-color:#251532}
+.route-card:hover{transform:translateY(-4px)}
+.route-top{display:flex;align-items:center;justify-content:space-between;font:11px var(--mono);letter-spacing:.7px}
+.route-card strong{font:700 clamp(17px,1.7vw,24px)/1.35 var(--display);letter-spacing:-.4px}
+.route-desc{font-size:14px;line-height:1.6;opacity:.83;flex:1}
+.route-action{font-size:13px;font-weight:800;padding-top:12px;border-top:1px solid currentColor}
+#compareout{display:block}
+.comparison-matrix{overflow-x:auto;border-radius:10px;border:1px solid #bca9c8;background:#281734}
+.compare-row{display:grid;grid-template-columns:minmax(108px,.7fr) repeat(2,minmax(180px,1.35fr));border-bottom:1px solid #6c5579;color:#e6d8ea;align-items:stretch}
+.compare-row:last-child{border-bottom:none}
+.compare-row>span,.compare-row>div,.compare-row>strong{padding:15px 16px;line-height:1.6;font-size:13px;min-width:0}
+.compare-row>div+div,.compare-row>strong+strong{border-left:1px solid #6c5579}
+.compare-row .compare-label{font:700 11px/1.5 var(--mono);color:#dbc6ef;letter-spacing:.3px;background:#3b2750}
+.compare-names{background:#442b58}.compare-names strong{font:700 15px/1.4 var(--display)}
+.comparison-caveat{font-size:13px;color:#4c3a5b;margin:16px 0 0}.comparison-caveat a{font-weight:700}
+.section-share{border:1px solid #cdb8d3;border-radius:20px;padding:9px 13px;background:#f5ebf8;color:#5c3373;cursor:pointer;font-size:11px;font-weight:700;white-space:nowrap;margin-left:auto}
+.section-share:hover{background:#e9d6f4}
+.share-toast{position:fixed;bottom:22px;right:22px;padding:13px 18px;background:#281538;color:#fff;border-radius:9px;box-shadow:0 10px 40px #28153855;z-index:160;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s;font-size:13px}
+.share-toast.visible{opacity:1;transform:translateY(0)}
+@media(max-width:1050px){.routes-grid{grid-template-columns:1fr 1fr}.route-card:last-child{grid-column:span 2;min-height:180px}}
+@media(max-width:680px){.reading-routes{padding-top:45px;padding-bottom:15px}.routes-grid{grid-template-columns:1fr}.route-card:last-child{grid-column:auto}.route-card{min-height:195px;padding:22px}.routes-header h2{font-size:28px}.routes-header p{font-size:14px}.compare-row{grid-template-columns:108px repeat(2,minmax(170px,1fr))}.compare-row>span,.compare-row>div,.compare-row>strong{padding:12px 10px;font-size:12px}.section-share{margin:8px 0 0}.heading-row{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.route-card{transition:none}.route-card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -406,6 +445,13 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="cover-art" role="img" aria-label="Художественная обложка: античная мраморная скульптура женщины на фиолетовом фоне"><img class="sculpture" src="https://commons.wikimedia.org/wiki/Special:FilePath/Marble%20bust%20of%20a%20woman%20MET%20DP344998.jpg?width=1200" alt="Мраморный бюст женщины. The Metropolitan Museum of Art, CC0" fetchpriority="high"><div class="cover-halo"></div><div class="cover-ring ring-one"></div><div class="cover-ring ring-two"></div><div class="art-number">SPECIAL EDITION / 2026</div><div class="orbit-label">HUMAN × MACHINE</div><div class="art-stamp">16 МОДЕЛЬНЫХ ГРУПП<br>12 БЕНЧМАРКОВ<br>14 ЭКСПЕРТОВ</div></div>
 </section>
 <div class="meta-strip"><span>Независимая редакционная адаптация исследования ИТМО</span><span>Исходный документ: 45 страниц / 2026</span><span>Читать • Искать • Сравнивать</span></div>
+<section class="reading-routes w" aria-label="Выберите способ чтения">
+<div class="routes-header"><span class="kicker">Ваш маршрут по выпуску</span><h2>Одно исследование.<br>Три способа разобраться.</h2><p>Выберите свой путь: главное за несколько минут, последовательное погружение или работа с фактами и моделями.</p></div>
+<div class="routes-grid">
+<a class="route-card" href="#findings"><span class="route-top"><span>01 / КОРОТКО</span><span aria-hidden="true">↗</span></span><strong>Главное за 2 минуты</strong><span class="route-desc">Шесть важных выводов. Данные, ограничения и стратегические возможности — без технического перегруза.</span><span class="route-action">Смотреть выводы →</span></a>
+<a class="route-card" href="#context"><span class="route-top"><span>02 / ПО ПОРЯДКУ</span><span aria-hidden="true">↗</span></span><strong>Пройти всю историю</strong><span class="route-desc">Начните с контекста и двигайтесь через цифры, модели и устройство их обучения к будущему отрасли.</span><span class="route-action">Начать с первой главы →</span></a>
+<a class="route-card" href="#models"><span class="route-top"><span>03 / КАК ИНСТРУМЕНТ</span><span aria-hidden="true">↗</span></span><strong>Работать с исследованием</strong><span class="route-desc">Каталог 16 разработок, их сопоставление, бенчмарки, терминология и ссылки на исходный документ.</span><span class="route-action">Открыть каталог →</span></a>
+</div></section>
 
 <section class="w mast" id="context">
 <div class="mast-grid">
@@ -477,7 +523,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 <div class="catalog-summary"><span id="modelcount">Показаны 16 позиций</span><input class="mini-input" type="search" id="modelsearch" placeholder="Название, компания, задача..." aria-label="Фильтрация моделей"></div>
 <div class="model-list" id="model-list" aria-live="polite"></div>
-<div class="compare"><h3>Сравнить две разработки</h3><p>Сравнение по происхождению, доступности и назначению — не по «интеллекту» или бенчмарк-баллам. Обзору ИТМО не хватает единых числовых оценок для такого ранжирования.</p><div class="select-row"><select id="compare-a" aria-label="Первая модель"></select><select id="compare-b" aria-label="Вторая модель"></select></div><div class="compare-out" id="compareout"></div></div>
+<div class="compare" id="compare"><h3>Сравнить две разработки</h3><p>Сравнение по происхождению, доступности и назначению — не по «интеллекту» или бенчмарк-баллам. Обзору ИТМО не хватает единых числовых оценок для такого ранжирования.</p><div class="select-row"><select id="compare-a" aria-label="Первая модель"></select><select id="compare-b" aria-label="Вторая модель"></select></div><div class="compare-out" id="compareout"></div></div>
 </section>
 
 <section class="w chapter" id="benchmarks">
@@ -542,8 +588,9 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 </section>
 
-<footer class="end"><div class="w"><div class="kicker end-kicker">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a></div><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
+<footer class="end"><div class="w"><div class="kicker end-kicker">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a><button class="cta secondary" id="share-issue" type="button">Поделиться изданием ↗</button></div><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
 </main>
+<div class="share-toast" id="sharetoast" role="status" aria-live="polite"></div>
 <div class="dialog" id="searchdialog" role="dialog" aria-modal="true" aria-label="Поиск по изданию"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div class="intro">ПОИСК ПО ИЗДАНИЮ / МОДЕЛЯМ / ТЕРМИНАМ / ТЕСТАМ</div><h2>Что вы хотите найти?</h2><input id="globalsearch" type="search" class="searchbox" placeholder="Например: GigaChat, русский язык, RAG..." aria-label="Запрос поиска"><div class="searchlist" id="searchresults" aria-live="polite"></div></div></div>
 <div class="dialog" id="detaildialog" role="dialog" aria-modal="true" aria-label="Подробности модели"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div id="modeldetail"></div></div></div>
 <noscript><div class="noscript">Для интерактивных фильтров, поиска и сравнения включите JavaScript. Все основные разделы статьи и ссылки на оригинальный PDF доступны без него.</div></noscript>
@@ -635,7 +682,12 @@ function showModel(i){var m=models[i];$('#modeldetail').innerHTML='<div class="i
 $$('#model-filters button').forEach(function(b){b.addEventListener('click',function(){group=b.dataset.group;$$('#model-filters button').forEach(function(c){c.setAttribute('aria-pressed',c===b?'true':'false')});renderModels()})});
 $('#modelsearch').addEventListener('input',renderModels);renderModels();
 var sels=['#compare-a','#compare-b'];sels.forEach(function(s){$(s).innerHTML=models.map(function(m,i){return '<option value="'+i+'">'+esc(m.name)+'</option>'}).join('');$(s).addEventListener('change',renderCompare)});$('#compare-a').value='0';$('#compare-b').value='9';
-function renderCompare(){var a=models[+$('#compare-a').value],b=models[+$('#compare-b').value];$('#compareout').innerHTML=[a,b].map(function(m){return '<div class="compare-item"><strong>'+esc(m.name)+'</strong><div class="mini">'+esc(m.by)+'</div><p>'+esc(m.desc)+'</p><div class="mini">ДОСТУП · '+esc(m.access)+'</div><div class="mini">ИСТОЧНИК · PDF, СТР. '+m.page+'</div></div>'}).join('')}renderCompare();
+function renderCompare(){var a=models[+$('#compare-a').value],b=models[+$('#compare-b').value];
+function origin(m){return m.group==='own'?'Исследование указывает обучение с нуля':m.group==='adapt'?'Адаптация / дообучение готовой модели':'В сводной таблице не уточнено'}
+function speciality(m){return m.niche?'Упомянута отраслевая специализация':'Узкая специализация не выделена в каталоге'}
+var fields=[['Разработчик',function(m){return m.by}],['Происхождение',origin],['Доступность',function(m){return m.access}],['Специализация',speciality],['Назначение',function(m){return m.desc}],['Ограничения и примечания',function(m){return m.note}],['Первоисточник',function(m){return 'Исследование ИТМО, стр. '+m.page}]];
+$('#compareout').innerHTML='<div class="comparison-matrix"><div class="compare-row compare-names"><span class="compare-label">Критерий</span><strong>'+esc(a.name)+'</strong><strong>'+esc(b.name)+'</strong></div>'+fields.map(function(f){return '<div class="compare-row"><span class="compare-label">'+esc(f[0])+'</span><div>'+esc(f[1](a))+'</div><div>'+esc(f[1](b))+'</div></div>'}).join('')+'</div><p class="comparison-caveat">Это сопоставление фактов из исследования, а не рейтинг качества. Для объективной оценки нужны одинаковые актуальные бенчмарки и проверка на вашей задаче. <a href="'+PDF+'" target="_blank" rel="noopener">Открыть оригинал ↗</a></p>';}
+renderCompare();
 var benchGroup='all';function renderBench(){var data=benchmarks.filter(function(x){return benchGroup==='all'||x.kind===benchGroup});$('#bench-list').innerHTML=data.map(function(x){return '<article class="bench"><div class="kind">'+esc(x.by)+'</div><strong>'+esc(x.name)+'</strong><p>'+esc(x.short)+'</p></article>'}).join('')}
 $$('#benchfilters button').forEach(function(b){b.addEventListener('click',function(){benchGroup=b.dataset.kind;$$('#benchfilters button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});renderBench()})});renderBench();
 $('#steps').innerHTML=stages.map(function(s,i){return '<article class="step" aria-label="Этап '+(i+1)+' из '+stages.length+'"><div class="n">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(s.name)+'</h3><p>'+esc(s.desc)+'</p><b>'+esc(s.amount)+'</b></article>'}).join('');
@@ -665,6 +717,15 @@ var index=[
 ].concat(models.map(function(m,i){return {title:m.name,detail:m.by+' · '+m.desc,section:'models',kind:'Модель',id:i}})).concat(benchmarks.map(function(b){return {title:b.name,detail:b.by+' · '+b.short,section:'benchmarks',kind:'Бенчмарк'}})).concat(terms.map(function(t){return {title:t[0],detail:t[1],section:'glossary',kind:'Термин'}}));
 function renderSearch(q){var s=(q||'').toLowerCase().trim();var res=(s?index.filter(function(x){return (x.title+' '+x.detail).toLowerCase().includes(s)}):index.slice(0,8)).slice(0,28);$('#searchresults').innerHTML=res.length?res.map(function(x){return '<button class="result" data-target="'+esc(x.section)+'" '+(x.id!=null?'data-model="'+x.id+'"':'')+'><strong>'+esc(x.title)+'</strong><span>'+esc(x.kind)+' · '+esc(x.detail)+'</span></button>'}).join(''):'<div class="empty">По запросу ничего не найдено. Попробуйте другое слово или название модели.</div>';$$('#searchresults button').forEach(function(b){b.addEventListener('click',function(){closeModals();if(b.dataset.model!=null){showModel(+b.dataset.model)}else{document.getElementById(b.dataset.target).scrollIntoView({behavior:'smooth'})}})})}
 $('#globalsearch').addEventListener('input',function(e){renderSearch(e.target.value)});
+
+// Native sharing, private by default: no telemetry or user data is sent by this feature.
+var issueUrl='https://vichepaev22.github.io/continuum-motion-atlas/itmo-llm-2026/';
+var shareToastTimer=null;
+function toast(message){var t=$('#sharetoast');t.textContent=message;t.classList.add('visible');if(shareToastTimer)clearTimeout(shareToastTimer);shareToastTimer=setTimeout(function(){t.classList.remove('visible')},3200)}
+function copyPageLink(url){if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(url).then(function(){toast('Ссылка скопирована')}).catch(function(){toast('Скопируйте ссылку из адресной строки')})}toast('Скопируйте ссылку из адресной строки');return Promise.resolve()}
+$('#share-issue').addEventListener('click',function(){if(navigator.share){navigator.share({title:document.title,url:issueUrl}).catch(function(){})}else{copyPageLink(issueUrl)}});
+$$('.chapter[id],.mast[id]').forEach(function(section){var head=$('.heading-row',section);if(!head)return;var link=document.createElement('button');link.className='section-share';link.type='button';link.textContent='↗ Поделиться разделом';link.setAttribute('aria-label','Скопировать ссылку на раздел '+(section.querySelector('h2')?.textContent||section.id));link.addEventListener('click',function(){copyPageLink(issueUrl+'#'+section.id)});head.appendChild(link)});
+
 var sections=$$('section[id]'),navlinks=$$('#nav a'),progress=$('#progress');function onScroll(){var top=window.scrollY;var h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?Math.min(100,top/h*100):0)+'%';var current='cover';sections.forEach(function(s){if(s.getBoundingClientRect().top<innerHeight*.42)current=s.id});navlinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)})}
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 })();
