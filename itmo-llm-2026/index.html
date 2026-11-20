@@ -239,6 +239,66 @@ nav a.active .n{color:var(--acid)}
 .editorial-visual figcaption{z-index:1}
 @media(max-width:650px){.editorial-visual{margin:20px 0 25px;border-radius:14px}.editorial-visual img{height:240px}.editorial-visual figcaption{font-size:10px;left:14px;bottom:12px}}
 @media(prefers-reduced-motion:reduce){.editorial-visual img{transition:none}.editorial-visual:hover img{transform:none}}
+
+/* THE EDITORIAL EDITION — art direction 2026 */
+:root{--paper:#f5f1ed;--paper2:#ece5e2;--ink:#211a2c;--gray:#71687b;--line:#ded4dc;--side:#171024;--acid:#d7b5ff;--orange:#ff8eb6;--blue:#dfd2ff;--violet:#8e5bf0}
+body{background:var(--paper);color:var(--ink)}
+aside.side{background:#150e22;border-right:1px solid #40314c}
+.brand-symbol{background:#d6b3ff;color:#28133d}
+.brand{border-bottom-color:#554565}
+.brand-sub,.nav-caption,.side-end{color:#a89ab6}
+nav a{color:#d7c9e3}
+nav a:hover,nav a.active{background:#3e2b53}
+nav a.active .n,.side-end a{color:#e1b7ff}
+.railbtn{border-color:#6e5b7c}
+.top{background:#f9f5f4;border-bottom-color:#e3d9e0}
+.edition-dot{background:#ad77ee}
+.cover{min-height:min(850px,100svh);background:#160c24;display:grid;grid-template-columns:1.02fr .98fr;isolation:isolate}
+.cover-copy{padding:clamp(64px,9vw,138px) 0 clamp(65px,8vw,112px) clamp(32px,5vw,90px);z-index:4;display:flex;flex-direction:column;justify-content:center}
+.cover .overline{color:#d9b8ff;font-size:11px;letter-spacing:1.9px}
+.cover h1{font-family:var(--display);font-weight:900;font-size:clamp(48px,6.2vw,112px);line-height:1.05;letter-spacing:-.075em;max-width:1000px;margin:48px -12vw 32px 0;text-transform:uppercase;text-wrap:balance;text-shadow:0 8px 36px #150b22a0}
+.cover h1 em{color:#d7a8ff}
+.cover p{font-size:clamp(15px,1.35vw,20px);max-width:590px;color:#e2d5ea;line-height:1.75}
+.cta{background:#e3c3ff;color:#21112d;border-radius:100px;padding:17px 25px}
+.cta.secondary{border-color:#a087b3;border-radius:100px}
+.cover-art{min-height:710px;background:radial-gradient(ellipse at 60% 45%,#71458c,#2c1642 54%,#160c24 85%);overflow:hidden}
+.cover-art:after{background:linear-gradient(90deg,#160c24 0%,#160c24a8 17%,transparent 53%),linear-gradient(0deg,#160c2499,transparent 35%)}
+.cover-art .sculpture{position:absolute;inset:-2% -5% -3% 0;width:110%;height:106%;object-fit:cover;object-position:52% 25%;filter:grayscale(1) contrast(1.15) sepia(.1) hue-rotate(225deg) saturate(1.5);mix-blend-mode:screen;opacity:.92}
+.cover-halo{position:absolute;inset:0;background:radial-gradient(ellipse at 62% 36%,transparent 15%,#8c50d344 45%,#200d3655 75%);mix-blend-mode:screen}
+.cover-ring{position:absolute;width:83%;height:43%;left:8%;top:27%;border:2px solid #dfabff99;border-radius:50%;transform:rotate(-23deg);box-shadow:0 0 32px #b65dfb99, inset 0 0 25px #bd71ff44;pointer-events:none}
+.ring-two{width:100%;height:31%;top:44%;left:-1%;transform:rotate(19deg);border-color:#e6b7ff77}
+.cover-art .art-number,.cover-art .orbit-label{z-index:3;color:#ead5ff}
+.cover-art .art-stamp{z-index:3;color:#e8d4f8}
+.meta-strip{background:#ead9f0;border-color:#cfb7d8}
+.h2{letter-spacing:-.065em}
+.kicker{color:#8759a2}
+.heading-row{border-top-color:#9c829f}
+.pill{border-color:#d5c3d8}
+.mast h2{letter-spacing:-.055em}
+.memo{background:#e9dff0}
+.stat{border-color:#ded0dd}
+.editor-note{background:#eadcf4;border-left-color:#9e6ac8}
+.quote-band{background:#d9b4ed}
+.insight{background:#fffafc;border-color:#e5d8e3}
+.insight:nth-child(2){background:#e9dcf8}.insight:nth-child(4){background:#efe4f3}.insight:nth-child(6){background:#f5dce7}
+.panel{background:#fffafc;border-color:#e6dbe5}
+.panel.dark{background:#241332;border-color:#241332}
+.big-percent{color:#9958c8}
+.rus-fill{background:#a870e0}
+.filter[aria-pressed="true"]{background:#2e193b;border-color:#2e193b}
+.editorial-visual{border-radius:4px;box-shadow:none;background:#24142f}
+.editorial-visual img{height:clamp(260px,42vw,520px)}
+.editorial-visual:after{background:linear-gradient(transparent,#140e2bba)}
+.editorial-visual figcaption{letter-spacing:1px}
+.chapter{padding-top:120px;padding-bottom:60px}
+.heading-row{padding-top:25px}
+.insights{gap:20px}
+.insight{min-height:300px;padding:35px}
+.insight h3{font-size:21px}
+.mast{padding:120px 0 65px}
+.quote-band{margin:100px 0;padding-top:65px;padding-bottom:65px}
+@media(max-width:950px){.cover{grid-template-columns:1fr;min-height:0}.cover-art{order:-1;min-height:58vw;max-height:570px}.cover-copy{padding:55px 28px 72px}.cover h1{font-size:clamp(46px,8vw,76px);margin:15px 0 22px;letter-spacing:-.065em}.cover-art .sculpture{object-position:50% 29%}.chapter{padding-top:78px}}
+@media(max-width:680px){.cover-art{min-height:390px}.cover-copy{padding:42px 23px 58px}.cover h1{font-size:clamp(43px,11vw,68px);line-height:1.06}.cover p{font-size:15px}.cover-art .sculpture{object-position:53% 22%}.cover-ring{top:34%}.chapter{padding-top:65px}.insight{min-height:0;padding:27px}.quote-band{margin:55px 0}.editorial-visual img{height:260px}}
 </style>
 </head>
 <body>
@@ -272,23 +332,11 @@ nav a.active .n{color:var(--acid)}
 <section class="cover" id="cover" aria-label="Обложка исследования">
 <div class="cover-copy">
 <span class="overline">По исследованию института ИИ ИТМО · 2026</span>
-<h1>РОССИЙСКИЙ ИИ <em>ЗНАЕТ</em> СВОЙ ЯЗЫК.<br>А ЗНАЕТ ЛИ МИР?</h1>
-<p>Большие языковые модели, данные, российские разработки и ставка на будущее. Интерактивный путеводитель по исследованию российского рынка LLM от ITMO Open Source.</p>
+<h1>ЗА ПРЕДЕЛАМИ <em>ЯЗЫКА</em></h1>
+<p>Российские языковые модели: кто их создаёт, на каких данных они учатся и каким может стать следующий этап развития. Специальный цифровой выпуск по исследованию ИТМО.</p>
 <div class="cta-row"><a href="#context" class="cta">Начать читать &nbsp; ↘</a><button class="cta secondary" id="coversearch">Найти тему ↗</button></div>
 </div>
-<div class="cover-art" role="img" aria-label="Авторская иллюстрация: светящиеся узлы языковой нейросети, соединённые линиями">
-<div class="art-number">2026 / RESEARCH ISSUE 01</div><div class="orbit-label">DATA → MODEL → WORLD</div>
-<svg viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-<defs><radialGradient id="glow"><stop offset="0" stop-color="#e5ffa4"/><stop offset=".55" stop-color="#a5c883"/><stop offset="1" stop-color="#224d41"/></radialGradient><radialGradient id="lava"><stop stop-color="#ffdbba"/><stop offset=".6" stop-color="#ff8259"/><stop offset="1" stop-color="#a9384e"/></radialGradient><filter id="blur"><feGaussianBlur stdDeviation="28"/></filter></defs>
-<circle cx="315" cy="300" r="190" fill="#c0f59d" opacity=".14" filter="url(#blur)"/>
-<circle cx="320" cy="355" r="260" fill="none" stroke="#d2f3b0" stroke-opacity=".17"/>
-<circle cx="320" cy="355" r="210" fill="none" stroke="#d2f3b0" stroke-opacity=".25"/>
-<circle cx="320" cy="355" r="155" fill="none" stroke="#d2f3b0" stroke-opacity=".33"/>
-<circle cx="320" cy="355" r="90" fill="none" stroke="#d2f3b0" stroke-opacity=".5"/>
-<g stroke="#d9ffad" stroke-width="1.2" opacity=".45"><path d="M60 140 200 192 350 85 510 183 545 390 430 555 220 600 74 450 60 140"/><path d="M200 192 320 355 510 183M320 355 545 390M320 355 74 450M320 355 220 600M350 85 320 355M200 192 430 555M74 450 510 183M220 600 545 390"/></g>
-<g><circle cx="320" cy="355" r="78" fill="url(#glow)"/><circle cx="320" cy="355" r="109" fill="none" stroke="#d8ffba" stroke-opacity=".5"/><circle cx="510" cy="183" r="58" fill="url(#lava)"/><circle cx="74" cy="450" r="31" fill="#b4a6ff"/><circle cx="200" cy="192" r="26" fill="#cef882"/><circle cx="430" cy="555" r="39" fill="#f7b79c"/><circle cx="545" cy="390" r="21" fill="#d4ff9f"/><circle cx="220" cy="600" r="15" fill="#f6d1ff"/><circle cx="350" cy="85" r="13" fill="#bbffad"/><circle cx="60" cy="140" r="7" fill="#cfeca4"/></g>
-<g fill="#d9ebcf" font-size="13" font-family="monospace"><text x="345" y="353">LLM</text><text x="407" y="112">01</text><text x="90" y="495">RU</text><text x="451" y="605">DATA</text></g>
-</svg><div class="art-stamp">16 МОДЕЛЬНЫХ ГРУПП<br>12 БЕНЧМАРКОВ<br>14 ЭКСПЕРТОВ</div></div>
+<div class="cover-art" role="img" aria-label="Художественная обложка: античная мраморная скульптура женщины на фиолетовом фоне"><img class="sculpture" src="https://commons.wikimedia.org/wiki/Special:FilePath/Marble%20bust%20of%20a%20woman%20MET%20DP344998.jpg?width=1200" alt="Мраморный бюст женщины. The Metropolitan Museum of Art, CC0" fetchpriority="high"><div class="cover-halo"></div><div class="cover-ring ring-one"></div><div class="cover-ring ring-two"></div><div class="art-number">SPECIAL EDITION / 2026</div><div class="orbit-label">HUMAN × MACHINE</div><div class="art-stamp">16 МОДЕЛЬНЫХ ГРУПП<br>12 БЕНЧМАРКОВ<br>14 ЭКСПЕРТОВ</div></div>
 </section>
 <div class="meta-strip"><span>Независимая редакционная адаптация исследования ИТМО</span><span>Исходный документ: 45 страниц / 2026</span><span>Читать • Искать • Сравнивать</span></div>
 
