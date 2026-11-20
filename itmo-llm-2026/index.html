@@ -452,6 +452,44 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 .skip-link:focus{top:0;color:#fff}
 #nav a:focus-visible{outline-offset:0}
 @media print{.skip-link{display:none!important}}
+
+/* Evidence-led outbound model explorer */
+.access-intro{display:flex;gap:18px;align-items:start;padding:27px 28px;background:#efe3f5;border:1px solid #d6bfe0;border-radius:14px;margin:22px 0}
+.access-icon{display:grid;place-items:center;flex:none;width:54px;height:54px;border-radius:16px;background:#391c4d;color:#e8c7ff;font:700 29px var(--display)}
+.access-intro h3{font:700 clamp(17px,2vw,25px)/1.3 var(--display);margin:0 0 9px;letter-spacing:-.6px}
+.access-intro p{font-size:13px;color:#554263;line-height:1.7;margin:6px 0}
+.access-intro .access-updated{font:11px/1.6 var(--mono);color:#745981}
+.access-filter-row{display:flex;flex-wrap:wrap;gap:9px;margin:23px 0 18px}
+.access-filter{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800;padding:12px 15px;border:1px solid #ceb5dc;border-radius:22px;background:#fff;color:#4c345d;min-height:44px}
+.access-filter span{background:#e9d9ef;border-radius:13px;padding:1px 7px;font:11px var(--mono)}
+.access-filter[aria-pressed="true"]{background:#281636;color:#fff;border-color:#281636}
+.access-filter[aria-pressed="true"] span{background:#65447d;color:#fff}
+.model{display:flex;flex-direction:column;min-width:0;border-radius:11px;background:#fffafd!important;border:1px solid #e2d5e7!important;box-shadow:0 3px 18px #2b173d0a}
+.model .access-state{font:700 10px/1.5 var(--mono);margin:15px 0 2px;letter-spacing:.4px}
+.access-state.chat{color:#286b46}.access-state.weights{color:#7854a8}.access-state.restricted{color:#846d7b}
+.model .model-links{margin-top:auto;padding-top:15px;display:flex;flex-wrap:wrap;gap:7px}
+.model .model-link{min-height:39px;display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border-radius:22px;border:1px solid #bda0d1;font-size:12px;line-height:1.3;text-decoration:none;font-weight:800;background:#f4ecf9;color:#4c2a64;max-width:100%}
+.model .model-link.kind-chat{background:#321b49;color:#fff;border-color:#321b49}
+.model .model-link.kind-weights,.model .model-link.kind-code{background:#e6d4f3}
+.model .model-link:hover{transform:translateY(-2px);box-shadow:0 5px 11px #28123920}
+.model .model-links-more{background:transparent;font-size:12px;padding:8px 10px;border:0;color:#583c70;text-decoration:underline;text-underline-offset:3px}
+.model .model-link-note{font:11px/1.55 var(--font);color:#6f607b;margin-top:8px}
+#modeldetail .detail-model-links{padding:19px;background:#f4eaf7;border:1px solid #dec6e8;border-radius:12px;margin:24px 0}
+#modeldetail .detail-model-links h3{font:700 16px var(--display);margin:0 0 10px}
+#modeldetail .detail-model-links p{font-size:12px;line-height:1.65;margin:9px 0}
+#modeldetail .detail-model-links a{display:inline-flex;padding:10px 13px;border-radius:22px;margin:6px 6px 6px 0;border:1px solid #c2a5d4;background:#fff;text-decoration:none;font-size:12px;font-weight:700;color:#47265a}
+#modeldetail .detail-model-links a:hover{background:#e5d2f1}
+.test-compare-lab{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;padding:clamp(22px,3vw,36px);border-radius:14px;background:#291737;color:#f8e9ff;margin:38px 0 34px}
+.test-compare-lab h3{font:700 clamp(18px,2.3vw,26px)/1.25 var(--display);letter-spacing:-.5px;margin:10px 0 15px}
+.test-compare-lab p{font-size:13px;line-height:1.8;color:#dac9e5}
+.test-prompt-list{display:flex;flex-direction:column;gap:10px}
+.test-prompt{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:14px 16px;background:#3a264a;border-radius:10px;border:1px solid #70527e}
+.test-prompt label{font-size:12px;line-height:1.5;flex:1}
+.test-prompt button{border-radius:18px;border:1px solid #d5b2e9;background:#edd4ff;color:#331e41;min-height:37px;white-space:nowrap;font-size:11px;font-weight:800;padding:8px 11px}
+.test-caveat{grid-column:1/-1;border-top:1px solid #634c77;padding-top:14px;color:#d5bfdc;font:11px/1.75 var(--mono)}
+@media(max-width:950px){.test-compare-lab{grid-template-columns:1fr}}
+@media(max-width:680px){.access-intro{padding:19px;gap:13px}.access-icon{width:38px;height:38px;font-size:21px}.access-filter-row{gap:7px}.access-filter{font-size:11px;padding:9px 11px;gap:5px}.model{padding:20px}.model .model-links{flex-direction:column;align-items:stretch}.model .model-link{justify-content:center}.test-compare-lab{padding:21px}.test-prompt{align-items:flex-start;flex-direction:column}.test-prompt button{align-self:flex-start}}
+@media(prefers-reduced-motion:reduce){.model .model-link:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -570,6 +608,13 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="heading-row"><div><div class="kicker">04 / Кто создаёт модели</div><h2 class="h2">Атлас российских LLM</h2><p class="dek">16 позиций из таблиц исследования: большие технологические компании, академические команды и независимые разработчики. Откройте карточку, отфильтруйте или сравните два подхода.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=9" target="_blank" rel="noopener" title="Открыть PDF, страница 9">PDF · стр. 9–11 ↗</a></div>
 <figure class="editorial-visual"><img src="assets/editorial-models.svg" alt="Экосистема российских языковых моделей. Авторская концептуальная иллюстрация, не визуализация исследовательских данных." loading="lazy" decoding="async" width="1100" height="550"><figcaption>ВИЗУАЛЬНАЯ ИСТОРИЯ / ЭКОСИСТЕМА РОССИЙСКИХ ЯЗЫКОВЫХ МОДЕЛЕЙ · ИЛЛЮСТРАЦИЯ, НЕ ДАННЫЕ ИССЛЕДОВАНИЯ</figcaption></figure>
 
+<div class="access-intro"><div class="access-icon" aria-hidden="true">↗</div><div><h3>От исследования — к настоящим моделям</h3><p>Для каждой разработки собраны ссылки на официальный веб-чат, публичные веса, код или проверяемое описание. <strong>Наличие карточки на Hugging Face не означает, что модель можно сразу протестировать в браузере.</strong> Доступ зависит от версии, оборудования, регистрации и лицензии.</p><p class="access-updated">Проверено по открытым страницам разработчиков и источникам отчёта · 20.11.2026. Ссылки могут измениться.</p></div></div>
+<div class="access-filter-row" id="access-filters" role="group" aria-label="Фильтр по способу доступа">
+<button class="access-filter" data-access="all" aria-pressed="true">Все модели <span id="access-count-all">16</span></button>
+<button class="access-filter" data-access="chat" aria-pressed="false">Попробовать онлайн <span id="access-count-chat">2</span></button>
+<button class="access-filter" data-access="weights" aria-pressed="false">Открыть веса / код <span id="access-count-weights">10</span></button>
+<button class="access-filter" data-access="restricted" aria-pressed="false">Только описание <span id="access-count-restricted">4</span></button>
+</div>
 <div class="filters" id="model-filters">
 <button class="filter" data-group="all" aria-pressed="true">Все разработки</button>
 <button class="filter" data-group="open" aria-pressed="false">Открытые веса</button>
@@ -579,6 +624,11 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 <div class="catalog-summary"><span id="modelcount">Показаны 16 позиций</span><input class="mini-input" type="search" id="modelsearch" placeholder="Название, компания, задача..." aria-label="Фильтрация моделей"></div>
 <div class="model-list" id="model-list" aria-live="polite"></div>
+<div class="test-compare-lab" id="test-compare-lab">
+<div><span class="kicker">Лаборатория читателя / 04</span><h3>Как сравнивать ответы честно?</h3><p>Используйте одинаковое задание в доступных чатах и сравните фактическую точность, полноту, ссылки на источники и ошибки. Прямой доступ к каждой версии модели есть не всегда.</p></div>
+<div class="test-prompt-list" id="test-prompt-list"></div>
+<div class="test-caveat">Не отправляйте чужие персональные данные, пароли и конфиденциальные документы в сторонние сервисы. Эти запросы помогают составить собственное впечатление, но не заменяют независимый бенчмарк.</div>
+</div>
 <div class="compare" id="compare"><h3>Сравнить две разработки</h3><p>Сравнение по происхождению, доступности и назначению — не по «интеллекту» или бенчмарк-баллам. Обзору ИТМО не хватает единых числовых оценок для такого ранжирования.</p><div class="select-row"><select id="compare-a" aria-label="Первая модель"></select><select id="compare-b" aria-label="Вторая модель"></select></div><div class="compare-out" id="compareout"></div></div>
 </section>
 
@@ -655,6 +705,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 'use strict';
 var $=function(s,root){return (root||document).querySelector(s)}, $$=function(s,root){return Array.from((root||document).querySelectorAll(s))};
 var PDF='https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf';
+var modelAccess=[{"state":"chat","detail":"Публичный чат GigaChat доступен. В интерфейсе может использоваться обновлённая версия семейства, а не точно тот контрольный вес из отчёта.","links":[{"kind":"chat","title":"Попробовать GigaChat","url":"https://giga.chat/portal"},{"kind":"weights","title":"Веса семейства GigaChat 3","url":"https://huggingface.co/collections/ai-sage/gigachat3"},{"kind":"docs","title":"Документация GigaChat 3 Ultra","url":"https://developers.sber.ru/docs/ru/gigachat/models/gigachat-3-ultra"}]},{"state":"weights","detail":"Открыта исходная базовая модель; это не готовый чат. Для запуска потребуются вычислительные ресурсы и программная среда.","links":[{"kind":"weights","title":"Веса AliceAI Foundation 80B","url":"https://huggingface.co/yandex/AliceAI-Foundation-80B-A3B-Base"}]},{"state":"chat","detail":"Доступен официальный чат Алисы AI. Яндекс может менять версии модели внутри сервиса; это не прямая страница скачивания Alice AI LLM из отчёта.","links":[{"kind":"chat","title":"Открыть чат Алисы AI","url":"https://alice.yandex.ru/"},{"kind":"docs","title":"Модели в Yandex AI Studio","url":"https://aistudio.yandex.ru/ru/model-gallery"}]},{"state":"weights","detail":"Страница исходной модели с инструкциями для разработчика. Доступность публичного интерактивного демо конкретно этой версии не подтверждена.","links":[{"kind":"weights","title":"Веса AliceAI T5 35B","url":"https://huggingface.co/yandex/AliceAI-T5-35B-A0.6B"}]},{"state":"weights","detail":"Открытые T-Pro 2.0 и T-Lite в библиотеке T-Tech. Карточка T-Lite 2.1 — более поздняя версия родственного семейства; модель не подменяется незаметно.","links":[{"kind":"weights","title":"Веса T-Pro 2.0","url":"https://huggingface.co/t-tech/T-pro-it-2.0"},{"kind":"weights","title":"Веса T-Lite 2.1 (новее)","url":"https://huggingface.co/t-tech/T-lite-it-2.1"}]},{"state":"weights","detail":"Публично подтверждены веса Cotype Nano. По Cotype VL найдена официальная публикация, но свободное веб-демо конкретной версии не подтверждено.","links":[{"kind":"weights","title":"Веса Cotype Nano","url":"https://huggingface.co/MTSAIR/Cotype-Nano"},{"kind":"docs","title":"Описание Cotype VL от MWS AI","url":"https://mts.ai/tehnologii/mws-ai-vypustila-pervuju-multimodalnuju-model-dlya-raboty-s-izobrazheniyami-i-tekstom/"}]},{"state":"weights","detail":"Официальная карточка A-vibe от Авито Тех с инструкциями запуска; отдельный публичный диалоговый сайт не подтверждён.","links":[{"kind":"weights","title":"Веса A-vibe от Авито","url":"https://huggingface.co/AvitoTech/avibe"}]},{"state":"restricted","detail":"BerryLM используется в продуктах Wildberries, но отдельный публичный чат с выбором BerryLM-XL или BerryLM-v2 не подтверждён. Доступны проверяемые сведения о результатах и применении.","links":[{"kind":"evidence","title":"Результат BerryLM-XL в MERA","url":"https://mera.a-ai.ru/ru/text/submits/16045"},{"kind":"docs","title":"Опыт RWB с BerryLM","url":"https://habr.com/ru/companies/rwb/articles/1106046/"}]},{"state":"restricted","detail":"В отчёте OzonGPT описана как внутренняя прикладная разработка; публичный чат или открытые веса конкретно этой модели не подтверждены.","links":[{"kind":"evidence","title":"Материал об OzonGPT","url":"https://secrets.tbank.ru/novosti/novaya-neyroset-ot-ozon/"}]},{"state":"weights","detail":"Оригинальная карточка MetalGPT-1 от nn-tech с описанием и инструкциями. Для самостоятельного теста требуется запуск модели или доступный провайдер инференса.","links":[{"kind":"weights","title":"Веса MetalGPT-1","url":"https://huggingface.co/nn-tech/MetalGPT-1"}]},{"state":"restricted","detail":"Diona применяется в продуктах VK и корпоративных решениях. Публичный чат для свободного тестирования отдельной версии Diona не подтверждён.","links":[{"kind":"docs","title":"VK AI Space — официальная информация","url":"https://vk.company.ru/ru/press/releases/12490/"},{"kind":"evidence","title":"Материал о Diona","url":"https://www.kommersant.ru/doc/8180892"}]},{"state":"weights","detail":"RuAdapt — методология и серия адаптированных моделей, а не один универсальный чат. Код и один из результатов адаптации открыты.","links":[{"kind":"code","title":"RuAdapt — исходный код","url":"https://github.com/LAIR-RCC/ruadapt"},{"kind":"weights","title":"Адаптированная LLaMA-2 7B","url":"https://huggingface.co/rccmsu/ruadapt_llama2_7b_v0.1"}]},{"state":"weights","detail":"В каталоге ИТМО объединены разные маленькие модели. Открыты отдельные версии meno-lite и meno-tiny; для речи есть модель того же автора. Это разные задачи.","links":[{"kind":"weights","title":"Веса Meno-Lite 0.1","url":"https://huggingface.co/bond005/meno-lite-0.1"},{"kind":"weights","title":"Веса Meno-Tiny 0.1","url":"https://huggingface.co/bond005/meno-tiny-0.1"},{"kind":"weights","title":"Whisper — распознавание речи","url":"https://huggingface.co/bond005/whisper-podlodka-turbo"}]},{"state":"restricted","detail":"Нашлась научная работа о модели Gamayun, но публичный чат или официальная карточка с весами этой конкретной модели не подтверждены.","links":[{"kind":"paper","title":"Научная статья о Gamayun","url":"https://arxiv.org/abs/2512.21580"}]},{"state":"weights","detail":"Представлена одна конкретная открытая версия семейства Vikhr; другие версии заметно отличаются по возможностям и требованиям к запуску.","links":[{"kind":"weights","title":"Веса Vikhr Nemo 12B","url":"https://huggingface.co/Vikhrmodels/Vikhr-Nemo-12B-Instruct-R-21-09-24"},{"kind":"docs","title":"Все модели Vikhr","url":"https://huggingface.co/Vikhrmodels"}]},{"state":"weights","detail":"Saiga — большое семейство разных версий; ссылка ведёт к официальной подборке автора. Ранняя LoRA-версия может требовать исходную модель и настройку.","links":[{"kind":"weights","title":"Коллекция моделей Saiga","url":"https://huggingface.co/collections/IlyaGusev/saiga"},{"kind":"weights","title":"Saiga 7B LoRA (ранняя версия)","url":"https://huggingface.co/IlyaGusev/saiga_7b_lora"}]}];
 var models=[
 {name:'GigaChat 3 (Ultra / Lightning / Reasoning)',by:'SberDevices',access:'Открытые веса',group:'own',niche:false,open:true,page:'10',desc:'Семейство универсальных моделей разного масштаба; в таблице ИТМО отмечено обучение с нуля.',note:'В PDF перечислены Ultra 702B, Lightning 10B и GigaChat 3.5 Reasoning. Открытость относится к указанному семейству в таблице источника.'},
 {name:'Alice AI Foundation 80B',by:'Яндекс',access:'Открытые веса',group:'own',niche:false,open:true,page:'10',desc:'Базовая модель с гибридной архитектурой и MoE-слоями. Обучена с нуля.',note:'В таблице исследования — открытая базовая модель Яндекса.'},
