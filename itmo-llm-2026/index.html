@@ -492,6 +492,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 @media(prefers-reduced-motion:reduce){.model .model-link:hover{transform:none}}
 </style>
 <link rel="stylesheet" href="v2.css">
+<link rel="stylesheet" href="analytics.css">
 </head>
 <body>
 <a class="skip-link" href="#context">Перейти к содержанию исследования</a>
@@ -722,7 +723,7 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 <div class="glossary" id="glossary-items"></div>
 </section>
 
-<aside class="atlas-privacy" role="note"><strong>Прозрачность аналитики, версия 2.0.</strong><p>Сайт фиксирует взаимодействия как локальные события JavaScript, но не отправляет поисковые запросы, оценки лаборатории или ответы моделей на сервер. Сбор статистики реальных посетителей не включён: для этого потребуется выбрать аналитический сервис, настроить уведомление и правовое основание обработки данных. Локальные записи лаборатории можно удалить здесь же.</p></aside>
+<aside class="atlas-privacy" role="note"><strong>Прозрачность аналитики, версия 2.0.</strong><p>Сайт фиксирует взаимодействия как локальные события JavaScript, но не отправляет поисковые запросы, оценки лаборатории или ответы моделей на сервер. Внешняя аналитика по умолчанию отключена. Она может работать только после настройки проверенного сервиса, правовых условий и разрешения посетителя; настройки доступны внизу издания. Локальные записи лаборатории можно удалить здесь же.</p></aside>
 <section class="w chapter" id="sources">
 <div class="heading-row"><div><div class="kicker">10 / Прозрачность, без которой нельзя</div><h2 class="h2">Источники, метод и редакторские замечания</h2><p class="dek">Издание следует структуре исследования ИТМО, но не заменяет полный PDF. Сохранены ссылки на оригинальные данные; цифры и экспертные оценки не смешаны с нашими пояснениями.</p></div><a class="pill" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf#page=35" target="_blank" rel="noopener" title="Открыть PDF, страница 35">PDF · стр. 35–45 ↗</a></div>
 <div class="factcheck"><div class="fact"><h3>Прогноз мировых расходов Gartner менялся</h3><p>В PDF приведён майский прогноз 2026 года: <b>$2,59 трлн</b> мировых расходов на ИИ в 2026 году. В сентябре Gartner выпустил обновлённую оценку <b>$2,7 трлн</b>. Поэтому цифра из отчёта исторически корректна для майского выпуска, но не является самой свежей на 20.11.2026. Пересчёт в рубли зависит от выбранного курса.</p><div class="source"><a href="https://www.gartner.com/en/newsroom/press-releases/2026-05-19-gartner-forecasts-worldwide-ai-spending-to-grow-47-percent-in-2026" target="_blank" rel="noopener">Майский релиз Gartner</a> · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026" target="_blank" rel="noopener">Сентябрьское обновление</a></div></div>
@@ -742,11 +743,34 @@ nav a.active .n,.side-end a{color:#e1b7ff}
 </div>
 </section>
 
-<footer class="end"><div class="w"><div class="kicker end-kicker">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a><button class="cta secondary" id="share-issue" type="button">Поделиться изданием ↗</button></div><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
+<footer class="end"><div class="w"><div class="kicker end-kicker">После 45 страниц остаётся один вопрос</div><h2>Сильный ИИ — это не только модель. Это экосистема знаний.</h2><p>Русскоязычность помогает понимать локальный мир. Международные данные позволяют не потерять остальной. Эксперты ИТМО предлагают смотреть на будущее российских LLM именно через качество данных, открытость инфраструктуры и совместную работу.</p><div class="cta-row"><a class="cta" href="https://cdn.itmo.ru/opensource/files/ITMO_LLM_research.pdf" target="_blank" rel="noopener">Открыть оригинальный PDF ↗</a><a class="cta secondary" href="#cover">К началу ↑</a><button class="cta secondary" id="share-issue" type="button">Поделиться изданием ↗</button></div><button class="analytics-settings" type="button" id="analytics-open" aria-haspopup="dialog" aria-controls="analytics-dialog">◈ Настройки аналитики и конфиденциальности</button><div class="smallprint">НЕЗАВИСИМАЯ ВИЗУАЛЬНАЯ АДАПТАЦИЯ ИССЛЕДОВАНИЯ «ИССЛЕДОВАНИЕ РОССИЙСКОГО РЫНКА LLM И ДАННЫХ ДЛЯ ИХ ОБУЧЕНИЯ» / ITMO OPEN SOURCE / 2026.<br>Оригинальное исследование © его авторов и правообладателей. Этот сайт не является официальным ресурсом Университета ИТМО. Подготовлено для знакомства с исследованием и навигации по первоисточникам. Обновлено 20 ноября 2026 года.</div></div></footer>
 </main>
 <div class="share-toast" id="sharetoast" role="status" aria-live="polite"></div>
 <div class="dialog" id="searchdialog" role="dialog" aria-modal="true" aria-label="Поиск по изданию"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div class="intro">ПОИСК ПО ИЗДАНИЮ / МОДЕЛЯМ / ТЕРМИНАМ / ТЕСТАМ</div><h2>Что вы хотите найти?</h2><input id="globalsearch" type="search" class="searchbox" placeholder="Модель, термин, цитата или слово из текста..." aria-label="Поиск по полному тексту издания"><div class="search-summary" id="search-summary" role="status" aria-live="polite">Можно искать по статьям, моделям, терминам и тестам.</div><div class="searchlist" id="searchresults" aria-label="Результаты поиска"></div></div></div>
 <div class="dialog" id="detaildialog" role="dialog" aria-modal="true" aria-label="Подробности модели"><div class="dialog-panel"><button class="close" data-close aria-label="Закрыть">×</button><div id="modeldetail"></div></div></div>
+<dialog id="analytics-dialog" class="analytics-dialog" aria-labelledby="analytics-title">
+ <div class="analytics-dialog-inner">
+  <span class="kicker">Настройки посетителя / приватность</span>
+  <h2 id="analytics-title">Аналитика — только с вашего разрешения</h2>
+  <p>Издание может использовать Plausible для агрегированной статистики посещения и действий в разделах. Тексты поиска, ответы моделей, персональные заметки и сохранённые оценки <strong>не отправляются</strong> в аналитику. При включении счётчика внешний провайдер получает технические данные сетевого запроса, поэтому аналитика доступна только с согласия.</p>
+  <p>Сейчас счётчик активируется только после настройки владельцем сайта, проверки правовых требований и вашего разрешения. Если счётчик не настроен, на страницу не загружается сторонний аналитический скрипт.</p>
+  <div id="analytics-status" class="privacy-status" role="status" aria-live="polite">Статус аналитики загружается...</div>
+  <div class="privacy-actions">
+   <button id="analytics-allow" class="primary" type="button">Разрешить аналитику</button>
+   <button id="analytics-reject" type="button">Не разрешать / отозвать</button>
+   <button id="analytics-close" type="button">Закрыть</button>
+  </div>
+  <p class="privacy-footnote">Выбор хранится только в этом браузере; изменение разрешения не влияет на чтение сайта. При отзыве согласия страница перезагрузится, чтобы прекратить работу ранее загруженного счётчика. <a href="https://github.com/vichepaev22/continuum-motion-atlas/blob/main/itmo-llm-2026/ANALYTICS_SETUP.md" target="_blank" rel="noopener">Как устроена аналитика и что собирается ↗</a></p>
+ </div>
+</dialog>
+<aside id="analytics-banner" class="analytics-banner" aria-label="Разрешение на аналитику" hidden>
+ <strong>Помочь улучшить цифровое издание?</strong>
+ <p>Разрешите собирать агрегированные показатели чтения. Ни тексты ваших запросов, ни ответы моделей мы не отправляем. Отказ не ограничивает возможности сайта.</p>
+ <div class="analytics-banner-actions">
+  <button type="button" id="analytics-banner-allow">Разрешить</button>
+  <button type="button" id="analytics-banner-reject" class="secondary">Без аналитики</button>
+ </div>
+</aside>
 <noscript><div class="noscript">Для интерактивных фильтров, поиска и сравнения включите JavaScript. Все основные разделы статьи и ссылки на оригинальный PDF доступны без него.</div></noscript>
 <script>
 (function(){
@@ -953,5 +977,7 @@ window.ITMO_ATLAS_DATA={models:models.map(function(m,i){return {name:m.name,by:m
 })();
 </script>
 <script src="v2.js"></script>
+<script src="analytics-config.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>
