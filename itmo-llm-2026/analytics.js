@@ -6,9 +6,8 @@
   'use strict';
   const c = window.ITMO_ANALYTICS_CONFIG || {};
   const serviceReady = c.provider === 'plausible'
-    && typeof c.domain === 'string'
-    && /^(?=.{4,253}$)[a-z0-9][a-z0-9.-]*[a-z0-9]$/i.test(c.domain)
-    && c.domain.includes('.')
+    && typeof c.siteScriptUrl === 'string'
+    && /^https:\/\/plausible\.io\/js\/pa-[a-z0-9_-]+\.js$/i.test(c.siteScriptUrl)
     && c.legalReady === true;
   const dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1'
     || navigator.globalPrivacyControl === true;
@@ -101,10 +100,13 @@
     window.plausible = window.plausible || function () {
       (window.plausible.q = window.plausible.q || []).push(arguments);
     };
+    window.plausible.init = window.plausible.init || function (options) {
+      window.plausible.o = options || {};
+    };
+    window.plausible.init();
     const s = document.createElement('script');
     s.async = true;
-    s.dataset.domain = c.domain;
-    s.src = 'https://plausible.io/js/script.js';
+    s.src = c.siteScriptUrl;
     s.id = 'itmo-plausible-script';
     document.head.appendChild(s);
   }
