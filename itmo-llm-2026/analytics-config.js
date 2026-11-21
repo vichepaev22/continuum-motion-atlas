@@ -1,10 +1,12 @@
-/* Site analytics configuration.
-   A counter is NOT active until a real Plausible site is registered,
-   a responsible operator publishes the required notices, and legalReady=true.
-   Do not put API keys or other secrets in this public file.
+/* Atlas privacy-first analytics. Default: OFF.
+   1. Register this site in Plausible.
+   2. Paste the site-specific URL from its official installation snippet.
+   3. After legal/privacy review, set legalReady to true.
+   4. Each visitor must still explicitly opt in.
+   Never publish any private dashboard API key here.
 */
 window.ITMO_ANALYTICS_CONFIG = Object.freeze({
   provider: 'plausible',
-  domain: '',
+  siteScriptUrl: '', // e.g. https://plausible.io/js/pa-XXXXX.js (unique to your site)
   legalReady: false
 });
