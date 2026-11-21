@@ -1,0 +1,27 @@
+/* Consent UX: dormant until an analytics provider has been verified and enabled. */
+.analytics-settings{padding:12px 18px;border:1px solid #b99bce;border-radius:24px;background:#f2e5fa;color:#341d43;font-size:13px;font-weight:800;cursor:pointer;min-height:45px}
+.analytics-settings:hover{background:#e8d4f3}
+.analytics-dialog{border:1px solid #cfb4dc;border-radius:18px;padding:0;background:#fcf8fd;color:#26152f;box-shadow:0 25px 100px #12082088;width:min(630px,calc(100vw - 26px));max-height:min(88vh,850px);overflow-y:auto}
+.analytics-dialog::backdrop{background:#13091bba}
+.analytics-dialog-inner{padding:clamp(24px,4vw,41px)}
+.analytics-dialog h2{font:800 clamp(23px,3vw,34px)/1.23 var(--display);letter-spacing:-.04em;margin:14px 0}
+.analytics-dialog p{font-size:14px;line-height:1.75;color:#655269}
+.analytics-dialog .privacy-status{margin:18px 0;padding:16px 18px;background:#efe2f6;border-left:4px solid #a06ac1;border-radius:6px;font-size:13px;line-height:1.6}
+.analytics-dialog .privacy-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.analytics-dialog button{border-radius:26px;padding:12px 17px;min-height:45px;font-size:13px;font-weight:700;border:1px solid #b99bcc;background:#fff;color:#382043;cursor:pointer}
+.analytics-dialog button.primary{background:#352045;color:#fff;border-color:#352045}
+.analytics-dialog button:disabled{opacity:.44;cursor:not-allowed}
+.analytics-dialog button:focus-visible,.analytics-banner button:focus-visible{outline:3px solid #a56cdb;outline-offset:3px}
+.analytics-dialog .privacy-footnote{font-size:12px;color:#746279}
+.analytics-dialog a{color:#74489b}
+.analytics-banner{position:fixed;z-index:95;bottom:16px;left:clamp(16px,calc(242px + 2vw),280px);width:min(620px,calc(100vw - 30px));padding:19px 21px;border-radius:14px;background:#281936;color:#fff;box-shadow:0 14px 55px #1a0c28a6}
+.analytics-banner[hidden]{display:none}
+.analytics-banner strong{font:700 14px/1.5 var(--display)}
+.analytics-banner p{font-size:12px;line-height:1.6;margin:6px 0 14px;color:#ead9f6}
+.analytics-banner-actions{display:flex;flex-wrap:wrap;gap:9px}
+.analytics-banner button{border-radius:25px;border:1px solid #d6b1e9;background:#e2bfff;color:#251230;min-height:42px;padding:10px 15px;font-size:12px;font-weight:800;cursor:pointer}
+.analytics-banner button.secondary{background:transparent;color:#fff}
+.end .analytics-settings{margin-top:12px}
+@media(max-width:950px){.analytics-banner{left:15px}}
+@media(max-width:680px){.analytics-banner{bottom:73px;padding:16px}.analytics-dialog .privacy-actions{flex-direction:column}.analytics-dialog .privacy-actions button{width:100%}}
+@media print{.analytics-dialog,.analytics-banner,.analytics-settings{display:none!important}}
