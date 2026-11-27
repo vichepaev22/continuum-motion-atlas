@@ -59,3 +59,6 @@
 @media(max-width:820px){.atlas-lab-grid{grid-template-columns:1fr}.atlas-flow-layout{grid-template-columns:1fr}.atlas-stage-tabs{flex-direction:row;overflow-x:auto;padding-bottom:8px}.atlas-stage-tab{min-width:178px;flex:0 0 auto}}
 @media(max-width:550px){.atlas-rating{grid-template-columns:1fr}.atlas-lab-actions{align-items:stretch}.atlas-btn{width:100%;text-align:center}.atlas-flow-nodes{gap:4px}.atlas-flow-node{font-size:10px;padding:10px 3px}.atlas-flow-arrow{font-size:14px}.android-story figcaption{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.atlas-flow-progress i,.atlas-btn,.atlas-field :is(select,textarea,input){transition:none}.atlas-btn:hover{transform:none}}
+
+/* Task-specific evaluation aid, accessible native disclosure. */
+.atlas-rubric{margin:14px 0;padding:12px 15px;border:1px solid #cbb5db;border-radius:12px;background:#faf3ff;color:#382044;font-size:14px;line-height:1.65}.atlas-rubric summary{font-weight:750;cursor:pointer;padding:6px 0}.atlas-rubric p{margin:10px 0;color:#382044}.atlas-rubric small{display:block;color:#5c4868;font-size:12px}.atlas-rubric summary:focus-visible{outline:3px solid #8253a9;outline-offset:3px}
