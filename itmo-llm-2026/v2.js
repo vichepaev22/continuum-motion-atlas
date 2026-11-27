@@ -14,9 +14,13 @@ var tasks={
   code:{label:'Программирование',prompt:'Напиши функцию Python count_unique(items), возвращающую количество уникальных элементов в списке строк без учёта регистра и пробелов по краям. Приведи 3 теста, включая пустой список.'}
 };
 var storeKey='itmo-atlas-v2-lab-records', results=[];
-try{var saved=JSON.parse(localStorage.getItem(storeKey)||'[]');if(Array.isArray(saved))results=saved.slice(0,50)}catch(err){}
+function validRating(value){return Number.isInteger(value)&&value>=1&&value<=5}
+function validRecord(r){
+ return r&&typeof r==='object'&&!Array.isArray(r)&&typeof r.model==='string'&&r.model.length>0&&r.model.length<=200&&typeof r.version==='string'&&r.version.length<=90&&typeof r.task==='string'&&Object.prototype.hasOwnProperty.call(tasks,r.task)&&typeof r.answer==='string'&&r.answer.length>0&&r.answer.length<=4000&&validRating(r.accuracy)&&validRating(r.complete)&&validRating(r.verify)&&typeof r.at==='string'&&Number.isFinite(Date.parse(r.at))
+}
+try{var saved=JSON.parse(localStorage.getItem(storeKey)||'[]');if(Array.isArray(saved))results=saved.filter(validRecord).slice(0,50)}catch(err){}
 function persist(){try{localStorage.setItem(storeKey,JSON.stringify(results));return true}catch(err){return false}}
-function ratingValue(id){var n=Number(el(id).value);return n>=1&&n<=5?n:null}
+function ratingValue(id){var n=Number(el(id).value);return validRating(n)?n:null}
 function renderResults(){
  var host=el('atlas-results-list');if(!host)return;
  host.replaceChildren();el('atlas-results-count').textContent=results.length+' сохранено в этом браузере';
@@ -58,7 +62,7 @@ function initLab(){
    var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download='itmo-llm-manual-comparison.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000);
    emit('lab_results_export',{count:results.length});announce('Экспортирован локальный JSON-файл результатов.')
  });
- el('atlas-clear').addEventListener('click',function(){if(!results.length)return;if(!window.confirm('Удалить все локально сохранённые результаты этой лаборатории?'))return;results=[];persist();renderResults();announce('Локальные результаты удалены.');emit('lab_results_clear')});
+ el('atlas-clear').addEventListener('click',function(){if(!results.length)return;if(!window.confirm('Удалить все локально сохранённые результаты этой лаборатории?'))return;results=[];var cleared=persist();renderResults();announce(cleared?'Локальные результаты удалены.':'Результаты убраны с экрана, но браузер запретил очистку сохранённых данных.');emit('lab_results_clear')});
  updatePrompt();updateLink();renderResults();
 }
 function initFlow(){
