@@ -36,7 +36,13 @@ function initLab(){
  var modelSelect=el('atlas-model'),taskSelect=el('atlas-task'),prompt=el('atlas-prompt'),open=el('atlas-model-link');
  models.forEach(function(m,i){option(modelSelect,String(i),m.name)});
  Object.keys(tasks).forEach(function(k){option(taskSelect,k,tasks[k].label)});
- function updatePrompt(){prompt.textContent=tasks[taskSelect.value].prompt;emit('lab_task_select',{task:taskSelect.value})}
+ var rubrics={
+ ru:'Проверьте: «в течение» — производный предлог со значением времени (в течение дня); «в течении» — предложный падеж существительного (в течении реки). Нужны по два корректных примера и понятное правило без выдуманных исключений.',
+ logic:'Контрольный ответ: 13 яблок. У Анны 4, у Бориса 7, у Веры 2. Проверьте все промежуточные числа и итог 4 + 7 + 2 = 13.',
+ business:'Проверьте наличие реалистичного плана на 30 дней, трёх измеримых метрик и трёх рисков. Учитываются права доступа, проверка качества поиска и защита документов. Стоимость не должна быть выдумана.',
+ code:'Проверьте, что функция нормализует регистр и пробелы по краям, считает уникальные строки и содержит три теста. Например, [" A ", "a", "B"] → 2; [] → 0. Не выполняйте непроверенный код в рабочей среде.'
+ };
+ function updatePrompt(){prompt.textContent=tasks[taskSelect.value].prompt;var tip=el('atlas-rubric-text');if(tip)tip.textContent=rubrics[taskSelect.value]||'';var details=el('atlas-rubric');if(details)details.open=false;emit('lab_task_select',{task:taskSelect.value})}
  function updateLink(){var i=Number(modelSelect.value),m=models[i],a=m&&m.accessLinks||[];var link=a.find(function(l){return l.kind==='chat'})||a.find(function(l){return l.kind==='weights'})||a[0];if(link){open.href=link.url;open.hidden=false;open.textContent=link.kind==='chat'?'Открыть чат / демо ↗':link.kind==='weights'?'Открыть веса / код ↗':'Открыть описание ↗';el('atlas-model-access').textContent=link.kind==='chat'?'Публичный интерфейс не гарантирует ту же версию, что в отчёте ИТМО.':link.kind==='weights'?'Для тестирования весов требуется отдельная среда; это не онлайн-чат.':'Для этой позиции публичный чат не подтверждён.'}else{open.hidden=true;el('atlas-model-access').textContent='Прямой публичный доступ не подтверждён.'}}
  taskSelect.addEventListener('change',updatePrompt);
  modelSelect.addEventListener('change',function(){updateLink();emit('lab_model_select',{index:Number(modelSelect.value)})});
